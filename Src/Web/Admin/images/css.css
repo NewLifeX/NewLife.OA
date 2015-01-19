@@ -1,0 +1,191 @@
+﻿body
+{
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    font-size: 12px;
+}
+td
+{
+    font-size: 12px;
+}
+.m_table, .m_table_border
+{
+    width: 100%;
+    background-color: #FFFFFF;
+}
+
+.m_table_border
+{
+    border-top: solid 1px #c6c6c6;
+}
+
+.m_table td, .m_table_border td
+{
+    font-size: 12px;
+    line-height: 25px;
+    padding: 0px 3px;
+    border-bottom: solid 1px #dddddd;
+}
+.m_table td a, .m_table_border td a
+{
+    color: #0066aa;
+    text-decoration: none;
+}
+.m_table th, .m_table_border th
+{
+    text-align: center;
+    font-size: 12px;
+    line-height: 27px;
+    background: url(nbg.gif) right;
+    color: #445055;
+}
+.m_table th a, .m_table_border th a
+{
+    color: #445055;
+    text-decoration: none;
+}
+.m_table .btr td, .m_table_border .btr td
+{
+    background-color: #f9f9f9;
+}
+
+
+.tabtable
+{
+    width: 100%;
+    margin-top: 5px;
+}
+.tabtable .tabtitle
+{
+    width: 120px;
+    background-image: url(tab.gif);
+    height: 28px;
+    cursor: pointer;
+}
+.tabtable .titlemouseover
+{
+    width: 120px;
+    background-image: url(tab2.gif);
+    height: 28px;
+    cursor: pointer;
+    color: White;
+    font-weight: bold;
+}
+
+.key
+{
+    background: url(nbg.gif) right;
+    text-align:center;
+}
+
+.toolbar
+{
+    background-image: url(toolbar.gif);
+    line-height: 25px;
+    height: 28px;
+    padding: 3px;
+}
+.toolbar a
+{
+    -moz-user-select: none;
+    background: url(btnout_bg_left.gif) no-repeat scroll left center transparent;
+    float: left;
+    height: 25px;
+    margin: 0 5px 0 0;
+    text-decoration: none;
+    color: #666666;
+}
+
+.toolbar a b
+{
+    background: url(btnout_bg_right.gif) no-repeat scroll right center transparent;
+    color: #666666;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: normal;
+    height: 25px;
+    line-height: 28px;
+    padding: 0 4px 0 3px;
+    white-space: nowrap;
+}
+
+.toolbar a:hover
+{
+    background: url(btnover_bg_left.gif) no-repeat scroll left center transparent;
+}
+
+.toolbar a:hover b
+{
+    background: url(btnover_bg_right.gif) no-repeat scroll right center transparent;
+    color: #333333;
+}
+
+.toolbar a img
+{
+    float: left;
+    margin: 2px 0 4px 4px;
+    border: 0px;
+}
+input[type="submit"], .manager-page #ctl00_C_btnSearch, .manager-page #ctl00_C_Button1 {
+    background: url("button_s.jpg") no-repeat scroll 0 0 transparent;
+    border: medium none;
+    height: 30px;
+    line-height: 34px;
+    margin: 0;
+    padding: 0;
+    width: 66px;
+}
+.toolbar input[type=text]
+{
+    border: 1px solid;
+    border-color: #bebebe #e1e1e1 #e1e1e1 #bebebe;
+    padding: 3px;
+    /*background: url(input_bg.jpg) repeat-x 0px 0px;*/
+    margin-right: 7px;
+}
+.m_table input[type=text]
+{
+    border: 1px solid;
+    border-color: #bebebe #e1e1e1 #e1e1e1 #bebebe;
+    padding: 3px;
+    /*background: url(input_bg.jpg) repeat-x 0px 0px;*/
+    margin-right: 7px;
+}
+.tag
+{
+    background-image: url(tab1.gif);
+    height: 29px;
+    padding-left: 50px;
+}
+.tag li
+{
+    float: left;
+    background-image: url(tab2.gif);
+    height: 26px;
+    line-height: 25px;
+    border: 1px solid #989898;
+    border-bottom: none;
+    margin-right: 6px;
+    display: inline;
+    margin-top: 2px;
+    padding: 0px 8px;
+    color: #606060;
+    cursor: pointer;
+}
+
+.tag li a
+{
+    color: #6087bb;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    line-height: 25px;
+}
+
+.tag li.current
+{
+    background-image: url(tab3.gif);
+    font-weight: bold;
+}
