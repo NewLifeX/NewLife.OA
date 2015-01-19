@@ -3,6 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewLife.OA", "NewLife.OA\NewLife.OA.csproj", "{90CAC9C5-CDFE-4D26-AB74-9C219C8C20E9}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web", "Web\", "{CFC3F103-CA83-4754-A575-B6CCDBCE42EA}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
+		Debug.AspNetCompiler.VirtualPath = "/Web"
+		Debug.AspNetCompiler.PhysicalPath = "Web\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Web\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/Web"
+		Release.AspNetCompiler.PhysicalPath = "Web\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\Web\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "53362"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +33,10 @@ Global
 		{90CAC9C5-CDFE-4D26-AB74-9C219C8C20E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90CAC9C5-CDFE-4D26-AB74-9C219C8C20E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90CAC9C5-CDFE-4D26-AB74-9C219C8C20E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFC3F103-CA83-4754-A575-B6CCDBCE42EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFC3F103-CA83-4754-A575-B6CCDBCE42EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFC3F103-CA83-4754-A575-B6CCDBCE42EA}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFC3F103-CA83-4754-A575-B6CCDBCE42EA}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
