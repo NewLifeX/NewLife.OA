@@ -33,16 +33,16 @@
                 <ItemStyle HorizontalAlign="Right" Font-Bold="True" />
             </asp:BoundField>
             <asp:BoundField DataField="PlanTime" HeaderText="计划开始时间" SortExpression="PlanTime" DataFormatString="{0:yyyy-MM-dd}" >
-                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="120px" />
+                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
             </asp:BoundField>
             <asp:BoundField DataField="PlanCost" HeaderText="计划工作日" SortExpression="PlanCost" DataFormatString="{0:n0}">
                 <ItemStyle HorizontalAlign="Right" Font-Bold="True" />
             </asp:BoundField>
             <asp:BoundField DataField="StartTime" HeaderText="开始时间" SortExpression="StartTime" DataFormatString="{0:yyyy-MM-dd}" >
-                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="120px" />
+                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
             </asp:BoundField>
             <asp:BoundField DataField="EndTime" HeaderText="结束时间" SortExpression="EndTime" DataFormatString="{0:yyyy-MM-dd}" >
-                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="120px" />
+                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
             </asp:BoundField>
             <asp:BoundField DataField="Cost" HeaderText="实际工作日" SortExpression="Cost" DataFormatString="{0:n0}">
                 <ItemStyle HorizontalAlign="Right" Font-Bold="True" />
@@ -58,13 +58,13 @@
                 <ItemStyle HorizontalAlign="Right" Font-Bold="True" />
             </asp:BoundField>
             <asp:BoundField DataField="CreateTime" HeaderText="创建时间" SortExpression="CreateTime" DataFormatString="{0:yyyy-MM-dd HH:mm:ss}" >
-                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="120px" />
+                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
             </asp:BoundField>
             <asp:BoundField DataField="UpdateUserID" HeaderText="更新者" SortExpression="UpdateUserID" DataFormatString="{0:n0}">
                 <ItemStyle HorizontalAlign="Right" Font-Bold="True" />
             </asp:BoundField>
             <asp:BoundField DataField="UpdateTime" HeaderText="更新时间" SortExpression="UpdateTime" DataFormatString="{0:yyyy-MM-dd HH:mm:ss}" >
-                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="120px" />
+                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
             </asp:BoundField>
             <XCL:LinkBoxField HeaderText="编辑" DataNavigateUrlFields="ID" DataNavigateUrlFormatString="WorkTaskForm.aspx?ID={0}" Height="500px" Text="编辑" Width="700px" Title="编辑任务">
                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
