@@ -49,6 +49,8 @@
     <Compile Include="任务管理\任务.cs" />
     <Compile Include="任务管理\任务历史.Biz.cs" />
     <Compile Include="任务管理\任务历史.cs" />
+    <Compile Include="任务管理\任务测试.Biz.cs" />
+    <Compile Include="任务管理\任务测试.cs" />
     <Compile Include="任务管理\任务评论.Biz.cs" />
     <Compile Include="任务管理\任务评论.cs" />
   </ItemGroup>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Tables Version="8.13.5498.35990">
-  <Table Name="WorkTask" Description="任务" DbType="SqlServer">
+  <Table Name="WorkTask" Description="任务" DbType="SqlServer" 页面分类="Task">
     <Columns>
       <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="Name" DataType="String" Description="名称" />
@@ -29,7 +29,7 @@
       <Index Columns="Status" />
     </Indexes>
   </Table>
-  <Table Name="TaskHistory" Description="任务历史" DbType="SqlServer">
+  <Table Name="TaskHistory" Description="任务历史" DbType="SqlServer" 页面分类="Task">
     <Columns>
       <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="WorkTaskID" DataType="Int32" Description="任务" />
@@ -48,7 +48,7 @@
       <Index Columns="WorkTaskID,Kind" />
     </Indexes>
   </Table>
-  <Table Name="TaskComment" Description="任务评论" DbType="SqlServer">
+  <Table Name="TaskComment" Description="任务评论" DbType="SqlServer" 页面分类="Task">
     <Columns>
       <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="WorkTaskID" DataType="Int32" Description="任务" />
@@ -58,6 +58,18 @@
       <Column Name="UpdateUserID" DataType="Int32" Description="更新者" />
       <Column Name="UpdateTime" DataType="DateTime" Description="更新时间" />
       <Column Name="Content" DataType="String" Length="-1" Description="内容" />
+    </Columns>
+    <Indexes>
+      <Index Columns="WorkTaskID" />
+    </Indexes>
+  </Table>
+  <Table Name="TaskTest" Description="任务测试" DbType="SqlServer" 页面分类="Task">
+    <Columns>
+      <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
+      <Column Name="WorkTaskID" DataType="Int32" Description="任务" />
+      <Column Name="Title" DataType="String" Length="200" Description="标" />
+      <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
+      <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
     </Columns>
     <Indexes>
       <Index Columns="WorkTaskID" />
