@@ -48,6 +48,9 @@
         <member name="T:NewLife.CommonEntity.EntityCacheConfig.EntityCacheInfo">
             <summary>单对象缓存配置信息</summary>
         </member>
+        <member name="M:NewLife.CommonEntity.EntityCacheConfig.EntityCacheInfo.#ctor">
+            <summary>实例化</summary>
+        </member>
         <member name="P:NewLife.CommonEntity.EntityCacheConfig.EntityCacheInfo.EntityCacheExpriod">
             <summary>实体缓存过期时间。单位是秒，默认-1，使用系统统一配置</summary>
         </member>
@@ -129,31 +132,23 @@
         </member>
         <member name="M:NewLife.CommonEntity.IManageProvider.GetService``1">
             <summary>获取服务</summary>
+            <remarks>
+            其实IServiceProvider有该扩展方法，但是在FX2里面不方面使用，所以这里保留
+            </remarks>
             <typeparam name="TService"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.IManageProvider.GetService(System.Type)">
-            <summary>获取服务</summary>
-            <param name="serviceType"></param>
-            <returns></returns>
+        <member name="M:NewLife.CommonEntity.IManageProvider.WriteLog(System.Type,System.String,System.String)">
+            <summary>写日志</summary>
+            <param name="type">类型</param>
+            <param name="action">操作</param>
+            <param name="remark">备注</param>
         </member>
         <member name="P:NewLife.CommonEntity.IManageProvider.ManageUserType">
             <summary>管理用户类</summary>
         </member>
         <member name="P:NewLife.CommonEntity.IManageProvider.Current">
             <summary>当前用户</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.ICommonManageProvider.CreatePage(System.Web.UI.Control,System.Type)">
-            <summary>创建管理页控制器</summary>
-            <param name="container"></param>
-            <param name="entityType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.ICommonManageProvider.CreateForm(System.Web.UI.Control,System.Type)">
-            <summary>创建实体表单控制器</summary>
-            <param name="container"></param>
-            <param name="entityType"></param>
-            <returns></returns>
         </member>
         <member name="M:NewLife.CommonEntity.ICommonManageProvider.FindByMenuID(System.Int32)">
             <summary>根据编号找到菜单</summary>
@@ -177,9 +172,6 @@
         <member name="P:NewLife.CommonEntity.ICommonManageProvider.RoleType">
             <summary>角色类</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.ICommonManageProvider.RoleMenuType">
-            <summary>权限类</summary>
-        </member>
         <member name="P:NewLife.CommonEntity.ICommonManageProvider.MenuRoot">
             <summary>菜单根，如果不支持则返回null</summary>
         </member>
@@ -193,52 +185,60 @@
         <member name="T:NewLife.CommonEntity.ManageProvider">
             <summary>管理提供者</summary>
         </member>
-        <member name="T:NewLife.CommonEntity.ManageProvider`1">
-            <summary>管理提供者</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.ManageProvider`1.FindByID(System.Object)">
+        <member name="M:NewLife.CommonEntity.ManageProvider.FindByID(System.Object)">
             <summary>根据用户编号查找</summary>
             <param name="userid"></param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.ManageProvider`1.FindByAccount(System.String)">
+        <member name="M:NewLife.CommonEntity.ManageProvider.FindByAccount(System.String)">
             <summary>根据用户帐号查找</summary>
             <param name="account"></param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.ManageProvider`1.Login(System.String,System.String)">
+        <member name="M:NewLife.CommonEntity.ManageProvider.Login(System.String,System.String)">
             <summary>登录</summary>
             <param name="account"></param>
             <param name="password"></param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.ManageProvider`1.Logout(NewLife.CommonEntity.IManageUser)">
+        <member name="M:NewLife.CommonEntity.ManageProvider.Logout(NewLife.CommonEntity.IManageUser)">
             <summary>注销</summary>
             <param name="user"></param>
         </member>
-        <member name="M:NewLife.CommonEntity.ManageProvider`1.GetService``1">
+        <member name="M:NewLife.CommonEntity.ManageProvider.GetService``1">
             <summary>获取服务</summary>
             <typeparam name="TService"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.ManageProvider`1.GetService(System.Type)">
+        <member name="M:NewLife.CommonEntity.ManageProvider.GetService(System.Type)">
             <summary>获取服务</summary>
             <param name="serviceType"></param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.ManageProvider`1.GetHttpCache(System.Object,NewLife.Reflection.Func{System.Object,System.Object})">
+        <member name="M:NewLife.CommonEntity.ManageProvider.WriteLog(System.Type,System.String,System.String)">
+            <summary>写日志</summary>
+            <param name="type">类型</param>
+            <param name="action">操作</param>
+            <param name="remark">备注</param>
+        </member>
+        <member name="M:NewLife.CommonEntity.ManageProvider.GetHttpCache(System.Object,NewLife.Reflection.Func{System.Object,System.Object})">
             <summary>获取Http缓存，如果不存在，则调用func去计算</summary>
             <param name="key"></param>
             <param name="func"></param>
             <returns></returns>
         </member>
-        <member name="P:NewLife.CommonEntity.ManageProvider`1.Provider">
+        <member name="M:NewLife.CommonEntity.ManageProvider.GetFactory``1">
+            <summary>根据实体类接口获取实体工厂</summary>
+            <typeparam name="TIEntity"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="P:NewLife.CommonEntity.ManageProvider.Provider">
             <summary>当前提供者</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.ManageProvider`1.ManageUserType">
+        <member name="P:NewLife.CommonEntity.ManageProvider.ManageUserType">
             <summary>管理用户类</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.ManageProvider`1.Current">
+        <member name="P:NewLife.CommonEntity.ManageProvider.Current">
             <summary>当前用户</summary>
         </member>
         <member name="M:NewLife.CommonEntity.CommonManageProvider`1.FindByID(System.Object)">
@@ -259,18 +259,6 @@
         </member>
         <member name="M:NewLife.CommonEntity.CommonManageProvider`1.#ctor">
             <summary>实例化</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.CommonManageProvider`1.CreatePage(System.Web.UI.Control,System.Type)">
-            <summary>创建管理页控制器</summary>
-            <param name="container"></param>
-            <param name="entityType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.CommonManageProvider`1.CreateForm(System.Web.UI.Control,System.Type)">
-            <summary>创建实体表单控制器</summary>
-            <param name="container"></param>
-            <param name="entityType"></param>
-            <returns></returns>
         </member>
         <member name="M:NewLife.CommonEntity.CommonManageProvider`1.FindByMenuID(System.Int32)">
             <summary>根据编号找到菜单</summary>
@@ -302,9 +290,6 @@
         </member>
         <member name="P:NewLife.CommonEntity.CommonManageProvider`1.RoleType">
             <summary>角色类</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.CommonManageProvider`1.RoleMenuType">
-            <summary>权限类</summary>
         </member>
         <member name="P:NewLife.CommonEntity.CommonManageProvider`1.MenuRoot">
             <summary>菜单根</summary>
@@ -517,8 +502,10 @@
         <member name="P:NewLife.CommonEntity.IManageUser.IsEnable">
             <summary>是否启用</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.IManageUser.Properties">
-            <summary>属性集合</summary>
+        <member name="P:NewLife.CommonEntity.IManageUser.Item(System.String)">
+            <summary>获取/设置 字段值。</summary>
+            <param name="name">字段名</param>
+            <returns></returns>
         </member>
         <member name="T:NewLife.CommonEntity.SysSetting">
             <summary>系统设置。提供系统名称、版本等基本设置。</summary>
@@ -686,261 +673,6 @@
         </member>
         <member name="F:NewLife.CommonEntity.Manual`1._.UpdateTime">
             <summary>更新时间</summary>
-        </member>
-        <member name="T:NewLife.CommonEntity.Department">
-            <summary>部门架构</summary>
-        </member>
-        <member name="T:NewLife.CommonEntity.Department`1">
-            <summary>部门架构</summary>
-            <summary>部门</summary>
-        </member>
-        <member name="T:NewLife.CommonEntity.IDepartment">
-            <summary>部门接口</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.IDepartment.GetFullPath(System.Boolean,System.String,NewLife.Reflection.Func{NewLife.CommonEntity.IDepartment,System.String})">
-            <summary>取得全路径的实体，由上向下排序</summary>
-            <param name="includeSelf">是否包含自己</param>
-            <param name="separator">分隔符</param>
-            <param name="func">回调</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.IDepartment.CheckDepartmentName(System.String,System.String)">
-            <summary>检查部门名称，修改为新的部门名称、返回自身，支持链式写法</summary>
-            <param name="oldName"></param>
-            <param name="NewName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.IDepartment.Up">
-            <summary>排序上升</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.IDepartment.Down">
-            <summary>排序下降</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.IDepartment.Save">
-            <summary>保存</summary>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.IDepartment.GetLevelName(System.Int32)">
-            <summary>获取等级名称。默认0表示部门，其它为空</summary>
-            <param name="level"></param>
-            <returns></returns>
-        </member>
-        <member name="P:NewLife.CommonEntity.IDepartment.Parent">
-            <summary>父级部门</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IDepartment.Childs">
-            <summary>下属一级部门</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IDepartment.AllChilds">
-            <summary>下属所有部门</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IDepartment.Deepth">
-            <summary>几级部门</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IDepartment.ID">
-            <summary>编号</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IDepartment.Name">
-            <summary>名称</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IDepartment.Code">
-            <summary>代码</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IDepartment.ParentID">
-            <summary>父编号</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IDepartment.Sort">
-            <summary>排序</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IDepartment.ManagerID">
-            <summary>管理者编号</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IDepartment.Manager">
-            <summary>管理者</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IDepartment.Level">
-            <summary>等级</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IDepartment.LevelName">
-            <summary>等级名称</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IDepartment.Profile">
-            <summary>配置文件</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IDepartment.Item(System.String)">
-            <summary>获取/设置 字段值。</summary>
-            <param name="name">字段名</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Department`1.Valid(System.Boolean)">
-            <summary>验证数据，通过抛出异常的方式提示验证失败。</summary>
-            <param name="isNew"></param>
-        </member>
-        <member name="M:NewLife.CommonEntity.Department`1.InitData">
-            <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.Department`1.FindAllByCode(System.String)">
-            <summary>根据货号查找</summary>
-            <param name="code">货号</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Department`1.FindAllByName(System.String)">
-            <summary>根据护照或者签证查找</summary>
-            <param name="name">护照或者签证</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Department`1.FindByID(System.Int32)">
-            <summary>根据编号查找</summary>
-            <param name="id">编号</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Department`1.SearchWhere(System.String)">
-            <summary>构造搜索条件</summary>
-            <param name="key">关键字</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Department`1.OnGetLevelName(System.Int32)">
-            <summary>获取等级名称。默认部门</summary>
-            <param name="level"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Department`1.GetLevelName(System.Int32)">
-            <summary>获取等级名称。默认部门</summary>
-            <param name="level"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Department`1.NewLife#CommonEntity#IDepartment#GetFullPath(System.Boolean,System.String,NewLife.Reflection.Func{NewLife.CommonEntity.IDepartment,System.String})">
-            <summary>取得全路径的实体，由上向下排序</summary>
-            <param name="includeSelf">是否包含自己</param>
-            <param name="separator">分隔符</param>
-            <param name="func">回调</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Department`1.NewLife#CommonEntity#IDepartment#CheckDepartmentName(System.String,System.String)">
-            <summary>检查部门名称，修改为新的部门名称</summary>
-            <param name="oldName"></param>
-            <param name="newName"></param>
-            <returns></returns>
-        </member>
-        <member name="P:NewLife.CommonEntity.Department`1.ParentName">
-            <summary>上级部门名称</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Department`1.NextLevelName">
-            <summary>下一级等级名称</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Department`1.NewLife#CommonEntity#IDepartment#Parent">
-            <summary>父级部门</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Department`1.NewLife#CommonEntity#IDepartment#Childs">
-            <summary>下属一级部门</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Department`1.NewLife#CommonEntity#IDepartment#AllChilds">
-            <summary>下属所有部门</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Department`1.ID">
-            <summary>编号</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Department`1.Name">
-            <summary>名称</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Department`1.Code">
-            <summary>代码</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Department`1.ParentID">
-            <summary>父编号</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Department`1.Sort">
-            <summary>排序</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Department`1.ManagerID">
-            <summary>管理者编号</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Department`1.Manager">
-            <summary>管理者</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Department`1.Level">
-            <summary>等级</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Department`1.LevelName">
-            <summary>等级名称</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Department`1.Profile">
-            <summary>配置文件</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Department`1.Item(System.String)">
-            <summary>
-            获取/设置 字段值。
-            一个索引，基类使用反射实现。
-            派生实体类可重写该索引，以避免反射带来的性能损耗
-            </summary>
-            <param name="name">字段名</param>
-            <returns></returns>
-        </member>
-        <member name="T:NewLife.CommonEntity.Department`1._">
-            <summary>取得部门字段信息的快捷方式</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1._.ID">
-            <summary>编号</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1._.Name">
-            <summary>名称</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1._.Code">
-            <summary>代码</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1._.ParentID">
-            <summary>父编号</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1._.Sort">
-            <summary>排序</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1._.ManagerID">
-            <summary>管理者编号</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1._.Manager">
-            <summary>管理者</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1._.Level">
-            <summary>等级</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1._.LevelName">
-            <summary>等级名称</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1._.Profile">
-            <summary>配置文件</summary>
-        </member>
-        <member name="T:NewLife.CommonEntity.Department`1.__">
-            <summary>取得部门字段名称的快捷方式</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1.__.ID">
-            <summary>编号</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1.__.Name">
-            <summary>名称</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1.__.Code">
-            <summary>代码</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1.__.ParentID">
-            <summary>父编号</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1.__.Sort">
-            <summary>排序</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1.__.ManagerID">
-            <summary>管理者编号</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1.__.Manager">
-            <summary>管理者</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1.__.Level">
-            <summary>等级</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1.__.LevelName">
-            <summary>等级名称</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Department`1.__.Profile">
-            <summary>配置文件</summary>
         </member>
         <member name="T:NewLife.CommonEntity.Web.AttachmentHttpHandler">
             <summary>附件处理器</summary>
@@ -3044,6 +2776,12 @@
         <member name="T:NewLife.CommonEntity.ILog">
             <summary>日志接口</summary>
         </member>
+        <member name="M:NewLife.CommonEntity.ILog.Create(System.Type,System.String)">
+            <summary>创建</summary>
+            <param name="type"></param>
+            <param name="action"></param>
+            <returns></returns>
+        </member>
         <member name="M:NewLife.CommonEntity.ILog.WriteLog(System.Type,System.String,System.String)">
             <summary>写日志</summary>
             <param name="type">类型</param>
@@ -3133,6 +2871,12 @@
         <member name="M:NewLife.CommonEntity.Log`1.Create(System.Type,System.String)">
             <summary>创建日志</summary>
             <param name="type">类型</param>
+            <param name="action"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.CommonEntity.Log`1.NewLife#CommonEntity#ILog#Create(System.Type,System.String)">
+            <summary>创建</summary>
+            <param name="type"></param>
             <param name="action"></param>
             <returns></returns>
         </member>
@@ -3241,152 +2985,6 @@
         <member name="F:NewLife.CommonEntity.Log`1.__.Remark">
             <summary>详细信息</summary>
         </member>
-        <member name="T:NewLife.CommonEntity.User">
-            <summary>用户</summary>
-        </member>
-        <member name="T:NewLife.CommonEntity.User`1">
-            <summary>用户</summary>
-            <summary>用户</summary>
-        </member>
-        <member name="T:NewLife.CommonEntity.IUser">
-            <summary>用户接口</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.IUser.Save">
-            <summary>保存</summary>
-            <returns></returns>
-        </member>
-        <member name="P:NewLife.CommonEntity.IUser.ID">
-            <summary>编号</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IUser.Account">
-            <summary>账号</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IUser.Password">
-            <summary>密码</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IUser.IsAdmin">
-            <summary>是否管理员</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IUser.IsEnable">
-            <summary>是否启用</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IUser.Item(System.String)">
-            <summary>获取/设置 字段值。</summary>
-            <param name="name">字段名</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.User`1.FindByKeyForEdit(System.Int32)">
-            <summary>根据主键查询一个用户实体对象用于表单编辑</summary>
-            <param name="id">编号</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.User`1.FindByAccount(System.String)">
-            <summary>根据账号查找</summary>
-            <param name="account">账号</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.User`1.FindByID(System.Int32)">
-            <summary>根据编号查找</summary>
-            <param name="id">编号</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.User`1.InitData">
-            <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.User`1.SearchWhere(System.String)">
-            <summary>构造搜索条件</summary>
-            <param name="key">关键字</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.User`1.Login(System.String,System.String)">
-            <summary>登录</summary>
-            <param name="account"></param>
-            <param name="password"></param>
-            <returns></returns>
-        </member>
-        <member name="P:NewLife.CommonEntity.User`1.HttpState">
-            <summary>Http状态，子类可以重新给HttpState赋值，以控制保存Http状态的过程</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.User`1.Current">
-            <summary>当前登录用户</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.User`1.CurrentNoAutoLogin">
-            <summary>当前登录用户，不带自动登录</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.User`1.NewLife#CommonEntity#IManageUser#Uid">
-            <summary>编号</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.User`1.NewLife#CommonEntity#IManageUser#Properties">
-            <summary>属性集合</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.User`1.ID">
-            <summary>编号</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.User`1.Account">
-            <summary>账号</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.User`1.Password">
-            <summary>密码</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.User`1.IsAdmin">
-            <summary>是否管理员</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.User`1.IsEnable">
-            <summary>是否启用</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.User`1.Item(System.String)">
-            <summary>
-            获取/设置 字段值。
-            一个索引，基类使用反射实现。
-            派生实体类可重写该索引，以避免反射带来的性能损耗
-            </summary>
-            <param name="name">字段名</param>
-            <returns></returns>
-        </member>
-        <member name="T:NewLife.CommonEntity.User`1._">
-            <summary>取得用户字段信息的快捷方式</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.User`1._.ID">
-            <summary>编号</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.User`1._.Account">
-            <summary>账号</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.User`1._.Password">
-            <summary>密码</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.User`1._.IsAdmin">
-            <summary>是否管理员</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.User`1._.IsEnable">
-            <summary>是否启用</summary>
-        </member>
-        <member name="T:NewLife.CommonEntity.User`1.__">
-            <summary>取得用户字段名称的快捷方式</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.User`1.__.ID">
-            <summary>编号</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.User`1.__.Account">
-            <summary>账号</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.User`1.__.Password">
-            <summary>密码</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.User`1.__.IsAdmin">
-            <summary>是否管理员</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.User`1.__.IsEnable">
-            <summary>是否启用</summary>
-        </member>
-        <member name="T:NewLife.CommonEntity.Administrator`5">
-            <summary>管理员</summary>
-            <typeparam name="TEntity">管理员实体类</typeparam>
-            <typeparam name="TRoleEntity">角色实体类</typeparam>
-            <typeparam name="TMenuEntity">菜单实体类</typeparam>
-            <typeparam name="TRoleMenuEntity">角色菜单实体类</typeparam>
-            <typeparam name="TLogEntity">日志实体类</typeparam>
-        </member>
         <member name="T:NewLife.CommonEntity.Administrator`1">
             <summary>管理员</summary>
             <remarks>
@@ -3420,18 +3018,6 @@
             <param name="name">名称</param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.IAdministrator.CreateLog(System.Type,System.String)">
-            <summary>创建指定类型指定动作的日志实体</summary>
-            <param name="type">类型</param>
-            <param name="action"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.IAdministrator.WriteLog(System.Type,System.String,System.String)">
-            <summary>写日志</summary>
-            <param name="type">类型</param>
-            <param name="action">操作</param>
-            <param name="remark">备注</param>
-        </member>
         <member name="M:NewLife.CommonEntity.IAdministrator.Logout">
             <summary>注销</summary>
         </member>
@@ -3452,16 +3038,28 @@
             <summary>编号</summary>
         </member>
         <member name="P:NewLife.CommonEntity.IAdministrator.Name">
-            <summary>名称</summary>
+            <summary>名称。登录用户名</summary>
         </member>
         <member name="P:NewLife.CommonEntity.IAdministrator.Password">
             <summary>密码</summary>
         </member>
         <member name="P:NewLife.CommonEntity.IAdministrator.DisplayName">
-            <summary>显示名</summary>
+            <summary>显示名。昵称、中文名等</summary>
+        </member>
+        <member name="P:NewLife.CommonEntity.IAdministrator.Mail">
+            <summary>邮件</summary>
+        </member>
+        <member name="P:NewLife.CommonEntity.IAdministrator.Phone">
+            <summary>电话</summary>
+        </member>
+        <member name="P:NewLife.CommonEntity.IAdministrator.Code">
+            <summary>唯一代码。比如身份证、SSOID等</summary>
         </member>
         <member name="P:NewLife.CommonEntity.IAdministrator.RoleID">
-            <summary>角色</summary>
+            <summary>角色。主要角色</summary>
+        </member>
+        <member name="P:NewLife.CommonEntity.IAdministrator.Roles">
+            <summary>多角色。逗号分隔</summary>
         </member>
         <member name="P:NewLife.CommonEntity.IAdministrator.Logins">
             <summary>登录次数</summary>
@@ -3472,11 +3070,11 @@
         <member name="P:NewLife.CommonEntity.IAdministrator.LastLoginIP">
             <summary>最后登陆IP</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.IAdministrator.SSOUserID">
-            <summary>登录用户编号</summary>
-        </member>
         <member name="P:NewLife.CommonEntity.IAdministrator.IsEnable">
             <summary>是否使用</summary>
+        </member>
+        <member name="P:NewLife.CommonEntity.IAdministrator.Profile">
+            <summary>配置信息</summary>
         </member>
         <member name="P:NewLife.CommonEntity.IAdministrator.Item(System.String)">
             <summary>获取/设置 字段值。</summary>
@@ -3490,6 +3088,14 @@
             <summary>验证</summary>
             <param name="isNew"></param>
         </member>
+        <member name="M:NewLife.CommonEntity.Administrator`1.Save">
+            <summary>已重载。调用Save时写日志，而调用Insert和Update时不写日志</summary>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.CommonEntity.Administrator`1.Delete">
+            <summary>已重载。</summary>
+            <returns></returns>
+        </member>
         <member name="M:NewLife.CommonEntity.Administrator`1.FindByID(System.Int32)">
             <summary>根据编号查找</summary>
             <param name="id"></param>
@@ -3500,14 +3106,19 @@
             <param name="name">名称</param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.Administrator`1.FindBySSOUserID(System.Int32)">
-            <summary>根据SSOUserID查找</summary>
-            <param name="id"></param>
+        <member name="M:NewLife.CommonEntity.Administrator`1.FindByMail(System.String)">
+            <summary>根据邮箱地址查找</summary>
+            <param name="mail"></param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.Administrator`1.FindAllBySSOUserID(System.Int32)">
-            <summary>根据SSOUserID查找所有帐户</summary>
-            <param name="id"></param>
+        <member name="M:NewLife.CommonEntity.Administrator`1.FindByPhone(System.String)">
+            <summary>根据手机号码查找</summary>
+            <param name="phone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.CommonEntity.Administrator`1.FindByCode(System.String)">
+            <summary>根据唯一代码查找</summary>
+            <param name="code"></param>
             <returns></returns>
         </member>
         <member name="M:NewLife.CommonEntity.Administrator`1.Search(System.String,System.Int32,System.String,System.Int32,System.Int32)">
@@ -3572,11 +3183,6 @@
         <member name="M:NewLife.CommonEntity.Administrator`1.Logout">
             <summary>注销</summary>
         </member>
-        <member name="M:NewLife.CommonEntity.Administrator`1.FindPermissionMenu(System.String)">
-            <summary>根据权限名（权限路径）找到权限菜单实体</summary>
-            <param name="name">名称</param>
-            <returns></returns>
-        </member>
         <member name="M:NewLife.CommonEntity.Administrator`1.HasMenu(System.String)">
             <summary>拥有指定菜单的权限</summary>
             <param name="name">名称</param>
@@ -3599,16 +3205,10 @@
             <param name="flag"></param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.Administrator`1.CreateLog(System.Type,System.String)">
-            <summary>创建当前管理员的日志实体</summary>
-            <param name="type">类型</param>
-            <param name="action"></param>
+        <member name="M:NewLife.CommonEntity.Administrator`1.FindPermissionMenu(System.String)">
+            <summary>根据权限名（权限路径）找到权限菜单实体</summary>
+            <param name="name">名称</param>
             <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Administrator`1.WriteLog(System.String,System.String)">
-            <summary>写日志</summary>
-            <param name="action">操作</param>
-            <param name="remark">备注</param>
         </member>
         <member name="M:NewLife.CommonEntity.Administrator`1.WriteLog(System.Type,System.String,System.String)">
             <summary>写日志</summary>
@@ -3625,17 +3225,12 @@
         <member name="P:NewLife.CommonEntity.Administrator`1.CurrentNoAutoLogin">
             <summary>当前登录用户，不带自动登录</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.Administrator`1.CurrentAdministrator">
-            <summary>当前登录用户。通过实体资格提供者，保证取得正确的管理员</summary>
-        </member>
         <member name="P:NewLife.CommonEntity.Administrator`1.FriendName">
             <summary>友好名字</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.Administrator`1.NewLife#CommonEntity#IAdministrator#Role">
+        <member name="P:NewLife.CommonEntity.Administrator`1.Role">
             <summary>角色</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Administrator`1.RoleInternal">
-            <summary>角色</summary>
+            <remarks>扩展属性不缓存空对象，一般来说，每个管理员都有对应的角色，如果没有，可能是在初始化</remarks>
         </member>
         <member name="P:NewLife.CommonEntity.Administrator`1.RoleName">
             <summary>角色名</summary>
@@ -3652,23 +3247,32 @@
         <member name="P:NewLife.CommonEntity.Administrator`1.NewLife#CommonEntity#IManageUser#IsAdmin">
             <summary>是否管理员</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.Administrator`1.NewLife#CommonEntity#IManageUser#Properties">
-            <summary>属性集合</summary>
-        </member>
         <member name="P:NewLife.CommonEntity.Administrator`1.ID">
             <summary>编号</summary>
         </member>
         <member name="P:NewLife.CommonEntity.Administrator`1.Name">
-            <summary>名称</summary>
+            <summary>名称。登录用户名</summary>
         </member>
         <member name="P:NewLife.CommonEntity.Administrator`1.Password">
             <summary>密码</summary>
         </member>
         <member name="P:NewLife.CommonEntity.Administrator`1.DisplayName">
-            <summary>显示名</summary>
+            <summary>显示名。昵称、中文名等</summary>
+        </member>
+        <member name="P:NewLife.CommonEntity.Administrator`1.Mail">
+            <summary>邮件</summary>
+        </member>
+        <member name="P:NewLife.CommonEntity.Administrator`1.Phone">
+            <summary>电话</summary>
+        </member>
+        <member name="P:NewLife.CommonEntity.Administrator`1.Code">
+            <summary>唯一代码。比如身份证、SSOID等</summary>
         </member>
         <member name="P:NewLife.CommonEntity.Administrator`1.RoleID">
-            <summary>角色</summary>
+            <summary>角色。主要角色</summary>
+        </member>
+        <member name="P:NewLife.CommonEntity.Administrator`1.Roles">
+            <summary>多角色。逗号分隔</summary>
         </member>
         <member name="P:NewLife.CommonEntity.Administrator`1.Logins">
             <summary>登录次数</summary>
@@ -3679,11 +3283,11 @@
         <member name="P:NewLife.CommonEntity.Administrator`1.LastLoginIP">
             <summary>最后登陆IP</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.Administrator`1.SSOUserID">
-            <summary>登录用户编号</summary>
-        </member>
         <member name="P:NewLife.CommonEntity.Administrator`1.IsEnable">
             <summary>是否使用</summary>
+        </member>
+        <member name="P:NewLife.CommonEntity.Administrator`1.Profile">
+            <summary>配置信息</summary>
         </member>
         <member name="P:NewLife.CommonEntity.Administrator`1.Item(System.String)">
             <summary>
@@ -3701,16 +3305,28 @@
             <summary>编号</summary>
         </member>
         <member name="F:NewLife.CommonEntity.Administrator`1._.Name">
-            <summary>名称</summary>
+            <summary>名称。登录用户名</summary>
         </member>
         <member name="F:NewLife.CommonEntity.Administrator`1._.Password">
             <summary>密码</summary>
         </member>
         <member name="F:NewLife.CommonEntity.Administrator`1._.DisplayName">
-            <summary>显示名</summary>
+            <summary>显示名。昵称、中文名等</summary>
+        </member>
+        <member name="F:NewLife.CommonEntity.Administrator`1._.Mail">
+            <summary>邮件</summary>
+        </member>
+        <member name="F:NewLife.CommonEntity.Administrator`1._.Phone">
+            <summary>电话</summary>
+        </member>
+        <member name="F:NewLife.CommonEntity.Administrator`1._.Code">
+            <summary>唯一代码。比如身份证、SSOID等</summary>
         </member>
         <member name="F:NewLife.CommonEntity.Administrator`1._.RoleID">
-            <summary>角色</summary>
+            <summary>角色。主要角色</summary>
+        </member>
+        <member name="F:NewLife.CommonEntity.Administrator`1._.Roles">
+            <summary>多角色。逗号分隔</summary>
         </member>
         <member name="F:NewLife.CommonEntity.Administrator`1._.Logins">
             <summary>登录次数</summary>
@@ -3721,11 +3337,11 @@
         <member name="F:NewLife.CommonEntity.Administrator`1._.LastLoginIP">
             <summary>最后登陆IP</summary>
         </member>
-        <member name="F:NewLife.CommonEntity.Administrator`1._.SSOUserID">
-            <summary>登录用户编号</summary>
-        </member>
         <member name="F:NewLife.CommonEntity.Administrator`1._.IsEnable">
             <summary>是否使用</summary>
+        </member>
+        <member name="F:NewLife.CommonEntity.Administrator`1._.Profile">
+            <summary>配置信息</summary>
         </member>
         <member name="T:NewLife.CommonEntity.Administrator`1.__">
             <summary>取得管理员字段名称的快捷方式</summary>
@@ -3734,16 +3350,28 @@
             <summary>编号</summary>
         </member>
         <member name="F:NewLife.CommonEntity.Administrator`1.__.Name">
-            <summary>名称</summary>
+            <summary>名称。登录用户名</summary>
         </member>
         <member name="F:NewLife.CommonEntity.Administrator`1.__.Password">
             <summary>密码</summary>
         </member>
         <member name="F:NewLife.CommonEntity.Administrator`1.__.DisplayName">
-            <summary>显示名</summary>
+            <summary>显示名。昵称、中文名等</summary>
+        </member>
+        <member name="F:NewLife.CommonEntity.Administrator`1.__.Mail">
+            <summary>邮件</summary>
+        </member>
+        <member name="F:NewLife.CommonEntity.Administrator`1.__.Phone">
+            <summary>电话</summary>
+        </member>
+        <member name="F:NewLife.CommonEntity.Administrator`1.__.Code">
+            <summary>唯一代码。比如身份证、SSOID等</summary>
         </member>
         <member name="F:NewLife.CommonEntity.Administrator`1.__.RoleID">
-            <summary>角色</summary>
+            <summary>角色。主要角色</summary>
+        </member>
+        <member name="F:NewLife.CommonEntity.Administrator`1.__.Roles">
+            <summary>多角色。逗号分隔</summary>
         </member>
         <member name="F:NewLife.CommonEntity.Administrator`1.__.Logins">
             <summary>登录次数</summary>
@@ -3754,37 +3382,11 @@
         <member name="F:NewLife.CommonEntity.Administrator`1.__.LastLoginIP">
             <summary>最后登陆IP</summary>
         </member>
-        <member name="F:NewLife.CommonEntity.Administrator`1.__.SSOUserID">
-            <summary>登录用户编号</summary>
-        </member>
         <member name="F:NewLife.CommonEntity.Administrator`1.__.IsEnable">
             <summary>是否使用</summary>
         </member>
-        <member name="M:NewLife.CommonEntity.Administrator`5.Save">
-            <summary>已重载。调用Save时写日志，而调用Insert和Update时不写日志</summary>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Administrator`5.Delete">
-            <summary>已重载。</summary>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Administrator`5.FindPermissionMenu(System.String)">
-            <summary>根据权限名（权限路径）找到权限菜单实体</summary>
-            <param name="name">名称</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Administrator`5.CreateLog(System.Type,System.String)">
-            <summary>创建当前管理员的日志实体</summary>
-            <param name="type">类型</param>
-            <param name="action"></param>
-            <returns></returns>
-        </member>
-        <member name="P:NewLife.CommonEntity.Administrator`5.Role">
-            <summary>角色</summary>
-            <remarks>扩展属性不缓存空对象，一般来说，每个管理员都有对应的角色，如果没有，可能是在初始化</remarks>
-        </member>
-        <member name="P:NewLife.CommonEntity.Administrator`5.RoleInternal">
-            <summary>角色</summary>
+        <member name="F:NewLife.CommonEntity.Administrator`1.__.Profile">
+            <summary>配置信息</summary>
         </member>
         <member name="T:NewLife.CommonEntity.Statistics">
             <summary>统计</summary>
@@ -4019,15 +3621,24 @@
             <param name="path">层次路径</param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.CommonEntity.IMenu.FindForPerssion(System.String)">
+            <summary>根据权限查找</summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
         <member name="M:NewLife.CommonEntity.IMenu.Up">
             <summary>排序上升</summary>
         </member>
         <member name="M:NewLife.CommonEntity.IMenu.Down">
             <summary>排序下降</summary>
         </member>
-        <member name="M:NewLife.CommonEntity.IMenu.Save">
-            <summary>保存</summary>
+        <member name="M:NewLife.CommonEntity.IMenu.GetMySubMenus(System.Int32[])">
+            <summary></summary>
+            <param name="filters"></param>
             <returns></returns>
+        </member>
+        <member name="P:NewLife.CommonEntity.IMenu.Current">
+            <summary>当前菜单</summary>
         </member>
         <member name="P:NewLife.CommonEntity.IMenu.Parent">
             <summary>父菜单</summary>
@@ -4037,9 +3648,6 @@
         </member>
         <member name="P:NewLife.CommonEntity.IMenu.AllChilds">
             <summary>子孙菜单</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IMenu.Deepth">
-            <summary>深度</summary>
         </member>
         <member name="P:NewLife.CommonEntity.IMenu.ID">
             <summary>编号</summary>
@@ -4065,10 +3673,11 @@
         <member name="P:NewLife.CommonEntity.IMenu.IsShow">
             <summary>是否显示</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.IMenu.Item(System.String)">
-            <summary>获取/设置 字段值。</summary>
-            <param name="name">字段名</param>
-            <returns></returns>
+        <member name="P:NewLife.CommonEntity.IMenu.Necessary">
+            <summary>必要的菜单。必须至少有角色拥有这些权限，如果没有则自动授权给系统角色</summary>
+        </member>
+        <member name="P:NewLife.CommonEntity.IMenu.Roles">
+            <summary>多角色</summary>
         </member>
         <member name="M:NewLife.CommonEntity.Menu`1.InitData">
             <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
@@ -4116,14 +3725,9 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.Menu`1.ResetName(System.String)">
-            <summary>检查并重新设置名称和权限项</summary>
-            <param name="name">名称</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Menu`1.IsEnglish(System.String)">
-            <summary>是否全英文</summary>
-            <param name="str"></param>
+        <member name="M:NewLife.CommonEntity.Menu`1.GetMySubMenus(System.Int32[])">
+            <summary>取得当前角色的子菜单，有权限、可显示、排序</summary>
+            <param name="filters"></param>
             <returns></returns>
         </member>
         <member name="M:NewLife.CommonEntity.Menu`1.ToString">
@@ -4145,23 +3749,18 @@
             <summary>扫描配置文件中指定的目录</summary>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.Menu`1.ScanAndAdd(System.String)">
-            <summary>扫描指定目录并添加文件到第一个顶级菜单之下</summary>
-            <param name="dir"></param>
+        <member name="M:NewLife.CommonEntity.Menu`1.ScanAndAdd(System.String,`0,System.Collections.Generic.ICollection{System.String},System.Boolean)">
+            <summary>扫描指定目录并添加文件到顶级菜单之下</summary>
+            <param name="dir">扫描目录</param>
+            <param name="parent">父级</param>
+            <param name="fileFilter">过滤文件名</param>
+            <param name="isFilterChildDir">是否在子目录中过滤</param>
             <returns></returns>
         </member>
         <member name="M:NewLife.CommonEntity.Menu`1.GetPathForScan(System.String,System.Boolean)">
             <summary>获取目录层级</summary>
             <param name="dir"></param>
             <param name="isTop">是否顶级目录</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Menu`1.ScanAndAdd(System.String,`0,System.Collections.Generic.ICollection{System.String},System.Boolean)">
-            <summary>扫描指定目录并添加文件到顶级菜单之下</summary>
-            <param name="dir">扫描目录</param>
-            <param name="top">父级</param>
-            <param name="fileFilter">过滤文件名</param>
-            <param name="isFilterChildDir">是否在子目录中过滤</param>
             <returns></returns>
         </member>
         <member name="M:NewLife.CommonEntity.Menu`1.WriteLog(System.String,System.String)">
@@ -4200,14 +3799,22 @@
             <param name="path">层次路径</param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.CommonEntity.Menu`1.NewLife#CommonEntity#IMenu#FindForPerssion(System.String)">
+            <summary>根据权限查找</summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
         <member name="P:NewLife.CommonEntity.Menu`1.ParentMenuName">
             <summary>父菜单名</summary>
         </member>
         <member name="P:NewLife.CommonEntity.Menu`1.Current">
             <summary>当前页所对应的菜单项</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.Menu`1.CurrentMenu">
-            <summary>当前页所对应的菜单项。通过实体资格提供者，保证取得正确的菜单项</summary>
+        <member name="P:NewLife.CommonEntity.Menu`1.Necessaries">
+            <summary>必要的菜单。必须至少有角色拥有这些权限，如果没有则自动授权给系统角色</summary>
+        </member>
+        <member name="P:NewLife.CommonEntity.Menu`1.NewLife#CommonEntity#IMenu#Current">
+            <summary>当前菜单</summary>
         </member>
         <member name="P:NewLife.CommonEntity.Menu`1.NewLife#CommonEntity#IMenu#Parent">
             <summary>父菜单</summary>
@@ -4241,6 +3848,12 @@
         </member>
         <member name="P:NewLife.CommonEntity.Menu`1.IsShow">
             <summary>是否显示</summary>
+        </member>
+        <member name="P:NewLife.CommonEntity.Menu`1.Necessary">
+            <summary>必要的菜单。必须至少有角色拥有这些权限，如果没有则自动授权给系统角色</summary>
+        </member>
+        <member name="P:NewLife.CommonEntity.Menu`1.Roles">
+            <summary>多角色</summary>
         </member>
         <member name="P:NewLife.CommonEntity.Menu`1.Item(System.String)">
             <summary>
@@ -4278,6 +3891,12 @@
         <member name="F:NewLife.CommonEntity.Menu`1._.IsShow">
             <summary>是否显示</summary>
         </member>
+        <member name="F:NewLife.CommonEntity.Menu`1._.Necessary">
+            <summary>必要的菜单。必须至少有角色拥有这些权限，如果没有则自动授权给系统角色</summary>
+        </member>
+        <member name="F:NewLife.CommonEntity.Menu`1._.Roles">
+            <summary>多角色</summary>
+        </member>
         <member name="T:NewLife.CommonEntity.Menu`1.__">
             <summary>取得菜单字段名称的快捷方式</summary>
         </member>
@@ -4305,191 +3924,11 @@
         <member name="F:NewLife.CommonEntity.Menu`1.__.IsShow">
             <summary>是否显示</summary>
         </member>
-        <member name="T:NewLife.CommonEntity.Role`3">
-            <summary>角色</summary>
+        <member name="F:NewLife.CommonEntity.Menu`1.__.Necessary">
+            <summary>必要的菜单。必须至少有角色拥有这些权限，如果没有则自动授权给系统角色</summary>
         </member>
-        <member name="T:NewLife.CommonEntity.Role`1">
-            <summary>角色</summary>
-            <typeparam name="TEntity"></typeparam>
-            <summary>角色</summary>
-        </member>
-        <member name="T:NewLife.CommonEntity.IRole">
-            <summary>角色接口</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.IRole.Acquire(System.Int32,NewLife.CommonEntity.PermissionFlags)">
-            <summary>申请指定菜单指定操作的权限</summary>
-            <param name="menuID"></param>
-            <param name="flag"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.IRole.GetMySubMenus(System.Int32)">
-            <summary>取得当前角色的子菜单，有权限、可显示、排序</summary>
-            <param name="parentID"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.IRole.Save">
-            <summary>保存</summary>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.IRole.CopyRoleMenuFrom(NewLife.CommonEntity.IRole)">
-            <summary>从另一个角色上复制权限</summary>
-            <param name="role"></param>
-            <returns></returns>
-        </member>
-        <member name="P:NewLife.CommonEntity.IRole.RoleMenus">
-            <summary>当前角色拥有的权限</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IRole.Menus">
-            <summary>当前角色拥有的菜单</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IRole.ID">
-            <summary>编号</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IRole.Name">
-            <summary>角色名称</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IRole.IsSystem">
-            <summary>是否系统角色。系统角色用于业务系统开发使用，禁止删除</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.IRole.Item(System.String)">
-            <summary>获取/设置 字段值。</summary>
-            <param name="name">字段名</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Role`1.InitData">
-            <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.Role`1.Valid(System.Boolean)">
-            <summary>验证数据，通过抛出异常的方式提示验证失败。</summary>
-            <param name="isNew">是否新数据</param>
-        </member>
-        <member name="M:NewLife.CommonEntity.Role`1.Save">
-            <summary>已重载。调用Save时写日志，而调用Insert和Update时不写日志</summary>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Role`1.Delete">
-            <summary>已重载。</summary>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Role`1.FindByID(System.Int32)">
-            <summary>根据编号查找角色</summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Role`1.FindByName(System.String)">
-            <summary>根据名称查找角色</summary>
-            <param name="name">名称</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Role`1.Acquire(System.Int32,NewLife.CommonEntity.PermissionFlags)">
-            <summary>申请指定菜单指定操作的权限</summary>
-            <param name="menuID"></param>
-            <param name="flag"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Role`1.NewLife#CommonEntity#IRole#GetMySubMenus(System.Int32)">
-            <summary>取得当前角色的子菜单，有权限、可显示、排序</summary>
-            <param name="parentID"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Role`1.GetMySubMenusInternal(System.Int32)">
-            <summary>取得当前角色的子菜单，有权限、可显示、排序</summary>
-            <param name="parentID"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Role`1.CopyRoleMenuFrom(NewLife.CommonEntity.IRole)">
-            <summary>从另一个角色上复制权限</summary>
-            <param name="role"></param>
-            <returns></returns>
-        </member>
-        <member name="P:NewLife.CommonEntity.Role`1.RoleMenus">
-            <summary>当前角色拥有的权限</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Role`1.NewLife#CommonEntity#IRole#Menus">
-            <summary>当前角色拥有的菜单</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Role`1.MenusInternal">
-            <summary>当前角色拥有的菜单</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Role`1.ID">
-            <summary>编号</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Role`1.Name">
-            <summary>角色名称</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Role`1.IsSystem">
-            <summary>是否系统角色。系统角色用于业务系统开发使用，禁止删除</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Role`1.Item(System.String)">
-            <summary>
-            获取/设置 字段值。
-            一个索引，基类使用反射实现。
-            派生实体类可重写该索引，以避免反射带来的性能损耗
-            </summary>
-            <param name="name">字段名</param>
-            <returns></returns>
-        </member>
-        <member name="T:NewLife.CommonEntity.Role`1._">
-            <summary>取得角色字段信息的快捷方式</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Role`1._.ID">
-            <summary>编号</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Role`1._.Name">
-            <summary>角色名称</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Role`1._.IsSystem">
-            <summary>是否系统角色。系统角色用于业务系统开发使用，禁止删除</summary>
-        </member>
-        <member name="T:NewLife.CommonEntity.Role`1.__">
-            <summary>取得角色字段名称的快捷方式</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Role`1.__.ID">
-            <summary>编号</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Role`1.__.Name">
-            <summary>角色名称</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Role`1.__.IsSystem">
-            <summary>是否系统角色。系统角色用于业务系统开发使用，禁止删除</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.Role`3.InitData">
-            <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.Role`3.ClearRoleMenu">
-            <summary>删除RoleMenu中无效的RoleID和无效的MenuID</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.Role`3.OnDelete">
-            <summary>已重载。关联删除权限项。</summary>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Role`3.Acquire(System.Int32,NewLife.CommonEntity.PermissionFlags)">
-            <summary>申请指定菜单指定操作的权限</summary>
-            <param name="menuID"></param>
-            <param name="flag"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Role`3.GetMySubMenus(System.Int32)">
-            <summary>取得当前角色的子菜单，有权限、可显示、排序</summary>
-            <param name="parentID"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.Role`3.GetMySubMenusInternal(System.Int32)">
-            <summary>取得当前角色的子菜单，有权限、可显示、排序</summary>
-            <param name="parentID"></param>
-            <returns></returns>
-        </member>
-        <member name="P:NewLife.CommonEntity.Role`3.Menus">
-            <summary>菜单</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Role`3.MenuList">
-            <summary>拥有权限的菜单</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Role`3.RoleMenus">
-            <summary>当前角色拥有的权限</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Role`3.MenusInternal">
-            <summary>当前角色拥有的菜单</summary>
+        <member name="F:NewLife.CommonEntity.Menu`1.__.Roles">
+            <summary>多角色</summary>
         </member>
         <member name="T:NewLife.CommonEntity.PermissionFlags">
             <summary>操作权限</summary>
@@ -4509,142 +3948,122 @@
         <member name="F:NewLife.CommonEntity.PermissionFlags.Delete">
             <summary>删除权限</summary>
         </member>
-        <member name="F:NewLife.CommonEntity.PermissionFlags.Custom1">
-            <summary>自定义1权限</summary>
-            <remarks>这里没有接着排16，为了保留给上面使用</remarks>
+        <member name="T:NewLife.CommonEntity.Role`1">
+            <summary>角色</summary>
+            <typeparam name="TEntity"></typeparam>
+            <summary>角色</summary>
         </member>
-        <member name="F:NewLife.CommonEntity.PermissionFlags.Custom2">
-            <summary>自定义2权限</summary>
+        <member name="T:NewLife.CommonEntity.IRole">
+            <summary>角色接口</summary>
         </member>
-        <member name="F:NewLife.CommonEntity.PermissionFlags.Custom3">
-            <summary>自定义3权限</summary>
+        <member name="M:NewLife.CommonEntity.IRole.FindByID(System.Int32)">
+            <summary>根据编号查找角色</summary>
+            <param name="id"></param>
+            <returns></returns>
         </member>
-        <member name="F:NewLife.CommonEntity.PermissionFlags.Custom4">
-            <summary>自定义4权限</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.PermissionFlags.Custom5">
-            <summary>自定义5权限</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.PermissionFlags.Custom6">
-            <summary>自定义6权限</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.PermissionFlags.Custom7">
-            <summary>自定义7权限</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.PermissionFlags.Custom8">
-            <summary>自定义8权限</summary>
-        </member>
-        <member name="T:NewLife.CommonEntity.RoleMenu`1">
-            <summary>角色和菜单</summary>
-            <summary>角色和菜单</summary>
-        </member>
-        <member name="T:NewLife.CommonEntity.IRoleMenu">
-            <summary>角色和菜单接口</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.IRoleMenu.Save">
+        <member name="M:NewLife.CommonEntity.IRole.Save">
             <summary>保存</summary>
             <returns></returns>
         </member>
-        <member name="P:NewLife.CommonEntity.IRoleMenu.PermissionFlag">
-            <summary>操作权限</summary>
+        <member name="P:NewLife.CommonEntity.IRole.Resources">
+            <summary>当前角色拥有的资源</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.IRoleMenu.ID">
+        <member name="P:NewLife.CommonEntity.IRole.ID">
             <summary>编号</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.IRoleMenu.RoleID">
-            <summary>角色编号</summary>
+        <member name="P:NewLife.CommonEntity.IRole.Name">
+            <summary>名称</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.IRoleMenu.MenuID">
-            <summary>菜单编号</summary>
+        <member name="P:NewLife.CommonEntity.IRole.IsSystem">
+            <summary>是否系统角色。系统角色用于业务系统开发使用，禁止删除</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.IRoleMenu.Permission">
+        <member name="P:NewLife.CommonEntity.IRole.Permission">
             <summary>权限</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.IRoleMenu.Item(System.String)">
+        <member name="P:NewLife.CommonEntity.IRole.Item(System.String)">
             <summary>获取/设置 字段值。</summary>
             <param name="name">字段名</param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.RoleMenu`1.Save">
+        <member name="M:NewLife.CommonEntity.Role`1.InitData">
+            <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
+        </member>
+        <member name="M:NewLife.CommonEntity.Role`1.CheckRole">
+            <summary>初始化时执行必要的权限检查，以防万一管理员无法操作</summary>
+        </member>
+        <member name="M:NewLife.CommonEntity.Role`1.Valid(System.Boolean)">
+            <summary>验证数据，通过抛出异常的方式提示验证失败。</summary>
+            <param name="isNew">是否新数据</param>
+        </member>
+        <member name="M:NewLife.CommonEntity.Role`1.Save">
             <summary>已重载。调用Save时写日志，而调用Insert和Update时不写日志</summary>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.RoleMenu`1.Delete">
+        <member name="M:NewLife.CommonEntity.Role`1.Delete">
             <summary>已重载。</summary>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.RoleMenu`1.CheckNonePerssion(System.Int32)">
-            <summary>检查指定菜单编号的权限，保证至少有一个角色有权限控制该菜单</summary>
-            <param name="menuID"></param>
+        <member name="M:NewLife.CommonEntity.Role`1.OnLoad">
+            <summary>加载权限字典</summary>
         </member>
-        <member name="M:NewLife.CommonEntity.RoleMenu`1.ToString">
-            <summary>已重载。</summary>
+        <member name="M:NewLife.CommonEntity.Role`1.FindByID(System.Int32)">
+            <summary>根据编号查找角色</summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.RoleMenu`1.FindAllByRoleID(System.Int32)">
-            <summary>根据角色编号查询所有角色和菜单实体对象</summary>
-            <param name="roleID">编号</param>
-            <returns>角色和菜单 实体对象</returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.RoleMenu`1.FindAllByMenuID(System.Int32)">
-            <summary>根据菜单编号查询所有角色和菜单实体对象</summary>
-            <param name="menuID">编号</param>
-            <returns>角色和菜单 实体对象</returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.RoleMenu`1.FindByRoleAndMenu(System.Int32,System.Int32)">
-            <summary>根据角色编号和菜单查询一个角色和菜单实体对象</summary>
-            <param name="roleID">编号</param>
-            <param name="menuID">编号</param>
-            <returns>角色和菜单 实体对象</returns>
-        </member>
-        <member name="M:NewLife.CommonEntity.RoleMenu`1.FindAllInvalid(System.String,System.String)">
-            <summary>查找所有无效的对应关系</summary>
-            <param name="roleSql"></param>
-            <param name="menuSql"></param>
+        <member name="M:NewLife.CommonEntity.Role`1.NewLife#CommonEntity#IRole#FindByID(System.Int32)">
+            <summary>根据编号查找角色</summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.RoleMenu`1.Create(System.Int32,System.Int32)">
-            <summary>根据角色编号和菜单编号创建一个角色菜单实体，默认授予完全控制权限</summary>
-            <param name="roleID"></param>
-            <param name="menuID"></param>
+        <member name="M:NewLife.CommonEntity.Role`1.FindByName(System.String)">
+            <summary>根据名称查找角色</summary>
+            <param name="name">名称</param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.RoleMenu`1.Acquire(NewLife.CommonEntity.PermissionFlags)">
-            <summary>检查是否有指定权限</summary>
+        <member name="M:NewLife.CommonEntity.Role`1.Has(System.Int32,NewLife.CommonEntity.PermissionFlags)">
+            <summary>是否拥有指定资源的指定权限</summary>
+            <param name="resid"></param>
             <param name="flag"></param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.RoleMenu`1.Add(NewLife.CommonEntity.PermissionFlags)">
-            <summary>添加权限</summary>
-            <param name="flag"></param>
+        <member name="M:NewLife.CommonEntity.Role`1.Remove(System.Int32)">
+            <summary>删除指定资源的权限</summary>
+            <param name="resid"></param>
+        </member>
+        <member name="M:NewLife.CommonEntity.Role`1.Get(System.Int32)">
+            <summary>获取权限</summary>
+            <param name="resid"></param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.RoleMenu`1.Remove(NewLife.CommonEntity.PermissionFlags)">
-            <summary>删除权限</summary>
+        <member name="M:NewLife.CommonEntity.Role`1.Set(System.Int32,NewLife.CommonEntity.PermissionFlags)">
+            <summary>设置该角色拥有指定资源的指定权限</summary>
+            <param name="resid"></param>
             <param name="flag"></param>
-            <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.RoleMenu`1.GrantAll(System.Int32,System.Collections.Generic.List{System.Int32})">
-            <summary>授权指定角色访问所有菜单的权限</summary>
-            <param name="roleID"></param>
-            <param name="menuIDs"></param>
+        <member name="M:NewLife.CommonEntity.Role`1.CheckValid(System.Int32[])">
+            <summary>检查是否有无效权限项，有则删除</summary>
+            <param name="resids"></param>
         </member>
-        <member name="P:NewLife.CommonEntity.RoleMenu`1.PermissionFlag">
-            <summary>操作权限</summary>
+        <member name="P:NewLife.CommonEntity.Role`1.Permissions">
+            <summary>本角色权限集合</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.RoleMenu`1.ID">
+        <member name="P:NewLife.CommonEntity.Role`1.Resources">
+            <summary>当前角色拥有的资源</summary>
+        </member>
+        <member name="P:NewLife.CommonEntity.Role`1.ID">
             <summary>编号</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.RoleMenu`1.RoleID">
-            <summary>角色编号</summary>
+        <member name="P:NewLife.CommonEntity.Role`1.Name">
+            <summary>名称</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.RoleMenu`1.MenuID">
-            <summary>菜单编号</summary>
+        <member name="P:NewLife.CommonEntity.Role`1.IsSystem">
+            <summary>是否系统角色。系统角色用于业务系统开发使用，禁止删除</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.RoleMenu`1.Permission">
+        <member name="P:NewLife.CommonEntity.Role`1.Permission">
             <summary>权限</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.RoleMenu`1.Item(System.String)">
+        <member name="P:NewLife.CommonEntity.Role`1.Item(System.String)">
             <summary>
             获取/设置 字段值。
             一个索引，基类使用反射实现。
@@ -4653,34 +4072,34 @@
             <param name="name">字段名</param>
             <returns></returns>
         </member>
-        <member name="T:NewLife.CommonEntity.RoleMenu`1._">
-            <summary>取得角色和菜单字段信息的快捷方式</summary>
+        <member name="T:NewLife.CommonEntity.Role`1._">
+            <summary>取得角色字段信息的快捷方式</summary>
         </member>
-        <member name="F:NewLife.CommonEntity.RoleMenu`1._.ID">
+        <member name="F:NewLife.CommonEntity.Role`1._.ID">
             <summary>编号</summary>
         </member>
-        <member name="F:NewLife.CommonEntity.RoleMenu`1._.RoleID">
-            <summary>角色编号</summary>
+        <member name="F:NewLife.CommonEntity.Role`1._.Name">
+            <summary>名称</summary>
         </member>
-        <member name="F:NewLife.CommonEntity.RoleMenu`1._.MenuID">
-            <summary>菜单编号</summary>
+        <member name="F:NewLife.CommonEntity.Role`1._.IsSystem">
+            <summary>是否系统角色。系统角色用于业务系统开发使用，禁止删除</summary>
         </member>
-        <member name="F:NewLife.CommonEntity.RoleMenu`1._.Permission">
+        <member name="F:NewLife.CommonEntity.Role`1._.Permission">
             <summary>权限</summary>
         </member>
-        <member name="T:NewLife.CommonEntity.RoleMenu`1.__">
-            <summary>取得角色和菜单字段名称的快捷方式</summary>
+        <member name="T:NewLife.CommonEntity.Role`1.__">
+            <summary>取得角色字段名称的快捷方式</summary>
         </member>
-        <member name="F:NewLife.CommonEntity.RoleMenu`1.__.ID">
+        <member name="F:NewLife.CommonEntity.Role`1.__.ID">
             <summary>编号</summary>
         </member>
-        <member name="F:NewLife.CommonEntity.RoleMenu`1.__.RoleID">
-            <summary>角色编号</summary>
+        <member name="F:NewLife.CommonEntity.Role`1.__.Name">
+            <summary>名称</summary>
         </member>
-        <member name="F:NewLife.CommonEntity.RoleMenu`1.__.MenuID">
-            <summary>菜单编号</summary>
+        <member name="F:NewLife.CommonEntity.Role`1.__.IsSystem">
+            <summary>是否系统角色。系统角色用于业务系统开发使用，禁止删除</summary>
         </member>
-        <member name="F:NewLife.CommonEntity.RoleMenu`1.__.Permission">
+        <member name="F:NewLife.CommonEntity.Role`1.__.Permission">
             <summary>权限</summary>
         </member>
         <member name="T:NewLife.CommonEntity.Attachment">
@@ -4965,9 +4384,6 @@
         </member>
         <member name="T:NewLife.CommonEntity.Role">
             <summary>角色</summary>
-        </member>
-        <member name="T:NewLife.CommonEntity.RoleMenu">
-            <summary>角色和菜单</summary>
         </member>
         <member name="T:NewLife.CommonEntity.Log">
             <summary>日志</summary>

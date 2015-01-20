@@ -1359,6 +1359,21 @@
             <summary>脏实体会话，嵌套事务回滚时使用</summary>
             <remarks>http://www.newlifex.com/showtopic-1216.aspx</remarks>
         </member>
+        <member name="T:XCode.SelectModes">
+            <summary>查询模式</summary>
+        </member>
+        <member name="F:XCode.SelectModes.None">
+            <summary>空，不返回任何数据</summary>
+        </member>
+        <member name="F:XCode.SelectModes.List">
+            <summary>返回列表数据</summary>
+        </member>
+        <member name="F:XCode.SelectModes.TotalCount">
+            <summary>返回总记录数</summary>
+        </member>
+        <member name="F:XCode.SelectModes.Both">
+            <summary>同时返回列表数据和总记录数</summary>
+        </member>
         <member name="T:XCode.ConcatExpression">
             <summary>逗号连接表达式</summary>
         </member>
@@ -2457,6 +2472,12 @@
         </member>
         <member name="P:XCode.DataAccessLayer.DbBase.ServerVersion">
             <summary>数据库服务器版本</summary>
+        </member>
+        <member name="P:XCode.DataAccessLayer.DbBase.ServiceAddress">
+            <summary>服务端地址</summary>
+        </member>
+        <member name="P:XCode.DataAccessLayer.DbBase.CacheZip">
+            <summary>是否缓存Zip压缩包</summary>
         </member>
         <member name="P:XCode.DataAccessLayer.DbBase.DateTimeNow">
             <summary>当前时间函数</summary>
@@ -5174,31 +5195,31 @@
         <member name="T:XCode.Exceptions.XDbException">
             <summary>数据访问层异常</summary>
         </member>
-        <member name="T:XCode.Exceptions.XCodeException">
+        <member name="T:XCode.XCodeException">
             <summary>XCode异常</summary>
         </member>
-        <member name="M:XCode.Exceptions.XCodeException.#ctor">
+        <member name="M:XCode.XCodeException.#ctor">
             <summary>初始化</summary>
         </member>
-        <member name="M:XCode.Exceptions.XCodeException.#ctor(System.String)">
+        <member name="M:XCode.XCodeException.#ctor(System.String)">
             <summary>初始化</summary>
             <param name="message"></param>
         </member>
-        <member name="M:XCode.Exceptions.XCodeException.#ctor(System.String,System.Object[])">
+        <member name="M:XCode.XCodeException.#ctor(System.String,System.Object[])">
             <summary>初始化</summary>
             <param name="format"></param>
             <param name="args"></param>
         </member>
-        <member name="M:XCode.Exceptions.XCodeException.#ctor(System.String,System.Exception)">
+        <member name="M:XCode.XCodeException.#ctor(System.String,System.Exception)">
             <summary>初始化</summary>
             <param name="message"></param>
             <param name="innerException"></param>
         </member>
-        <member name="M:XCode.Exceptions.XCodeException.#ctor(System.Exception)">
+        <member name="M:XCode.XCodeException.#ctor(System.Exception)">
             <summary>初始化</summary>
             <param name="innerException"></param>
         </member>
-        <member name="M:XCode.Exceptions.XCodeException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+        <member name="M:XCode.XCodeException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>初始化</summary>
             <param name="info"></param>
             <param name="context"></param>
@@ -5374,7 +5395,7 @@
         </member>
         <member name="M:XCode.Configuration.FieldItem.In(System.Collections.IEnumerable)">
             <summary>In操作</summary>
-            <remarks>空参数不参与表达式操作，不生成该部分SQL拼接</remarks>
+            <remarks>空参数不参与表达式操作，不生成该部分SQL拼接。只有一项时转为等于</remarks>
             <param name="value">枚举数据，会转化为字符串</param>
             <returns></returns>
         </member>
@@ -5386,7 +5407,7 @@
         </member>
         <member name="M:XCode.Configuration.FieldItem.NotIn(System.Collections.IEnumerable)">
             <summary>NotIn操作</summary>
-            <remarks>空参数不参与表达式操作，不生成该部分SQL拼接</remarks>
+            <remarks>空参数不参与表达式操作，不生成该部分SQL拼接。只有一项时修改为不等于</remarks>
             <param name="value">数值</param>
             <returns></returns>
         </member>
@@ -5459,20 +5480,24 @@
             <summary>分组</summary>
             <returns></returns>
         </member>
-        <member name="M:XCode.Configuration.FieldItem.Count">
+        <member name="M:XCode.Configuration.FieldItem.Count(System.String)">
             <summary>数量</summary>
+            <param name="newName">聚合后as的新名称，默认空，表示跟前面字段名一致</param>
             <returns></returns>
         </member>
-        <member name="M:XCode.Configuration.FieldItem.Sum">
+        <member name="M:XCode.Configuration.FieldItem.Sum(System.String)">
             <summary>求和</summary>
+            <param name="newName">聚合后as的新名称，默认空，表示跟前面字段名一致</param>
             <returns></returns>
         </member>
-        <member name="M:XCode.Configuration.FieldItem.Min">
+        <member name="M:XCode.Configuration.FieldItem.Min(System.String)">
             <summary>最小值</summary>
+            <param name="newName">聚合后as的新名称，默认空，表示跟前面字段名一致</param>
             <returns></returns>
         </member>
-        <member name="M:XCode.Configuration.FieldItem.Max">
+        <member name="M:XCode.Configuration.FieldItem.Max(System.String)">
             <summary>最大值</summary>
+            <param name="newName">聚合后as的新名称，默认空，表示跟前面字段名一致</param>
             <returns></returns>
         </member>
         <member name="M:XCode.Configuration.FieldItem.op_Implicit(XCode.Configuration.FieldItem)~System.String">
@@ -6906,6 +6931,17 @@
             <param name="sql">查询语句</param>
             <returns>实体数组</returns>
         </member>
+        <member name="M:XCode.Entity`1.FindAll(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32@,XCode.SelectModes)">
+            <summary>同时查询满足条件的记录集和记录总数</summary>
+            <param name="whereClause">条件，不带Where</param>
+            <param name="orderClause">排序，不带Order By</param>
+            <param name="selects">查询列</param>
+            <param name="startRowIndex">开始行，0表示第一行</param>
+            <param name="maximumRows">最大返回行数，0表示所有行</param>
+            <param name="count">记录总数</param>
+            <param name="mode">查询模式，分为记录集和记录总数两种，默认Both表示同时查询两者</param>
+            <returns>实体集</returns>
+        </member>
         <member name="M:XCode.Entity`1.FindWithCache(System.String,System.Object)">
             <summary>根据属性以及对应的值，在缓存中查找单个实体</summary>
             <param name="name">属性名称</param>
@@ -6985,6 +7021,16 @@
             <param name="startRowIndex">开始行，0表示第一行</param>
             <param name="maximumRows">最大返回行数，0表示所有行</param>
             <returns>记录数</returns>
+        </member>
+        <member name="M:XCode.Entity`1.Search(System.String,System.String,System.Int32,System.Int32,System.Int32@,XCode.SelectModes)">
+            <summary>同时查询满足条件的记录集和记录总数</summary>
+            <param name="key"></param>
+            <param name="orderClause"></param>
+            <param name="startRowIndex"></param>
+            <param name="maximumRows"></param>
+            <param name="count"></param>
+            <param name="mode"></param>
+            <returns></returns>
         </member>
         <member name="M:XCode.Entity`1.SearchWhereByKeys(System.Text.StringBuilder,System.String)">
             <summary>构建关键字查询条件</summary>
@@ -8044,6 +8090,11 @@
             <param name="type">类型</param>
             <returns></returns>
         </member>
+        <member name="M:XCode.EntityFactory.AsFactory(System.Type)">
+            <summary>根据类型创建实体工厂</summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
         <member name="M:XCode.EntityFactory.Register(System.Type,XCode.IEntityOperate)">
             <summary>使用指定的实体对象创建实体操作接口，主要用于Entity内部调用，避免反射带来的损耗</summary>
             <param name="type">类型</param>
@@ -8412,9 +8463,6 @@
         <member name="M:XCode.Cache.SingleEntityCache`2.#ctor">
             <summary>实例化一个实体缓存</summary>
         </member>
-        <member name="M:XCode.Cache.SingleEntityCache`2.StartTimer">
-            <summary>启动一个定时器，用于定时清理过期缓存。因为比较耗时，最后一个参数采用线程池</summary>
-        </member>
         <member name="M:XCode.Cache.SingleEntityCache`2.OnDispose(System.Boolean)">
             <summary>子类重载实现资源释放逻辑时必须首先调用基类方法</summary>
             <param name="disposing">从Dispose调用（释放所有资源）还是析构函数调用（释放非托管资源）。
@@ -8672,10 +8720,10 @@
             <summary>最大实体数。默认10000</summary>
         </member>
         <member name="P:XCode.Cache.SingleEntityCache`2.AutoSave">
-            <summary>缓存到期时自动保存</summary>
+            <summary>缓存到期时自动保存，默认true</summary>
         </member>
         <member name="P:XCode.Cache.SingleEntityCache`2.AllowNull">
-            <summary>允许缓存空对象</summary>
+            <summary>允许缓存空对象，默认false</summary>
         </member>
         <member name="P:XCode.Cache.SingleEntityCache`2.MasterKeyUsingUniqueField">
             <summary>单对象缓存主键是否使用实体模型唯一键（第一个标识列或者唯一的主键）</summary>
