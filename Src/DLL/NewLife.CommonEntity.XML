@@ -11,10 +11,19 @@
             <summary>通用实体类基类</summary>
             <typeparam name="TEntity"></typeparam>
         </member>
+        <member name="M:NewLife.CommonEntity.CommonEntityBase`1.Save">
+            <summary>已重载。调用Save时写日志，而调用Insert和Update时不写日志</summary>
+            <returns></returns>
+        </member>
         <member name="M:NewLife.CommonEntity.CommonEntityBase`1.WriteLog(System.String,System.String)">
             <summary>写日志</summary>
             <param name="action">操作</param>
             <param name="remark">备注</param>
+        </member>
+        <member name="M:NewLife.CommonEntity.CommonEntityBase`1.WriteLog(System.String,XCode.IEntity)">
+            <summary>输出实体对象日志</summary>
+            <param name="action"></param>
+            <param name="entity"></param>
         </member>
         <member name="T:NewLife.CommonEntity.EntityCacheConfig">
             <summary>实体模型对象缓存配置</summary>
@@ -148,7 +157,7 @@
             <summary>管理用户类</summary>
         </member>
         <member name="P:NewLife.CommonEntity.IManageProvider.Current">
-            <summary>当前用户</summary>
+            <summary>当前登录用户，设为空则注销登录</summary>
         </member>
         <member name="M:NewLife.CommonEntity.ICommonManageProvider.FindByMenuID(System.Int32)">
             <summary>根据编号找到菜单</summary>
@@ -3058,9 +3067,6 @@
         <member name="P:NewLife.CommonEntity.IAdministrator.RoleID">
             <summary>角色。主要角色</summary>
         </member>
-        <member name="P:NewLife.CommonEntity.IAdministrator.Roles">
-            <summary>多角色。逗号分隔</summary>
-        </member>
         <member name="P:NewLife.CommonEntity.IAdministrator.Logins">
             <summary>登录次数</summary>
         </member>
@@ -3087,10 +3093,6 @@
         <member name="M:NewLife.CommonEntity.Administrator`1.Valid(System.Boolean)">
             <summary>验证</summary>
             <param name="isNew"></param>
-        </member>
-        <member name="M:NewLife.CommonEntity.Administrator`1.Save">
-            <summary>已重载。调用Save时写日志，而调用Insert和Update时不写日志</summary>
-            <returns></returns>
         </member>
         <member name="M:NewLife.CommonEntity.Administrator`1.Delete">
             <summary>已重载。</summary>
@@ -3210,20 +3212,8 @@
             <param name="name">名称</param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.Administrator`1.WriteLog(System.Type,System.String,System.String)">
-            <summary>写日志</summary>
-            <param name="type">类型</param>
-            <param name="action">操作</param>
-            <param name="remark">备注</param>
-        </member>
-        <member name="P:NewLife.CommonEntity.Administrator`1.HttpState">
-            <summary>Http状态，子类可以重新给HttpState赋值，以控制保存Http状态的过程</summary>
-        </member>
         <member name="P:NewLife.CommonEntity.Administrator`1.Current">
             <summary>当前登录用户</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Administrator`1.CurrentNoAutoLogin">
-            <summary>当前登录用户，不带自动登录</summary>
         </member>
         <member name="P:NewLife.CommonEntity.Administrator`1.FriendName">
             <summary>友好名字</summary>
@@ -3270,9 +3260,6 @@
         </member>
         <member name="P:NewLife.CommonEntity.Administrator`1.RoleID">
             <summary>角色。主要角色</summary>
-        </member>
-        <member name="P:NewLife.CommonEntity.Administrator`1.Roles">
-            <summary>多角色。逗号分隔</summary>
         </member>
         <member name="P:NewLife.CommonEntity.Administrator`1.Logins">
             <summary>登录次数</summary>
@@ -3325,9 +3312,6 @@
         <member name="F:NewLife.CommonEntity.Administrator`1._.RoleID">
             <summary>角色。主要角色</summary>
         </member>
-        <member name="F:NewLife.CommonEntity.Administrator`1._.Roles">
-            <summary>多角色。逗号分隔</summary>
-        </member>
         <member name="F:NewLife.CommonEntity.Administrator`1._.Logins">
             <summary>登录次数</summary>
         </member>
@@ -3369,9 +3353,6 @@
         </member>
         <member name="F:NewLife.CommonEntity.Administrator`1.__.RoleID">
             <summary>角色。主要角色</summary>
-        </member>
-        <member name="F:NewLife.CommonEntity.Administrator`1.__.Roles">
-            <summary>多角色。逗号分隔</summary>
         </member>
         <member name="F:NewLife.CommonEntity.Administrator`1.__.Logins">
             <summary>登录次数</summary>
@@ -3757,10 +3738,17 @@
             <param name="isFilterChildDir">是否在子目录中过滤</param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.Menu`1.GetPathForScan(System.String,System.Boolean)">
+        <member name="M:NewLife.CommonEntity.Menu`1.GetPathForScan(System.String)">
             <summary>获取目录层级</summary>
             <param name="dir"></param>
-            <param name="isTop">是否顶级目录</param>
+            <returns></returns>
+        </member>
+        <member name="F:NewLife.CommonEntity.Menu`1._NotBizDirs">
+            <summary>非业务的目录列表</summary>
+        </member>
+        <member name="M:NewLife.CommonEntity.Menu`1.IsBizDir(System.String)">
+            <summary>是否业务目录</summary>
+            <param name="dir"></param>
             <returns></returns>
         </member>
         <member name="M:NewLife.CommonEntity.Menu`1.WriteLog(System.String,System.String)">
@@ -3956,6 +3944,26 @@
         <member name="T:NewLife.CommonEntity.IRole">
             <summary>角色接口</summary>
         </member>
+        <member name="M:NewLife.CommonEntity.IRole.Has(System.Int32,NewLife.CommonEntity.PermissionFlags)">
+            <summary>是否拥有指定资源的指定权限</summary>
+            <param name="resid"></param>
+            <param name="flag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.CommonEntity.IRole.Remove(System.Int32)">
+            <summary>删除指定资源的权限</summary>
+            <param name="resid"></param>
+        </member>
+        <member name="M:NewLife.CommonEntity.IRole.Get(System.Int32)">
+            <summary>获取权限</summary>
+            <param name="resid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.CommonEntity.IRole.Set(System.Int32,NewLife.CommonEntity.PermissionFlags)">
+            <summary>设置该角色拥有指定资源的指定权限</summary>
+            <param name="resid"></param>
+            <param name="flag"></param>
+        </member>
         <member name="M:NewLife.CommonEntity.IRole.FindByID(System.Int32)">
             <summary>根据编号查找角色</summary>
             <param name="id"></param>
@@ -3995,16 +4003,20 @@
             <summary>验证数据，通过抛出异常的方式提示验证失败。</summary>
             <param name="isNew">是否新数据</param>
         </member>
-        <member name="M:NewLife.CommonEntity.Role`1.Save">
-            <summary>已重载。调用Save时写日志，而调用Insert和Update时不写日志</summary>
+        <member name="M:NewLife.CommonEntity.Role`1.Delete">
+            <summary>已重载。</summary>
             <returns></returns>
         </member>
-        <member name="M:NewLife.CommonEntity.Role`1.Delete">
+        <member name="M:NewLife.CommonEntity.Role`1.Save">
             <summary>已重载。</summary>
             <returns></returns>
         </member>
         <member name="M:NewLife.CommonEntity.Role`1.OnLoad">
             <summary>加载权限字典</summary>
+        </member>
+        <member name="M:NewLife.CommonEntity.Role`1.OnPropertyChanged(System.String)">
+            <summary>如果Permission被修改，则重新加载</summary>
+            <param name="fieldName"></param>
         </member>
         <member name="M:NewLife.CommonEntity.Role`1.FindByID(System.Int32)">
             <summary>根据编号查找角色</summary>
@@ -4044,6 +4056,27 @@
         <member name="M:NewLife.CommonEntity.Role`1.CheckValid(System.Int32[])">
             <summary>检查是否有无效权限项，有则删除</summary>
             <param name="resids"></param>
+        </member>
+        <member name="M:NewLife.CommonEntity.Role`1.RowDataBound(System.Object,System.Web.UI.WebControls.GridViewRowEventArgs,NewLife.CommonEntity.IRole,System.Boolean)">
+            <summary>绑定权限项列表时，二次绑定权限子项</summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+            <param name="role"></param>
+            <param name="isfull"></param>
+        </member>
+        <member name="M:NewLife.CommonEntity.Role`1.CheckedChanged(System.Object,System.EventArgs,NewLife.CommonEntity.IRole)">
+            <summary>修改单个功能项权限时</summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+            <param name="role"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.CommonEntity.Role`1.SelectedIndexChanged(System.Object,System.EventArgs,NewLife.CommonEntity.IRole)">
+            <summary>选择改变时</summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+            <param name="role"></param>
+            <returns></returns>
         </member>
         <member name="P:NewLife.CommonEntity.Role`1.Permissions">
             <summary>本角色权限集合</summary>
