@@ -8,7 +8,7 @@ var root = di.FullName.EnsureEnd("\\");
 
 Console.WriteLine("复制 {0} => {1}", src.FullName, root);
 
-foreach(var fi in di.GetAllFiles("*.cshtml"))
+foreach(var fi in di.GetAllFiles("*.cs;*.cshtml;*.css", true))
 {
 	var fileName = fi.FullName.TrimStart(root);
 	//Console.WriteLine(fileName);
