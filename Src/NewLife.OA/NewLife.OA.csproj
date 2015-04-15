@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NewLife.CommonEntity">
-      <HintPath>..\DLL\NewLife.CommonEntity.dll</HintPath>
-    </Reference>
     <Reference Include="NewLife.Core">
       <HintPath>..\DLL\NewLife.Core.dll</HintPath>
     </Reference>

@@ -5,15 +5,9 @@
  * 版权：版权所有 (C) 新生命开发团队 2002~2015
 */
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
-using System.Xml.Serialization;
-using NewLife.CommonEntity;
-using NewLife.Log;
-using NewLife.Web;
 using XCode;
-using XCode.Configuration;
+using XCode.Membership;
 
 namespace NewLife.OA
 {
