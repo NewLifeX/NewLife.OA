@@ -1,18 +1,17 @@
-﻿@{
-    Layout = null;
-}
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    Layout = "_Ace_Layout.cshtml";
+    ViewBag.Title = "处理你的请求时出错";
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width" />
-    <title>错误</title>
-</head>
-<body>
-    <hgroup>
-        <h1>错误。</h1>
-        <h2>处理你的请求时出错。</h2>
-    </hgroup>
-</body>
-</html>
+    var context = ViewBag.Context as ExceptionContext;
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <pre class="alert alert-danger" role="alert">
+        <strong>@context.Exception.Message</strong>
+        </pre>
+    </div>
+    <div class="panel-footer">
+        <a href="javascript: history.go(-1);" class="btn btn-info">返回上一页</a>
+    </div>
+</div>

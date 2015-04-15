@@ -78,35 +78,6 @@
         <member name="P:NewLife.CommonEntity.EntityCacheConfig.EntityCacheInfo.HoldSingleCache">
             <summary>在数据修改时保持缓存，不再过期。默认-1，使用系统统一配置</summary>
         </member>
-        <member name="T:NewLife.CommonEntity.Exceptions.EntityException">
-            <summary>实体异常</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.Exceptions.EntityException.#ctor">
-            <summary>初始化</summary>
-        </member>
-        <member name="M:NewLife.CommonEntity.Exceptions.EntityException.#ctor(System.String)">
-            <summary>初始化</summary>
-            <param name="message"></param>
-        </member>
-        <member name="M:NewLife.CommonEntity.Exceptions.EntityException.#ctor(System.String,System.Object[])">
-            <summary>初始化</summary>
-            <param name="format"></param>
-            <param name="args"></param>
-        </member>
-        <member name="M:NewLife.CommonEntity.Exceptions.EntityException.#ctor(System.String,System.Exception)">
-            <summary>初始化</summary>
-            <param name="message"></param>
-            <param name="innerException"></param>
-        </member>
-        <member name="M:NewLife.CommonEntity.Exceptions.EntityException.#ctor(System.Exception)">
-            <summary>初始化</summary>
-            <param name="innerException"></param>
-        </member>
-        <member name="M:NewLife.CommonEntity.Exceptions.EntityException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>初始化</summary>
-            <param name="info"></param>
-            <param name="context"></param>
-        </member>
         <member name="T:NewLife.CommonEntity.ICommonManageProvider">
             <summary>通用实体类管理提供者接口</summary>
         </member>
@@ -230,7 +201,7 @@
             <param name="action">操作</param>
             <param name="remark">备注</param>
         </member>
-        <member name="M:NewLife.CommonEntity.ManageProvider.GetHttpCache(System.Object,NewLife.Reflection.Func{System.Object,System.Object})">
+        <member name="M:NewLife.CommonEntity.ManageProvider.GetHttpCache(System.Object,System.Func{System.Object,System.Object})">
             <summary>获取Http缓存，如果不存在，则调用func去计算</summary>
             <param name="key"></param>
             <param name="func"></param>
@@ -3585,7 +3556,7 @@
         <member name="T:NewLife.CommonEntity.IMenu">
             <summary>菜单接口</summary>
         </member>
-        <member name="M:NewLife.CommonEntity.IMenu.GetFullPath(System.Boolean,System.String,NewLife.Reflection.Func{NewLife.CommonEntity.IMenu,System.String})">
+        <member name="M:NewLife.CommonEntity.IMenu.GetFullPath(System.Boolean,System.String,System.Func{NewLife.CommonEntity.IMenu,System.String})">
             <summary>取得全路径的实体，由上向下排序</summary>
             <param name="includeSelf">是否包含自己</param>
             <param name="separator">分隔符</param>
@@ -3770,7 +3741,7 @@
             <summary>导入</summary>
             <param name="xml"></param>
         </member>
-        <member name="M:NewLife.CommonEntity.Menu`1.NewLife#CommonEntity#IMenu#GetFullPath(System.Boolean,System.String,NewLife.Reflection.Func{NewLife.CommonEntity.IMenu,System.String})">
+        <member name="M:NewLife.CommonEntity.Menu`1.NewLife#CommonEntity#IMenu#GetFullPath(System.Boolean,System.String,System.Func{NewLife.CommonEntity.IMenu,System.String})">
             <summary>取得全路径的实体，由上向下排序</summary>
             <param name="includeSelf">是否包含自己</param>
             <param name="separator">分隔符</param>

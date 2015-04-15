@@ -1,0 +1,34 @@
+﻿@using NewLife;
+@using NewLife.Web;
+@using XCode;
+@{
+    var fact = EntityFactory.CreateOperate(ViewData.ModelMetadata.ModelType.GetGenericArguments()[0]);
+    var page = ViewBag.Page as Pager;
+    // 字段列表，可以排序和隐藏
+    var fields = fact.Fields;
+}
+<table class="table table-bordered table-hover table-striped table-condensed">
+    <thead>
+        <tr>
+            @foreach (var item in fields)
+            {
+                <th><a href="@Html.Raw(page.GetSortUrl(item.Name))">@item.DisplayName</a></th>
+            }
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entity in Model)
+        {
+            <tr>
+                @foreach (var item in fields)
+                {
+                    @Html.Partial("_List_Data_Item", new Pair(entity, item))
+                }
+                <td>
+                    @Html.Partial("_List_Data_Action", (Object)entity[fact.Unique])
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

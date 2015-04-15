@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NewLife.Cube</name>
+    </assembly>
+    <members>
+        <member name="T:NewLife.Cube.Admin.AdminAreaRegistration">
+            <summary>权限管理区域注册</summary>
+        </member>
+        <member name="M:NewLife.Cube.Admin.AdminAreaRegistration.RegisterArea(System.Web.Mvc.AreaRegistrationContext)">
+            <summary>注册区域</summary>
+            <param name="context"></param>
+        </member>
+        <member name="P:NewLife.Cube.Admin.AdminAreaRegistration.AreaName">
+            <summary>区域名称</summary>
+        </member>
+        <member name="T:NewLife.Cube.Admin.Controllers.RoleController">
+            <summary>角色控制器</summary>
+        </member>
+        <member name="T:NewLife.Cube.EntityController`1">
+            <summary>实体控制器基类</summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="M:NewLife.Cube.EntityController`1.#ctor">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:NewLife.Cube.EntityController`1.Index(NewLife.Web.Pager)">
+            <summary>数据列表首页</summary>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.EntityController`1.Delete(System.Int32)">
+            <summary>删除</summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.EntityController`1.Form(System.String)">
+            <summary>表单，添加/修改</summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.EntityController`1.Save(`0)">
+            <summary>保存</summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NewLife.Cube.Admin.Controllers.LogController">
+            <summary>日志控制器</summary>
+        </member>
+        <member name="T:NewLife.Cube.Admin.Controllers.MenuController">
+            <summary>菜单控制器</summary>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.MenuController.Index(NewLife.Web.Pager)">
+            <summary>首页</summary>
+            <param name="p"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NewLife.Cube.Admin.Controllers.SysController">
+            <summary>系统设置控制器</summary>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.SysController.Index(NewLife.Common.SysConfig)">
+            <summary>系统设置</summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NewLife.Cube.Admin.Controllers.UserController">
+            <summary>用户控制器</summary>
+        </member>
+        <member name="T:NewLife.Cube.Admin.Controllers.IndexController">
+            <summary>首页</summary>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.IndexController.Index">
+            <summary>首页</summary>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.IndexController.Main(System.String)">
+            <summary>服务器信息</summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NewLife.Cube.Admin.RazorViewEngineX">
+            <summary>自定义视图引擎。为了让系统优先查找当前区域目录</summary>
+        </member>
+        <member name="M:NewLife.Cube.Admin.RazorViewEngineX.#ctor">
+            <summary>实例化，修改Areas搜索逻辑</summary>
+        </member>
+        <member name="M:NewLife.Cube.Admin.RazorViewEngineX.Register(System.Web.Mvc.ViewEngineCollection)">
+            <summary>注册需要搜索的目录路径</summary>
+            <param name="engines"></param>
+        </member>
+        <member name="T:NewLife.Cube.BundleConfig">
+            <summary>绑定配置</summary>
+        </member>
+        <member name="M:NewLife.Cube.BundleConfig.RegisterBundles(System.Web.Optimization.BundleCollection)">
+            <summary>有关 Bundling 的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkId=254725</summary>
+            <param name="bundles"></param>
+        </member>
+        <member name="T:NewLife.Cube.FilterConfig">
+            <summary>过滤器配置</summary>
+        </member>
+        <member name="M:NewLife.Cube.FilterConfig.RegisterGlobalFilters(System.Web.Mvc.GlobalFilterCollection)">
+            <summary>注册全局过滤器</summary>
+            <param name="filters"></param>
+        </member>
+        <member name="T:NewLife.Cube.RouteConfig">
+            <summary>路由配置</summary>
+        </member>
+        <member name="M:NewLife.Cube.RouteConfig.RegisterRoutes(System.Web.Routing.RouteCollection)">
+            <summary>注册路由</summary>
+            <param name="routes"></param>
+        </member>
+        <member name="T:NewLife.Cube.EntityModelBinder">
+            <summary>实体模型绑定器。特殊处理XCode实体类</summary>
+        </member>
+        <member name="M:NewLife.Cube.EntityModelBinder.CreateModel(System.Web.Mvc.ControllerContext,System.Web.Mvc.ModelBindingContext,System.Type)">
+            <summary>创建模型。对于有Key的请求，使用FindByKeyForEdit方法先查出来数据，而不是直接反射实例化实体对象</summary>
+            <param name="controllerContext"></param>
+            <param name="bindingContext"></param>
+            <param name="modelType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NewLife.Cube.EntityModelBinderProvider">
+            <summary>实体模型绑定器提供者，为所有XCode实体类提供实体模型绑定器</summary>
+        </member>
+        <member name="M:NewLife.Cube.EntityModelBinderProvider.GetBinder(System.Type)">
+            <summary>获取绑定器</summary>
+            <param name="modelType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.EntityModelBinderProvider.Register">
+            <summary>注册到全局模型绑定器提供者集合</summary>
+        </member>
+        <member name="T:NewLife.Cube.Controllers.AccountController">
+            <summary>账号控制器</summary>
+        </member>
+        <member name="M:NewLife.Cube.Controllers.AccountController.Login(System.String)">
+            <summary>登录页面</summary>
+            <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Controllers.AccountController.Login(NewLife.Cube.Models.LoginModel,System.String)">
+            <summary>登录提交</summary>
+            <param name="model"></param>
+            <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Controllers.AccountController.LogOff">
+            <summary>注销</summary>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Controllers.AccountController.Register">
+            <summary>注册</summary>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Controllers.AccountController.Register(NewLife.Cube.Models.RegisterModel)">
+            <summary>注册提交</summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Controllers.AccountController.Manage(System.Nullable{NewLife.Cube.Controllers.AccountController.ManageMessageId})">
+            <summary>管理页面</summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Controllers.AccountController.Manage(NewLife.Cube.Models.LocalPasswordModel)">
+            <summary>管理提交</summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NewLife.Cube.Controllers.AccountController.ManageMessageId">
+            <summary>管理消息ID</summary>
+        </member>
+        <member name="F:NewLife.Cube.Controllers.AccountController.ManageMessageId.ChangePasswordSuccess">
+            <summary>修改密码成功</summary>
+        </member>
+        <member name="F:NewLife.Cube.Controllers.AccountController.ManageMessageId.SetPasswordSuccess">
+            <summary>设置密码成功</summary>
+        </member>
+        <member name="F:NewLife.Cube.Controllers.AccountController.ManageMessageId.RemoveLoginSuccess">
+            <summary>删除密码成功</summary>
+        </member>
+        <member name="T:NewLife.Cube.Controllers.HomeController">
+            <summary>主页面</summary>
+        </member>
+        <member name="M:NewLife.Cube.Controllers.HomeController.Index">
+            <summary>主页面</summary>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Controllers.HomeController.About">
+            <summary>应用程序描述</summary>
+        </member>
+        <member name="M:NewLife.Cube.Controllers.HomeController.Contact">
+            <summary>联系我们</summary>
+        </member>
+        <member name="T:NewLife.Cube.EntityAuthorizeAttribute">
+            <summary>实体授权特性</summary>
+        </member>
+        <member name="M:NewLife.Cube.EntityAuthorizeAttribute.AuthorizeCore(System.Web.HttpContextBase)">
+            <summary>授权核心</summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.EntityAuthorizeAttribute.OnAuthorization(System.Web.Mvc.AuthorizationContext)">
+            <summary>授权发生时触发</summary>
+            <param name="filterContext"></param>
+        </member>
+        <member name="P:NewLife.Cube.EntityAuthorizeAttribute.ResourceName">
+            <summary>资源名称。判断当前登录用户是否有权访问该资源</summary>
+        </member>
+        <member name="P:NewLife.Cube.EntityAuthorizeAttribute.Permission">
+            <summary>授权项</summary>
+        </member>
+        <member name="T:NewLife.Cube.MvcHandleErrorAttribute">
+            <summary>拦截错误的特性</summary>
+        </member>
+        <member name="M:NewLife.Cube.MvcHandleErrorAttribute.OnException(System.Web.Mvc.ExceptionContext)">
+            <summary>拦截异常</summary>
+            <param name="filterContext"></param>
+        </member>
+        <member name="T:NewLife.Cube.MvcApplication">
+            <summary>
+            注意: 有关启用 IIS6 或 IIS7 经典模式的说明，
+            请访问 http://go.microsoft.com/?LinkId=9394801
+            </summary>
+        </member>
+        <member name="M:NewLife.Cube.MvcApplication.Application_Start">
+            <summary>应用程序启动</summary>
+        </member>
+        <member name="T:NewLife.Cube.Models.LocalPasswordModel">
+            <summary>本地密码模型</summary>
+        </member>
+        <member name="P:NewLife.Cube.Models.LocalPasswordModel.OldPassword">
+            <summary>当前密码</summary>
+        </member>
+        <member name="P:NewLife.Cube.Models.LocalPasswordModel.NewPassword">
+            <summary>确认新密码新密码</summary>
+        </member>
+        <member name="P:NewLife.Cube.Models.LocalPasswordModel.ConfirmPassword">
+            <summary>确认新密码</summary>
+        </member>
+        <member name="P:NewLife.Cube.Models.LocalPasswordModel.DisplayName">
+            <summary>昵称</summary>
+        </member>
+        <member name="T:NewLife.Cube.Models.LoginModel">
+            <summary>登录模型</summary>
+        </member>
+        <member name="P:NewLife.Cube.Models.LoginModel.UserName">
+            <summary>用户名</summary>
+        </member>
+        <member name="P:NewLife.Cube.Models.LoginModel.Password">
+            <summary>密码</summary>
+        </member>
+        <member name="P:NewLife.Cube.Models.LoginModel.RememberMe">
+            <summary>记住我</summary>
+        </member>
+        <member name="T:NewLife.Cube.Models.RegisterModel">
+            <summary>注册模型</summary>
+        </member>
+        <member name="P:NewLife.Cube.Models.RegisterModel.UserName">
+            <summary>用户名</summary>
+        </member>
+        <member name="P:NewLife.Cube.Models.RegisterModel.Password">
+            <summary>密码</summary>
+        </member>
+        <member name="P:NewLife.Cube.Models.RegisterModel.ConfirmPassword">
+            <summary>确认密码</summary>
+        </member>
+    </members>
+</doc>

@@ -257,7 +257,7 @@
             <summary>用于获取资源URL</summary>
             <returns></returns>
         </member>
-        <member name="M:XControl.TreeMenuRoot.GetTreeMenu``1(``0,NewLife.Reflection.Func{``0,System.Collections.Generic.List{``0}},NewLife.Reflection.Func{``0,XControl.TreeMenuNode})">
+        <member name="M:XControl.TreeMenuRoot.GetTreeMenu``1(``0,System.Func{``0,System.Collections.Generic.List{``0}},System.Func{``0,XControl.TreeMenuNode})">
             <summary>获取菜单树</summary>
             <typeparam name="T"></typeparam>
             <param name="rootNode"></param>
@@ -265,7 +265,7 @@
             <param name="convertToTreeMenu"></param>
             <returns></returns>
         </member>
-        <member name="M:XControl.TreeMenuRoot.GetTreeMenuRoot``1(``0,NewLife.Reflection.Func{``0,System.Collections.Generic.List{``0}},NewLife.Reflection.Func{``0,XControl.TreeMenuNode})">
+        <member name="M:XControl.TreeMenuRoot.GetTreeMenuRoot``1(``0,System.Func{``0,System.Collections.Generic.List{``0}},System.Func{``0,XControl.TreeMenuNode})">
             <summary>通过根节点获取</summary>
             <typeparam name="T"></typeparam>
             <param name="rootNode"></param>
@@ -273,7 +273,7 @@
             <param name="convertToTreeMenu"></param>
             <returns></returns>
         </member>
-        <member name="M:XControl.TreeMenuRoot.GetTreeMenuRoot``1(System.Collections.Generic.List{``0},NewLife.Reflection.Func{``0,System.Collections.Generic.List{``0}},NewLife.Reflection.Func{``0,XControl.TreeMenuNode})">
+        <member name="M:XControl.TreeMenuRoot.GetTreeMenuRoot``1(System.Collections.Generic.List{``0},System.Func{``0,System.Collections.Generic.List{``0}},System.Func{``0,XControl.TreeMenuNode})">
             <summary>通过节点列表</summary>
             <typeparam name="T"></typeparam>
             <param name="nodeList"></param>
@@ -787,7 +787,7 @@
             <param name="args"></param>
             <returns></returns>
         </member>
-        <member name="M:XControl.Helper.JsObjectString(NewLife.Reflection.Func{System.String,System.Object,System.Boolean},System.Object[])">
+        <member name="M:XControl.Helper.JsObjectString(System.Func{System.String,System.Object,System.Boolean},System.Object[])">
              <summary>
              使用指定的名值对创建对应的Javascript Object的声明字符串
              返回的结果类似 {'a':0.1, 'b':'2', 'c':true},如果args长度为0则返回{}
@@ -799,7 +799,7 @@
              <param name="args"></param>
              <returns></returns>
         </member>
-        <member name="M:XControl.Helper.JsObjectString(System.Boolean,NewLife.Reflection.Func{System.String,System.Object,System.Boolean},System.Object[])">
+        <member name="M:XControl.Helper.JsObjectString(System.Boolean,System.Func{System.String,System.Object,System.Boolean},System.Object[])">
             <summary>使用指定的名值对创建对应的Javascript Object的声明字符串</summary>
             <param name="escapeValue"></param>
             <param name="filter"></param>
