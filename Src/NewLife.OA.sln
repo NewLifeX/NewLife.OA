@@ -1,28 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewLife.OA", "NewLife.OA\NewLife.OA.csproj", "{90CAC9C5-CDFE-4D26-AB74-9C219C8C20E9}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web", "Web\", "{CFC3F103-CA83-4754-A575-B6CCDBCE42EA}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
-		ProjectReferences = "{90cac9c5-cdfe-4d26-ab74-9c219c8c20e9}|NewLife.OA.dll;"
-		Debug.AspNetCompiler.VirtualPath = "/Web"
-		Debug.AspNetCompiler.PhysicalPath = "Web\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Web\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/Web"
-		Release.AspNetCompiler.PhysicalPath = "Web\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\Web\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "53362"
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewLife.OA.Web", "NewLife.OA.Web\NewLife.OA.Web.csproj", "{CD014BFD-29CD-4DDC-9E33-B7915F9F288E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,10 +17,10 @@ Global
 		{90CAC9C5-CDFE-4D26-AB74-9C219C8C20E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90CAC9C5-CDFE-4D26-AB74-9C219C8C20E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90CAC9C5-CDFE-4D26-AB74-9C219C8C20E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CFC3F103-CA83-4754-A575-B6CCDBCE42EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CFC3F103-CA83-4754-A575-B6CCDBCE42EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CFC3F103-CA83-4754-A575-B6CCDBCE42EA}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{CFC3F103-CA83-4754-A575-B6CCDBCE42EA}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{CD014BFD-29CD-4DDC-9E33-B7915F9F288E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD014BFD-29CD-4DDC-9E33-B7915F9F288E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD014BFD-29CD-4DDC-9E33-B7915F9F288E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD014BFD-29CD-4DDC-9E33-B7915F9F288E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
