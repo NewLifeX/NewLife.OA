@@ -7,12 +7,29 @@
         <member name="T:NewLife.Cube.Admin.AdminAreaRegistration">
             <summary>权限管理区域注册</summary>
         </member>
-        <member name="M:NewLife.Cube.Admin.AdminAreaRegistration.RegisterArea(System.Web.Mvc.AreaRegistrationContext)">
+        <member name="T:NewLife.Cube.AreaRegistrationBase">
+            <summary>区域注册基类</summary>
+            <remarks>
+            提供以下功能：
+            1，区域名称。从类名中截取。其中DisplayName特性作为菜单中文名。
+            2，静态构造注册一次视图引擎、绑定提供者、过滤器
+            3，注册区域默认路由
+            </remarks>
+        </member>
+        <member name="M:NewLife.Cube.AreaRegistrationBase.RegisterArea(System.Web.Mvc.AreaRegistrationContext)">
             <summary>注册区域</summary>
             <param name="context"></param>
         </member>
-        <member name="P:NewLife.Cube.Admin.AdminAreaRegistration.AreaName">
+        <member name="M:NewLife.Cube.AreaRegistrationBase.ScanController">
+            <summary>自动扫描控制器，并添加到菜单</summary>
+            <remarks>默认操作当前注册区域的下一级Controllers命名空间</remarks>
+        </member>
+        <member name="P:NewLife.Cube.AreaRegistrationBase.AreaName">
             <summary>区域名称</summary>
+        </member>
+        <member name="M:NewLife.Cube.Admin.AdminAreaRegistration.RegisterArea(System.Web.Mvc.AreaRegistrationContext)">
+            <summary>注册区域</summary>
+            <param name="context"></param>
         </member>
         <member name="T:NewLife.Cube.Admin.Controllers.RoleController">
             <summary>角色控制器</summary>
@@ -77,13 +94,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:NewLife.Cube.Admin.RazorViewEngineX">
+        <member name="T:NewLife.Cube.RazorViewEngineX">
             <summary>自定义视图引擎。为了让系统优先查找当前区域目录</summary>
         </member>
-        <member name="M:NewLife.Cube.Admin.RazorViewEngineX.#ctor">
+        <member name="M:NewLife.Cube.RazorViewEngineX.#ctor">
             <summary>实例化，修改Areas搜索逻辑</summary>
         </member>
-        <member name="M:NewLife.Cube.Admin.RazorViewEngineX.Register(System.Web.Mvc.ViewEngineCollection)">
+        <member name="M:NewLife.Cube.RazorViewEngineX.Register(System.Web.Mvc.ViewEngineCollection)">
             <summary>注册需要搜索的目录路径</summary>
             <param name="engines"></param>
         </member>

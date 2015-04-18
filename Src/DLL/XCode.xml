@@ -4137,9 +4137,9 @@
         </member>
         <member name="M:XCode.Membership.Menu`1.MenuFactory.ScanController(System.String,System.Reflection.Assembly,System.String)">
             <summary>扫描命名空间下的控制器并添加为菜单</summary>
-            <param name="rootName"></param>
-            <param name="asm"></param>
-            <param name="nameSpace"></param>
+            <param name="rootName">根菜单名称，所有菜单附属在其下</param>
+            <param name="asm">要扫描的程序集</param>
+            <param name="nameSpace">要扫描的命名空间</param>
             <returns></returns>
         </member>
         <member name="T:XCode.Membership.Menu`1._">
