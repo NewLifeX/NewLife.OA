@@ -4893,6 +4893,9 @@
         <member name="P:NewLife.Net.UdpServer.AllowAsyncOnSync">
             <summary>在异步模式下，使用同步收到数据后，是否允许异步事件继续使用，默认true</summary>
         </member>
+        <member name="P:NewLife.Net.UdpServer.Loopback">
+            <summary>是否接收来自自己广播的环回数据。默认false</summary>
+        </member>
         <member name="E:NewLife.Net.UdpServer.NewSession">
             <summary>新会话时触发</summary>
         </member>
@@ -5701,6 +5704,17 @@
             <summary>把一个字节数组写入到一个数据流</summary>
             <param name="des">目的数据流</param>
             <param name="src">源数据流</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.IOHelper.WriteArray(System.IO.Stream,System.Byte[])">
+            <summary>写入字节数组，先写入压缩整数表示的长度</summary>
+            <param name="des"></param>
+            <param name="src"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.IOHelper.ReadArray(System.IO.Stream)">
+            <summary>读取字节数组，先读取压缩整数表示的长度</summary>
+            <param name="des"></param>
             <returns></returns>
         </member>
         <member name="M:System.IOHelper.ReadBytes(System.Byte[],System.Int32,System.Int32)">
