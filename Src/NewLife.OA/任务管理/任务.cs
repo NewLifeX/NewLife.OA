@@ -200,12 +200,48 @@ namespace NewLife.OA
             set { if (OnPropertyChanging(__.Members, value)) { _Members = value; OnPropertyChanged(__.Members); } }
         }
 
+        private Int32 _Views;
+        /// <summary>浏览数</summary>
+        [DisplayName("浏览数")]
+        [Description("浏览数")]
+        [DataObjectField(false, false, true, 10)]
+        [BindColumn(16, "Views", "浏览数", null, "int", 10, 0, false)]
+        public virtual Int32 Views
+        {
+            get { return _Views; }
+            set { if (OnPropertyChanging(__.Views, value)) { _Views = value; OnPropertyChanged(__.Views); } }
+        }
+
+        private Int32 _Historys;
+        /// <summary>修改次数</summary>
+        [DisplayName("修改次数")]
+        [Description("修改次数")]
+        [DataObjectField(false, false, true, 10)]
+        [BindColumn(17, "Historys", "修改次数", null, "int", 10, 0, false)]
+        public virtual Int32 Historys
+        {
+            get { return _Historys; }
+            set { if (OnPropertyChanging(__.Historys, value)) { _Historys = value; OnPropertyChanged(__.Historys); } }
+        }
+
+        private Int32 _Comments;
+        /// <summary>评论数</summary>
+        [DisplayName("评论数")]
+        [Description("评论数")]
+        [DataObjectField(false, false, true, 10)]
+        [BindColumn(18, "Comments", "评论数", null, "int", 10, 0, false)]
+        public virtual Int32 Comments
+        {
+            get { return _Comments; }
+            set { if (OnPropertyChanging(__.Comments, value)) { _Comments = value; OnPropertyChanged(__.Comments); } }
+        }
+
         private Int32 _CreateUserID;
         /// <summary>创建者</summary>
         [DisplayName("创建者")]
         [Description("创建者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(16, "CreateUserID", "创建者", null, "int", 10, 0, false)]
+        [BindColumn(19, "CreateUserID", "创建者", null, "int", 10, 0, false)]
         public virtual Int32 CreateUserID
         {
             get { return _CreateUserID; }
@@ -217,7 +253,7 @@ namespace NewLife.OA
         [DisplayName("创建时间")]
         [Description("创建时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(17, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
+        [BindColumn(20, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
         public virtual DateTime CreateTime
         {
             get { return _CreateTime; }
@@ -229,7 +265,7 @@ namespace NewLife.OA
         [DisplayName("更新者")]
         [Description("更新者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(18, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
+        [BindColumn(21, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
         public virtual Int32 UpdateUserID
         {
             get { return _UpdateUserID; }
@@ -241,7 +277,7 @@ namespace NewLife.OA
         [DisplayName("更新时间")]
         [Description("更新时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(19, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
+        [BindColumn(22, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
         public virtual DateTime UpdateTime
         {
             get { return _UpdateTime; }
@@ -278,6 +314,9 @@ namespace NewLife.OA
                     case __.Progress : return _Progress;
                     case __.MasterID : return _MasterID;
                     case __.Members : return _Members;
+                    case __.Views : return _Views;
+                    case __.Historys : return _Historys;
+                    case __.Comments : return _Comments;
                     case __.CreateUserID : return _CreateUserID;
                     case __.CreateTime : return _CreateTime;
                     case __.UpdateUserID : return _UpdateUserID;
@@ -304,6 +343,9 @@ namespace NewLife.OA
                     case __.Progress : _Progress = Convert.ToInt32(value); break;
                     case __.MasterID : _MasterID = Convert.ToInt32(value); break;
                     case __.Members : _Members = Convert.ToString(value); break;
+                    case __.Views : _Views = Convert.ToInt32(value); break;
+                    case __.Historys : _Historys = Convert.ToInt32(value); break;
+                    case __.Comments : _Comments = Convert.ToInt32(value); break;
                     case __.CreateUserID : _CreateUserID = Convert.ToInt32(value); break;
                     case __.CreateTime : _CreateTime = Convert.ToDateTime(value); break;
                     case __.UpdateUserID : _UpdateUserID = Convert.ToInt32(value); break;
@@ -362,6 +404,15 @@ namespace NewLife.OA
 
             ///<summary>成员编号。字符串存储，逗号分割</summary>
             public static readonly Field Members = FindByName(__.Members);
+
+            ///<summary>浏览数</summary>
+            public static readonly Field Views = FindByName(__.Views);
+
+            ///<summary>修改次数</summary>
+            public static readonly Field Historys = FindByName(__.Historys);
+
+            ///<summary>评论数</summary>
+            public static readonly Field Comments = FindByName(__.Comments);
 
             ///<summary>创建者</summary>
             public static readonly Field CreateUserID = FindByName(__.CreateUserID);
@@ -425,6 +476,15 @@ namespace NewLife.OA
 
             ///<summary>成员编号。字符串存储，逗号分割</summary>
             public const String Members = "Members";
+
+            ///<summary>浏览数</summary>
+            public const String Views = "Views";
+
+            ///<summary>修改次数</summary>
+            public const String Historys = "Historys";
+
+            ///<summary>评论数</summary>
+            public const String Comments = "Comments";
 
             ///<summary>创建者</summary>
             public const String CreateUserID = "CreateUserID";
@@ -490,6 +550,15 @@ namespace NewLife.OA
 
         /// <summary>成员编号。字符串存储，逗号分割</summary>
         String Members { get; set; }
+
+        /// <summary>浏览数</summary>
+        Int32 Views { get; set; }
+
+        /// <summary>修改次数</summary>
+        Int32 Historys { get; set; }
+
+        /// <summary>评论数</summary>
+        Int32 Comments { get; set; }
 
         /// <summary>创建者</summary>
         Int32 CreateUserID { get; set; }

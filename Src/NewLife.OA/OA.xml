@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Tables Version="8.13.5498.35990">
+<Tables Version="8.17.5586.37396">
   <Table Name="WorkTask" Description="任务" DbType="SqlServer" 页面分类="Task">
     <Columns>
       <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="Name" DataType="String" Description="名称" />
       <Column Name="ParentID" DataType="Int32" Description="父任务。顶级任务的父任务为0" />
-      <Column Name="Score" DataType="Int32" Description="积分。任务的权重，非常重要，特别在于子任务" />
+      <Column Name="Score" DataType="Int32" Description="积分。任务的权重，父任务权重等于子任务总和" />
       <Column Name="Priority" DataType="Int32" Description="优先级。数字越大优先级越高" />
       <Column Name="Remark" DataType="String" Length="500" Description="备注" />
       <Column Name="Status" DataType="Int32" Description="状态。准备、进行、暂停、取消、完成" />
@@ -17,6 +17,9 @@
       <Column Name="Progress" DataType="Int32" Description="进度。0到100" />
       <Column Name="MasterID" DataType="Int32" Description="负责人" />
       <Column Name="Members" DataType="String" Description="成员编号。字符串存储，逗号分割" />
+      <Column Name="Views" DataType="Int32" Description="浏览数" />
+      <Column Name="Historys" DataType="Int32" Description="修改次数" />
+      <Column Name="Comments" DataType="Int32" Description="评论数" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
       <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
       <Column Name="UpdateUserID" DataType="Int32" Description="更新者" />
@@ -58,18 +61,6 @@
       <Column Name="UpdateUserID" DataType="Int32" Description="更新者" />
       <Column Name="UpdateTime" DataType="DateTime" Description="更新时间" />
       <Column Name="Content" DataType="String" Length="-1" Description="内容" />
-    </Columns>
-    <Indexes>
-      <Index Columns="WorkTaskID" />
-    </Indexes>
-  </Table>
-  <Table Name="TaskTest" Description="任务测试" DbType="SqlServer" 页面分类="Task">
-    <Columns>
-      <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
-      <Column Name="WorkTaskID" DataType="Int32" Description="任务" />
-      <Column Name="Title" DataType="String" Length="200" Description="标" />
-      <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
-      <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
     </Columns>
     <Indexes>
       <Index Columns="WorkTaskID" />

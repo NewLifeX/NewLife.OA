@@ -1,0 +1,161 @@
+﻿@using System.Reflection
+@using XCode
+@using XCode.Configuration
+@{
+    var fact = EntityFactory.CreateOperate(ViewData.ModelMetadata.ModelType);
+    var isNew = (Model as IEntity).IsNullKey;
+}
+@functions {
+
+    String GetWidth(FieldItem item)
+    {
+        switch (Type.GetTypeCode(item.Type))
+        {
+            case TypeCode.Boolean:
+                return "col-md-3";
+            case TypeCode.String:
+                if (item.Length <= 0 || item.Length > 300)
+                    return "col-md-5";
+                else
+                    return "col-md-3";
+        }
+        return "col-md-1";
+    }
+}
+<div class="panel panel-default">
+    <div class="form-horizontal">
+        @if (ViewBag.StatusMessage != null)
+        {
+            <div class="alert alert-success alert-dismissible text-center" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>@ViewBag.StatusMessage</strong>
+            </div>
+        }
+        @using (Html.BeginForm("Save/" + (Object)Model[fact.Unique.Name], ViewContext.Controller.GetType().Name.TrimEnd("Controller")))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            <div class="form-group">
+                <label class="control-label col-md-1">名称</label>
+                <div class="col-md-3">
+                    <input class="form-control" id="Name" name="Name" type="text" value="" />
+                    <p class="help-block"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">内容</label>
+                <div class="col-md-5">
+                    <textarea class="form-control" cols="20" id="Remark" name="Remark" rows="4"></textarea>
+                    <p class="help-block"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">状态</label>
+                <div class="col-md-1">
+                    <input class="text-box single-line form-control" id="Status" name="Status" type="number" value="0" />
+                </div>
+                <label class="control-label col-md-1">进度</label>
+                <div class="col-md-1">
+                    <input class="text-box single-line form-control" id="Progress" name="Progress" type="number" value="0" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">优先级</label>
+                <div class="col-md-1">
+                    <input class="text-box single-line form-control" id="Priority" name="Priority" type="number" value="0" />
+                </div>
+                <label class="control-label col-md-1">权重</label>
+                <div class="col-md-1">
+                    <input class="text-box single-line form-control" id="Score" name="Score" type="number" value="0" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">负责人</label>
+                <div class="col-md-1">
+                    <input class="text-box single-line form-control" id="MasterID" name="MasterID" type="number" value="0" />
+                    <p class="help-block"></p>
+                </div>
+                <label class="control-label col-md-1">成员编号</label>
+                <div class="col-md-3">
+                    <input class="form-control" id="Members" name="Members" type="text" value="" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">计划开始时间</label>
+                <div class="col-md-1">
+                    <input class="form-control" id="PlanTime" name="PlanTime" type="text" value="0001-01-01 00:00:00" />
+                    <p class="help-block"></p>
+                </div>
+                <label class="control-label col-md-1">计划工作日</label>
+                <div class="col-md-1">
+                    <input class="text-box single-line form-control" id="PlanCost" name="PlanCost" type="number" value="0" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">开始时间</label>
+                <div class="col-md-1">
+                    <input class="form-control" id="StartTime" name="StartTime" type="text" value="0001-01-01 00:00:00" />
+                    <p class="help-block"></p>
+                </div>
+                <label class="control-label col-md-1">结束时间</label>
+                <div class="col-md-1">
+                    <input class="form-control" id="EndTime" name="EndTime" type="text" value="0001-01-01 00:00:00" />
+                    <p class="help-block"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">实际工作日</label>
+                <div class="col-md-1">
+                    <input class="text-box single-line form-control" id="Cost" name="Cost" type="number" value="0" />
+                    <p class="help-block"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">浏览数</label>
+                <div class="col-md-1">
+                    <input class="text-box single-line form-control" id="Views" name="Views" type="number" value="0" />
+                    <p class="help-block"></p>
+                </div>
+                <label class="control-label col-md-1">修改次数</label>
+                <div class="col-md-1">
+                    <input class="text-box single-line form-control" id="Historys" name="Historys" type="number" value="0" />
+                    <p class="help-block"></p>
+                </div>
+                <label class="control-label col-md-1">评论数</label>
+                <div class="col-md-1">
+                    <input class="text-box single-line form-control" id="Comments" name="Comments" type="number" value="0" />
+                    <p class="help-block"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">创建者</label>
+                <div class="col-md-1">
+                    <input class="text-box single-line form-control" id="CreateUserID" name="CreateUserID" type="number" value="1" />
+                    <p class="help-block"></p>
+                </div>
+                <label class="control-label col-md-1">创建时间</label>
+                <div class="col-md-1">
+                    <input class="form-control" id="CreateTime" name="CreateTime" type="text" value="2015-04-24 17:57:02" />
+                    <p class="help-block"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">更新者</label>
+                <div class="col-md-1">
+                    <input class="text-box single-line form-control" id="UpdateUserID" name="UpdateUserID" type="number" value="0" />
+                    <p class="help-block"></p>
+                </div>
+                <label class="control-label col-md-1">更新时间</label>
+                <div class="col-md-1">
+                    <input class="form-control" id="UpdateTime" name="UpdateTime" type="text" value="0001-01-01 00:00:00" />
+                    <p class="help-block"></p>
+                </div>
+            </div>
+            <div class="form-actions">
+                <label class="control-label col-md-2"></label>
+                <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-@(isNew ? "plus" : "save")"></i><strong>@(isNew ? "新增" : "保存")</strong></button>
+                <button type="button" class="btn btn-danger" onclick="history.go(-1);"><i class="glyphicon glyphicon-remove"></i><strong>取消</strong></button>
+            </div>
+        }
+    </div>
+</div>
