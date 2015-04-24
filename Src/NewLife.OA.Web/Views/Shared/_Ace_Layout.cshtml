@@ -105,7 +105,10 @@
     <script src="~/Content/My97DatePicker/WdatePicker.js"></script>
     <script>
         // 给所有type=date的input加上事件
-        $("input[type=date]").click(function () { WdatePicker({ skin: 'whyGreen' }); });
+        var dt = $("input[type=date]");
+        if (!dt.data("click")) {
+            dt.click(function () { WdatePicker({ skin: 'whyGreen' }); });
+        }
     </script>
 </body>
 </html>
