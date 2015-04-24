@@ -72,6 +72,8 @@
     <link rel="stylesheet" href="~/bootstrap/css/bootstrap-select.min.css" type="text/css" />
     <script src="~/bootstrap/js/bootstrap-select.min.js"></script>
     <script src="~/bootstrap/js/i18n/defaults-zh_CN.min.js"></script>
+
+    @RenderSection("css", required: false)
 </head>
 <body>
     <div class="panel panel-default">
@@ -98,5 +100,12 @@
     </div>
     @Scripts.Render("~/bootstrap_js")
     @RenderSection("scripts", required: false)
+
+    <!--日历控件支持-->
+    <script src="~/Content/My97DatePicker/WdatePicker.js"></script>
+    <script>
+        // 给所有type=date的input加上事件
+        $("input[type=date]").click(WdatePicker);
+    </script>
 </body>
 </html>
