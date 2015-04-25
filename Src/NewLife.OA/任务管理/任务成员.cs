@@ -68,12 +68,36 @@ namespace NewLife.OA
             set { if (OnPropertyChanging(__.Kind, value)) { _Kind = value; OnPropertyChanged(__.Kind); } }
         }
 
+        private Int32 _Views;
+        /// <summary>浏览数</summary>
+        [DisplayName("浏览数")]
+        [Description("浏览数")]
+        [DataObjectField(false, false, true, 10)]
+        [BindColumn(5, "Views", "浏览数", null, "int", 10, 0, false)]
+        public virtual Int32 Views
+        {
+            get { return _Views; }
+            set { if (OnPropertyChanging(__.Views, value)) { _Views = value; OnPropertyChanged(__.Views); } }
+        }
+
+        private Int32 _Historys;
+        /// <summary>修改次数</summary>
+        [DisplayName("修改次数")]
+        [Description("修改次数")]
+        [DataObjectField(false, false, true, 10)]
+        [BindColumn(6, "Historys", "修改次数", null, "int", 10, 0, false)]
+        public virtual Int32 Historys
+        {
+            get { return _Historys; }
+            set { if (OnPropertyChanging(__.Historys, value)) { _Historys = value; OnPropertyChanged(__.Historys); } }
+        }
+
         private DateTime _LastViewTime;
         /// <summary>最后查看时间</summary>
         [DisplayName("最后查看时间")]
         [Description("最后查看时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(5, "LastViewTime", "最后查看时间", null, "datetime", 3, 0, false)]
+        [BindColumn(7, "LastViewTime", "最后查看时间", null, "datetime", 3, 0, false)]
         public virtual DateTime LastViewTime
         {
             get { return _LastViewTime; }
@@ -85,7 +109,7 @@ namespace NewLife.OA
         [DisplayName("最后更新时间")]
         [Description("最后更新时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(6, "LastUpdateTime", "最后更新时间", null, "datetime", 3, 0, false)]
+        [BindColumn(8, "LastUpdateTime", "最后更新时间", null, "datetime", 3, 0, false)]
         public virtual DateTime LastUpdateTime
         {
             get { return _LastUpdateTime; }
@@ -111,6 +135,8 @@ namespace NewLife.OA
                     case __.WorkTaskID : return _WorkTaskID;
                     case __.MemberID : return _MemberID;
                     case __.Kind : return _Kind;
+                    case __.Views : return _Views;
+                    case __.Historys : return _Historys;
                     case __.LastViewTime : return _LastViewTime;
                     case __.LastUpdateTime : return _LastUpdateTime;
                     default: return base[name];
@@ -124,6 +150,8 @@ namespace NewLife.OA
                     case __.WorkTaskID : _WorkTaskID = Convert.ToInt32(value); break;
                     case __.MemberID : _MemberID = Convert.ToInt32(value); break;
                     case __.Kind : _Kind = Convert.ToInt32(value); break;
+                    case __.Views : _Views = Convert.ToInt32(value); break;
+                    case __.Historys : _Historys = Convert.ToInt32(value); break;
                     case __.LastViewTime : _LastViewTime = Convert.ToDateTime(value); break;
                     case __.LastUpdateTime : _LastUpdateTime = Convert.ToDateTime(value); break;
                     default: base[name] = value; break;
@@ -148,6 +176,12 @@ namespace NewLife.OA
             ///<summary>种类</summary>
             public static readonly Field Kind = FindByName(__.Kind);
 
+            ///<summary>浏览数</summary>
+            public static readonly Field Views = FindByName(__.Views);
+
+            ///<summary>修改次数</summary>
+            public static readonly Field Historys = FindByName(__.Historys);
+
             ///<summary>最后查看时间</summary>
             public static readonly Field LastViewTime = FindByName(__.LastViewTime);
 
@@ -171,6 +205,12 @@ namespace NewLife.OA
 
             ///<summary>种类</summary>
             public const String Kind = "Kind";
+
+            ///<summary>浏览数</summary>
+            public const String Views = "Views";
+
+            ///<summary>修改次数</summary>
+            public const String Historys = "Historys";
 
             ///<summary>最后查看时间</summary>
             public const String LastViewTime = "LastViewTime";
@@ -197,6 +237,12 @@ namespace NewLife.OA
 
         /// <summary>种类</summary>
         Int32 Kind { get; set; }
+
+        /// <summary>浏览数</summary>
+        Int32 Views { get; set; }
+
+        /// <summary>修改次数</summary>
+        Int32 Historys { get; set; }
 
         /// <summary>最后查看时间</summary>
         DateTime LastViewTime { get; set; }

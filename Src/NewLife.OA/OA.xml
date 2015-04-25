@@ -37,6 +37,8 @@
       <Column Name="WorkTaskID" DataType="Int32" Description="任务" />
       <Column Name="MemberID" DataType="Int32" Description="成员" />
       <Column Name="Kind" DataType="Int32" Description="种类" />
+      <Column Name="Views" DataType="Int32" Description="浏览数" />
+      <Column Name="Historys" DataType="Int32" Description="修改次数" />
       <Column Name="LastViewTime" DataType="DateTime" Description="最后查看时间" />
       <Column Name="LastUpdateTime" DataType="DateTime" Description="最后更新时间" />
     </Columns>
