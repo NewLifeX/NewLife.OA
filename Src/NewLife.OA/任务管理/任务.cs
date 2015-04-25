@@ -57,11 +57,11 @@ namespace NewLife.OA
         }
 
         private Int32 _Score;
-        /// <summary>积分。任务的权重，非常重要，特别在于子任务</summary>
+        /// <summary>积分。任务的权重，父任务权重等于子任务总和</summary>
         [DisplayName("积分")]
-        [Description("积分。任务的权重，非常重要，特别在于子任务")]
+        [Description("积分。任务的权重，父任务权重等于子任务总和")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(4, "Score", "积分。任务的权重，非常重要，特别在于子任务", null, "int", 10, 0, false)]
+        [BindColumn(4, "Score", "积分。任务的权重，父任务权重等于子任务总和", null, "int", 10, 0, false)]
         public virtual Int32 Score
         {
             get { return _Score; }
@@ -188,24 +188,12 @@ namespace NewLife.OA
             set { if (OnPropertyChanging(__.MasterID, value)) { _MasterID = value; OnPropertyChanged(__.MasterID); } }
         }
 
-        private String _Members;
-        /// <summary>成员编号。字符串存储，逗号分割</summary>
-        [DisplayName("成员编号")]
-        [Description("成员编号。字符串存储，逗号分割")]
-        [DataObjectField(false, false, true, 50)]
-        [BindColumn(15, "Members", "成员编号。字符串存储，逗号分割", null, "nvarchar(50)", 0, 0, true)]
-        public virtual String Members
-        {
-            get { return _Members; }
-            set { if (OnPropertyChanging(__.Members, value)) { _Members = value; OnPropertyChanged(__.Members); } }
-        }
-
         private Int32 _Views;
         /// <summary>浏览数</summary>
         [DisplayName("浏览数")]
         [Description("浏览数")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(16, "Views", "浏览数", null, "int", 10, 0, false)]
+        [BindColumn(15, "Views", "浏览数", null, "int", 10, 0, false)]
         public virtual Int32 Views
         {
             get { return _Views; }
@@ -217,7 +205,7 @@ namespace NewLife.OA
         [DisplayName("修改次数")]
         [Description("修改次数")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(17, "Historys", "修改次数", null, "int", 10, 0, false)]
+        [BindColumn(16, "Historys", "修改次数", null, "int", 10, 0, false)]
         public virtual Int32 Historys
         {
             get { return _Historys; }
@@ -229,7 +217,7 @@ namespace NewLife.OA
         [DisplayName("评论数")]
         [Description("评论数")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(18, "Comments", "评论数", null, "int", 10, 0, false)]
+        [BindColumn(17, "Comments", "评论数", null, "int", 10, 0, false)]
         public virtual Int32 Comments
         {
             get { return _Comments; }
@@ -241,7 +229,7 @@ namespace NewLife.OA
         [DisplayName("创建者")]
         [Description("创建者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(19, "CreateUserID", "创建者", null, "int", 10, 0, false)]
+        [BindColumn(18, "CreateUserID", "创建者", null, "int", 10, 0, false)]
         public virtual Int32 CreateUserID
         {
             get { return _CreateUserID; }
@@ -253,7 +241,7 @@ namespace NewLife.OA
         [DisplayName("创建时间")]
         [Description("创建时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(20, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
+        [BindColumn(19, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
         public virtual DateTime CreateTime
         {
             get { return _CreateTime; }
@@ -265,7 +253,7 @@ namespace NewLife.OA
         [DisplayName("更新者")]
         [Description("更新者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(21, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
+        [BindColumn(20, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
         public virtual Int32 UpdateUserID
         {
             get { return _UpdateUserID; }
@@ -277,7 +265,7 @@ namespace NewLife.OA
         [DisplayName("更新时间")]
         [Description("更新时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(22, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
+        [BindColumn(21, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
         public virtual DateTime UpdateTime
         {
             get { return _UpdateTime; }
@@ -313,7 +301,6 @@ namespace NewLife.OA
                     case __.Cost : return _Cost;
                     case __.Progress : return _Progress;
                     case __.MasterID : return _MasterID;
-                    case __.Members : return _Members;
                     case __.Views : return _Views;
                     case __.Historys : return _Historys;
                     case __.Comments : return _Comments;
@@ -342,7 +329,6 @@ namespace NewLife.OA
                     case __.Cost : _Cost = Convert.ToInt32(value); break;
                     case __.Progress : _Progress = Convert.ToInt32(value); break;
                     case __.MasterID : _MasterID = Convert.ToInt32(value); break;
-                    case __.Members : _Members = Convert.ToString(value); break;
                     case __.Views : _Views = Convert.ToInt32(value); break;
                     case __.Historys : _Historys = Convert.ToInt32(value); break;
                     case __.Comments : _Comments = Convert.ToInt32(value); break;
@@ -369,7 +355,7 @@ namespace NewLife.OA
             ///<summary>父任务。顶级任务的父任务为0</summary>
             public static readonly Field ParentID = FindByName(__.ParentID);
 
-            ///<summary>积分。任务的权重，非常重要，特别在于子任务</summary>
+            ///<summary>积分。任务的权重，父任务权重等于子任务总和</summary>
             public static readonly Field Score = FindByName(__.Score);
 
             ///<summary>优先级。数字越大优先级越高</summary>
@@ -401,9 +387,6 @@ namespace NewLife.OA
 
             ///<summary>负责人</summary>
             public static readonly Field MasterID = FindByName(__.MasterID);
-
-            ///<summary>成员编号。字符串存储，逗号分割</summary>
-            public static readonly Field Members = FindByName(__.Members);
 
             ///<summary>浏览数</summary>
             public static readonly Field Views = FindByName(__.Views);
@@ -441,7 +424,7 @@ namespace NewLife.OA
             ///<summary>父任务。顶级任务的父任务为0</summary>
             public const String ParentID = "ParentID";
 
-            ///<summary>积分。任务的权重，非常重要，特别在于子任务</summary>
+            ///<summary>积分。任务的权重，父任务权重等于子任务总和</summary>
             public const String Score = "Score";
 
             ///<summary>优先级。数字越大优先级越高</summary>
@@ -473,9 +456,6 @@ namespace NewLife.OA
 
             ///<summary>负责人</summary>
             public const String MasterID = "MasterID";
-
-            ///<summary>成员编号。字符串存储，逗号分割</summary>
-            public const String Members = "Members";
 
             ///<summary>浏览数</summary>
             public const String Views = "Views";
@@ -515,7 +495,7 @@ namespace NewLife.OA
         /// <summary>父任务。顶级任务的父任务为0</summary>
         Int32 ParentID { get; set; }
 
-        /// <summary>积分。任务的权重，非常重要，特别在于子任务</summary>
+        /// <summary>积分。任务的权重，父任务权重等于子任务总和</summary>
         Int32 Score { get; set; }
 
         /// <summary>优先级。数字越大优先级越高</summary>
@@ -547,9 +527,6 @@ namespace NewLife.OA
 
         /// <summary>负责人</summary>
         Int32 MasterID { get; set; }
-
-        /// <summary>成员编号。字符串存储，逗号分割</summary>
-        String Members { get; set; }
 
         /// <summary>浏览数</summary>
         Int32 Views { get; set; }
