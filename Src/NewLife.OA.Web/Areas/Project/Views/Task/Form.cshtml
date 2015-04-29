@@ -37,116 +37,81 @@
             @Html.AntiForgeryToken()
             @Html.ValidationSummary()
             <div class="form-group">
-                <label class="control-label col-md-1">名称</label>
-                <div class="col-md-3">
-                    <input class="form-control" id="Name" name="Name" type="text" value="" />
-                    <p class="help-block"></p>
+                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Name))
+            </div>
+            <div class="form-group">
+                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Remark))
+            </div>
+            <div class="form-group">
+                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Status))
+                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Progress))
+            </div>
+            <div class="form-group">
+                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Priority))
+                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Score))
+            </div>
+            <div class="form-group">
+                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.MasterID))
+                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Score))
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">计划开始时间</label>
+                <div class="input-group col-md-2" style="float: left">
+                    @Html.DateTimeFor(m=>m.PlanTime)
+                </div>
+                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.PlanCost))
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">开始时间</label>
+                <div class="input-group col-md-2" style="float: left">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    @Html.TextBox(WorkTask._.StartTime.Name, Model.StartTime == DateTime.MinValue ? null : Model.StartTime.ToFullString(), new { @class = "form-control date form_datetime", @type = "date" })
+                </div>
+                <label class="control-label col-md-2">结束时间</label>
+                <div class="input-group col-md-2">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    @Html.TextBox(WorkTask._.EndTime.Name, Model.EndTime == DateTime.MinValue ? null : Model.EndTime.ToFullString(), new { @class = "form-control date form_datetime", @type = "date" })
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-md-1">内容</label>
-                <div class="col-md-5">
-                    <textarea class="form-control" cols="20" id="Remark" name="Remark" rows="4"></textarea>
-                    <p class="help-block"></p>
-                </div>
+                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Cost))
             </div>
             <div class="form-group">
-                <label class="control-label col-md-1">状态</label>
+                <label class="control-label col-md-2">浏览数</label>
                 <div class="col-md-1">
-                    <input class="text-box single-line form-control" id="Status" name="Status" type="number" value="0" />
-                </div>
-                <label class="control-label col-md-1">进度</label>
-                <div class="col-md-1">
-                    <input class="text-box single-line form-control" id="Progress" name="Progress" type="number" value="0" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-1">优先级</label>
-                <div class="col-md-1">
-                    <input class="text-box single-line form-control" id="Priority" name="Priority" type="number" value="0" />
-                </div>
-                <label class="control-label col-md-1">权重</label>
-                <div class="col-md-1">
-                    <input class="text-box single-line form-control" id="Score" name="Score" type="number" value="0" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-1">负责人</label>
-                <div class="col-md-1">
-                    <input class="text-box single-line form-control" id="MasterID" name="MasterID" type="number" value="0" />
-                    <p class="help-block"></p>
-                </div>
-                <label class="control-label col-md-1">成员编号</label>
-                <div class="col-md-3">
-                    <input class="form-control" id="Members" name="Members" type="text" value="" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-1">计划开始时间</label>
-                <div class="col-md-1">
-                    <input class="form-control" id="PlanTime" name="PlanTime" type="text" value="0001-01-01 00:00:00" />
-                    <p class="help-block"></p>
-                </div>
-                <label class="control-label col-md-1">计划工作日</label>
-                <div class="col-md-1">
-                    <input class="text-box single-line form-control" id="PlanCost" name="PlanCost" type="number" value="0" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-1">开始时间</label>
-                <div class="col-md-1">
-                    <input class="form-control" id="StartTime" name="StartTime" type="date" value="0001-01-01 00:00:00" />
-                    <p class="help-block"></p>
-                </div>
-                <label class="control-label col-md-1">结束时间</label>
-                <div class="col-md-1">
-                    <input class="form-control" id="EndTime" name="EndTime" type="date" value="0001-01-01 00:00:00" />
-                    <p class="help-block"></p>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-1">实际工作日</label>
-                <div class="col-md-1">
-                    <input class="text-box single-line form-control" id="Cost" name="Cost" type="number" value="0" />
-                    <p class="help-block"></p>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-1">浏览数</label>
-                <div class="col-md-1">
-                    @Html.DisplayFor(m => m.Views)
+                    @Model.Views.ToString("n0")
                 </div>
                 <label class="control-label col-md-1">修改次数</label>
                 <div class="col-md-1">
-                    @Html.DisplayFor(m => m.Historys)
+                    @Model.Historys.ToString("n0")
                 </div>
                 <label class="control-label col-md-1">评论数</label>
                 <div class="col-md-1">
-                    @Html.DisplayFor(m => m.Comments)
+                    @Model.Comments.ToString("n0")
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-md-1">创建者</label>
-                <div class="col-md-1">
-                    @Html.DisplayFor(m => m.CreateUserID)
+                <label class="control-label col-md-2">创建者</label>
+                <div class="col-md-2">
+                    @Model.CreateName
                 </div>
-                <label class="control-label col-md-1">创建时间</label>
-                <div class="col-md-1">
-                    @Html.DisplayFor(m => m.CreateTime)
+                <label class="control-label col-md-2">创建时间</label>
+                <div class="col-md-2">
+                    @Model.CreateTime.ToFullString()
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-md-1">更新者</label>
-                <div class="col-md-1">
-                    @Html.DisplayFor(m => m.UpdateUserID)
+                <label class="control-label col-md-2">更新者</label>
+                <div class="col-md-2">
+                    @Model.UpdateUserID
                 </div>
-                <label class="control-label col-md-1">更新时间</label>
-                <div class="col-md-1">
-                    @Html.DisplayFor(m => m.UpdateTime)
+                <label class="control-label col-md-2">更新时间</label>
+                <div class="col-md-2">
+                    @(Model.UpdateTime > DateTime.MinValue ? Model.UpdateTime.ToFullString() : null)
                 </div>
             </div>
             <div class="form-actions">
-                <label class="control-label col-md-2"></label>
+                <label class="control-label col-md-4"></label>
                 <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-@(isNew ? "plus" : "save")"></i><strong>@(isNew ? "新增" : "保存")</strong></button>
                 <button type="button" class="btn btn-danger" onclick="history.go(-1);"><i class="glyphicon glyphicon-remove"></i><strong>取消</strong></button>
             </div>
