@@ -3,26 +3,8 @@
 @using XCode.Configuration
 @{
     Layout = "~/Views/Shared/_Ace_Layout.cshtml";
-    var fact = EntityFactory.CreateOperate(ViewData.ModelMetadata.ModelType);
+    var fact = ViewBag.Factory as IEntityOperate;
     var isNew = (Model as IEntity).IsNullKey;
-}
-
-@functions {
-
-    String GetWidth(FieldItem item)
-    {
-        switch (Type.GetTypeCode(item.Type))
-        {
-            case TypeCode.Boolean:
-                return "col-md-3";
-            case TypeCode.String:
-                if (item.Length <= 0 || item.Length > 300)
-                    return "col-md-5";
-                else
-                    return "col-md-3";
-        }
-        return "col-md-1";
-    }
 }
 <div class="panel panel-default">
     <div class="form-horizontal">
@@ -42,16 +24,12 @@
                 if (!item.PrimaryKey)
                 {
                     <div class="form-group">
-                        <label class="control-label col-md-1">@item.DisplayName</label>
-                        <div class="@GetWidth(item)">
-                            @Html.Partial("_Form_Item", new Pair(Model, item))
-                            <p class="help-block">@(item.Description.TrimStart(item.DisplayName).TrimStart("。"))</p>
-                        </div>
+                        @Html.Partial("_Form_Item", new Pair(Model, item))
                     </div>
                 }
             }
             <div class="form-actions">
-                <label class="control-label col-md-2"></label>
+                <label class="control-label col-md-4"></label>
                 <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-@(isNew ? "plus" : "save")"></i><strong>@(isNew ? "新增" : "保存")</strong></button>
                 <button type="button" class="btn btn-danger" onclick="history.go(-1);"><i class="glyphicon glyphicon-remove"></i><strong>取消</strong></button>
             </div>

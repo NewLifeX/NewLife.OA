@@ -45,6 +45,11 @@
             <summary>数据列表首页</summary>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Cube.EntityController`1.IndexView(NewLife.Web.Pager)">
+            <summary>列表页视图。子控制器可重载，以传递更多信息给视图，比如修改要显示的列</summary>
+            <param name="p"></param>
+            <returns></returns>
+        </member>
         <member name="M:NewLife.Cube.EntityController`1.Delete(System.Int32)">
             <summary>删除</summary>
             <param name="id"></param>
@@ -52,11 +57,16 @@
         </member>
         <member name="M:NewLife.Cube.EntityController`1.Form(System.String)">
             <summary>表单，添加/修改</summary>
-            <param name="id"></param>
+            <param name="id">主键。可能为空（表示添加），所以用字符串而不是整数</param>
             <returns></returns>
         </member>
         <member name="M:NewLife.Cube.EntityController`1.Save(`0)">
             <summary>保存</summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.EntityController`1.FormView(`0)">
+            <summary>表单页视图。子控制器可以重载，以传递更多信息给视图，比如修改要显示的列</summary>
             <param name="entity"></param>
             <returns></returns>
         </member>
@@ -66,8 +76,8 @@
         <member name="T:NewLife.Cube.Admin.Controllers.MenuController">
             <summary>菜单控制器</summary>
         </member>
-        <member name="M:NewLife.Cube.Admin.Controllers.MenuController.Index(NewLife.Web.Pager)">
-            <summary>首页</summary>
+        <member name="M:NewLife.Cube.Admin.Controllers.MenuController.IndexView(NewLife.Web.Pager)">
+            <summary>列表页视图。子控制器可重载，以传递更多信息给视图，比如修改要显示的列</summary>
             <param name="p"></param>
             <returns></returns>
         </member>
@@ -81,6 +91,11 @@
         </member>
         <member name="T:NewLife.Cube.Admin.Controllers.UserController">
             <summary>用户控制器</summary>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.UserController.IndexView(NewLife.Web.Pager)">
+            <summary>列表页视图。子控制器可重载，以传递更多信息给视图，比如修改要显示的列</summary>
+            <param name="p"></param>
+            <returns></returns>
         </member>
         <member name="T:NewLife.Cube.Admin.Controllers.IndexController">
             <summary>首页</summary>

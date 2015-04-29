@@ -1649,7 +1649,7 @@
         <member name="P:XCode.EntityBase.Addition">
             <summary>累加</summary>
         </member>
-        <member name="P:XCode.EntityBase.XCode#IEntity#IsNullKey">
+        <member name="P:XCode.EntityBase.IsNullKey">
             <summary>主键是否为空</summary>
         </member>
         <member name="M:XCode.Entity`1.#cctor">
@@ -1866,7 +1866,7 @@
         <member name="M:XCode.Entity`1.FindAll(System.String,NewLife.Web.PageParameter)">
             <summary>同时查询满足条件的记录集和记录总数。没有数据时返回空集合而不是null</summary>
             <param name="whereClause">条件，不带Where</param>
-            <param name="param"></param>
+            <param name="param">分页排序参数，同时返回满足条件的总记录数</param>
             <returns></returns>
         </member>
         <member name="M:XCode.Entity`1.FindWithCache(System.String,System.Object)">
@@ -1962,18 +1962,20 @@
         <member name="M:XCode.Entity`1.Search(System.String,NewLife.Web.PageParameter)">
             <summary>同时查询满足条件的记录集和记录总数。没有数据时返回空集合而不是null</summary>
             <param name="key"></param>
-            <param name="param"></param>
+            <param name="param">分页排序参数，同时返回满足条件的总记录数</param>
             <returns></returns>
         </member>
-        <member name="M:XCode.Entity`1.SearchWhereByKeys(System.String,System.Func{System.String,XCode.WhereExpression})">
+        <member name="M:XCode.Entity`1.SearchWhereByKeys(System.String,XCode.Configuration.FieldItem[],System.Func{System.String,XCode.Configuration.FieldItem[],XCode.WhereExpression})">
             <summary>根据空格分割的关键字集合构建查询条件</summary>
             <param name="keys">空格分割的关键字集合</param>
-            <param name="func"></param>
+            <param name="fields">要查询的字段，默认为空表示查询所有字符串字段</param>
+            <param name="func">处理每一个查询关键字的回调函数</param>
             <returns></returns>
         </member>
-        <member name="M:XCode.Entity`1.SearchWhereByKey(System.String)">
+        <member name="M:XCode.Entity`1.SearchWhereByKey(System.String,XCode.Configuration.FieldItem[])">
             <summary>构建关键字查询条件</summary>
-            <param name="key"></param>
+            <param name="key">关键字</param>
+            <param name="fields">要查询的字段，默认为空表示查询所有字符串字段</param>
             <returns></returns>
         </member>
         <member name="M:XCode.Entity`1.Insert(`0)">
@@ -5167,9 +5169,10 @@
         <member name="T:XCode.Common.Helper">
             <summary>助手类</summary>
         </member>
-        <member name="M:XCode.Common.Helper.IsNullKey(System.Object)">
+        <member name="M:XCode.Common.Helper.IsNullKey(System.Object,System.Type)">
             <summary>指定键是否为空。一般业务系统设计不允许主键为空，包括自增的0和字符串的空</summary>
-            <param name="key"></param>
+            <param name="key">键值</param>
+            <param name="type">类型</param>
             <returns></returns>
         </member>
         <member name="M:XCode.Common.Helper.IsEntityNullKey(XCode.IEntity)">
@@ -5221,6 +5224,14 @@
         </member>
         <member name="M:XCode.Configuration.TableItem.ToString">
             <summary>已重载。</summary>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.Configuration.TableItem.Add(System.String,System.Type,System.String,System.Int32)">
+            <summary>动态增加字段</summary>
+            <param name="name"></param>
+            <param name="type"></param>
+            <param name="description"></param>
+            <param name="length"></param>
             <returns></returns>
         </member>
         <member name="P:XCode.Configuration.TableItem.EntityType">
@@ -8211,6 +8222,18 @@
         <member name="T:XCode.Configuration.FieldItem">
             <summary>数据属性元数据以及特性</summary>
         </member>
+        <member name="F:XCode.Configuration.FieldItem._Property">
+            <summary>属性元数据</summary>
+        </member>
+        <member name="F:XCode.Configuration.FieldItem._Column">
+            <summary>绑定列特性</summary>
+        </member>
+        <member name="F:XCode.Configuration.FieldItem._DataObjectField">
+            <summary>数据字段特性</summary>
+        </member>
+        <member name="F:XCode.Configuration.FieldItem._ID">
+            <summary>顺序标识</summary>
+        </member>
         <member name="F:XCode.Configuration.FieldItem.COLUMNNAME_FLAG">
             <summary>字段名要过滤掉的标识符，考虑MSSQL、MySql、SQLite、Oracle等</summary>
         </member>
@@ -8358,15 +8381,6 @@
             <param name="obj"></param>
             <returns></returns>
         </member>
-        <member name="P:XCode.Configuration.FieldItem.Property">
-            <summary>属性元数据</summary>
-        </member>
-        <member name="P:XCode.Configuration.FieldItem.Column">
-            <summary>绑定列特性</summary>
-        </member>
-        <member name="P:XCode.Configuration.FieldItem.DataObjectField">
-            <summary>数据字段特性</summary>
-        </member>
         <member name="P:XCode.Configuration.FieldItem.Description">
             <summary>备注</summary>
         </member>
@@ -8377,7 +8391,7 @@
             <summary>属性类型</summary>
         </member>
         <member name="P:XCode.Configuration.FieldItem.DeclaringType">
-            <summary>属性类型</summary>
+            <summary>声明类型</summary>
         </member>
         <member name="P:XCode.Configuration.FieldItem.IsIdentity">
             <summary>是否标识列</summary>
@@ -8394,13 +8408,18 @@
         <member name="P:XCode.Configuration.FieldItem.IsDataObjectField">
             <summary>是否数据绑定列</summary>
         </member>
+        <member name="P:XCode.Configuration.FieldItem.IsDynamic">
+            <summary>是否动态字段</summary>
+        </member>
         <member name="P:XCode.Configuration.FieldItem.DisplayName">
             <summary>显示名。如果备注不为空则采用备注，否则采用属性名</summary>
         </member>
         <member name="P:XCode.Configuration.FieldItem.ColumnName">
-            <summary>用于数据绑定的字段名。
+            <summary>用于数据绑定的字段名</summary>
+            <remarks>
             默认使用BindColumn特性中指定的字段名，如果没有指定，则使用属性名。
-            </summary>
+            字段名可能两边带有方括号等标识符
+            </remarks>
         </member>
         <member name="P:XCode.Configuration.FieldItem.DefaultValue">
             <summary>默认值</summary>
