@@ -3434,10 +3434,10 @@
             <summary>电话</summary>
         </member>
         <member name="P:XCode.Membership.IUser.Code">
-            <summary>唯一代码。比如身份证、SSOID等</summary>
+            <summary>代码。身份证、员工编号等</summary>
         </member>
         <member name="P:XCode.Membership.IUser.RoleID">
-            <summary>角色。主要角色</summary>
+            <summary>角色</summary>
         </member>
         <member name="P:XCode.Membership.IUser.Logins">
             <summary>登录次数</summary>
@@ -3602,10 +3602,10 @@
             <summary>电话</summary>
         </member>
         <member name="P:XCode.Membership.User`1.Code">
-            <summary>唯一代码。比如身份证、SSOID等</summary>
+            <summary>代码。身份证、员工编号等</summary>
         </member>
         <member name="P:XCode.Membership.User`1.RoleID">
-            <summary>角色。主要角色</summary>
+            <summary>角色</summary>
         </member>
         <member name="P:XCode.Membership.User`1.Logins">
             <summary>登录次数</summary>
@@ -3653,10 +3653,10 @@
             <summary>电话</summary>
         </member>
         <member name="F:XCode.Membership.User`1._.Code">
-            <summary>唯一代码。比如身份证、SSOID等</summary>
+            <summary>代码。身份证、员工编号等</summary>
         </member>
         <member name="F:XCode.Membership.User`1._.RoleID">
-            <summary>角色。主要角色</summary>
+            <summary>角色</summary>
         </member>
         <member name="F:XCode.Membership.User`1._.Logins">
             <summary>登录次数</summary>
@@ -3695,10 +3695,10 @@
             <summary>电话</summary>
         </member>
         <member name="F:XCode.Membership.User`1.__.Code">
-            <summary>唯一代码。比如身份证、SSOID等</summary>
+            <summary>代码。身份证、员工编号等</summary>
         </member>
         <member name="F:XCode.Membership.User`1.__.RoleID">
-            <summary>角色。主要角色</summary>
+            <summary>角色</summary>
         </member>
         <member name="F:XCode.Membership.User`1.__.Logins">
             <summary>登录次数</summary>
@@ -3879,6 +3879,9 @@
             <summary>树形节点名，根据深度带全角空格前缀</summary>
         </member>
         <member name="P:XCode.EntityTree`2.TreeNodeName2">
+            <summary>树形节点名，根据深度带全角空格前缀</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.TreeNodeText">
             <summary>树形节点名，根据深度带全角空格前缀</summary>
         </member>
         <member name="P:XCode.EntityTree`2.FullPath">
@@ -10626,6 +10629,9 @@
             <summary>名称键名，如Name，否则使用第一个非自增字段</summary>
             <remarks>影响NodeName、TreeNodeName、TreeNodeName2、FindByPath、GetFullPath、GetFullPath2等</remarks>
         </member>
+        <member name="P:XCode.IEntityTreeSetting.Text">
+            <summary>文本键名</summary>
+        </member>
         <member name="P:XCode.IEntityTreeSetting.EnableCaching">
             <summary>是否缓存Childs、AllChilds、Parent等</summary>
         </member>
@@ -10653,6 +10659,9 @@
         <member name="P:XCode.EntityTreeSetting`1.Name">
             <summary>名称键名，如Name，否则使用第一个非自增字段</summary>
             <remarks>影响NodeName、TreeNodeName、TreeNodeName2、FindByPath、GetFullPath、GetFullPath2等</remarks>
+        </member>
+        <member name="P:XCode.EntityTreeSetting`1.Text">
+            <summary>文本键名</summary>
         </member>
         <member name="P:XCode.EntityTreeSetting`1.EnableCaching">
             <summary>是否缓存Childs、AllChilds、Parent等</summary>

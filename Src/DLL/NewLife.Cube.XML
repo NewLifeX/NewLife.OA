@@ -16,6 +16,10 @@
             3，注册区域默认路由
             </remarks>
         </member>
+        <member name="M:NewLife.Cube.AreaRegistrationBase.FindAllArea">
+            <summary>遍历所有引用了AreaRegistrationBase的程序集</summary>
+            <returns></returns>
+        </member>
         <member name="M:NewLife.Cube.AreaRegistrationBase.RegisterArea(System.Web.Mvc.AreaRegistrationContext)">
             <summary>注册区域</summary>
             <param name="context"></param>
@@ -26,6 +30,9 @@
         </member>
         <member name="P:NewLife.Cube.AreaRegistrationBase.AreaName">
             <summary>区域名称</summary>
+        </member>
+        <member name="P:NewLife.Cube.AreaRegistrationBase.PrecompiledEngines">
+            <summary>预编译引擎集合。便于外部设置属性</summary>
         </member>
         <member name="M:NewLife.Cube.Admin.AdminAreaRegistration.RegisterArea(System.Web.Mvc.AreaRegistrationContext)">
             <summary>注册区域</summary>
@@ -70,8 +77,23 @@
             <param name="entity"></param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.RoleController.Save(XCode.Membership.Role)">
+            <summary>保存</summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
         <member name="T:NewLife.Cube.Admin.Controllers.LogController">
             <summary>日志控制器</summary>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.LogController.Save(XCode.Membership.Log)">
+            <summary>不允许添加修改日志</summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.LogController.Delete(System.Int32)">
+            <summary>不允许删除日志</summary>
+            <param name="id"></param>
+            <returns></returns>
         </member>
         <member name="T:NewLife.Cube.Admin.Controllers.MenuController">
             <summary>菜单控制器</summary>
@@ -79,6 +101,16 @@
         <member name="M:NewLife.Cube.Admin.Controllers.MenuController.IndexView(NewLife.Web.Pager)">
             <summary>列表页视图。子控制器可重载，以传递更多信息给视图，比如修改要显示的列</summary>
             <param name="p"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.MenuController.Up(System.Int32)">
+            <summary>上升</summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.MenuController.Down(System.Int32)">
+            <summary>下降</summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="T:NewLife.Cube.Admin.Controllers.SysController">
@@ -97,6 +129,11 @@
             <param name="p"></param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.UserController.FormView(XCode.Membership.UserX)">
+            <summary>表单页视图。</summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
         <member name="T:NewLife.Cube.Admin.Controllers.IndexController">
             <summary>首页</summary>
         </member>
@@ -107,6 +144,89 @@
         <member name="M:NewLife.Cube.Admin.Controllers.IndexController.Main(System.String)">
             <summary>服务器信息</summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NewLife.Cube.HtmlExtensions">
+            <summary>Html扩展</summary>
+        </member>
+        <member name="M:NewLife.Cube.HtmlExtensions.ForEditor(System.Web.Mvc.HtmlHelper,System.String,System.Object,System.Type,System.String,System.Object)">
+            <summary>输出编辑框</summary>
+            <param name="Html"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="type"></param>
+            <param name="format"></param>
+            <param name="htmlAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.HtmlExtensions.ForEditor``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
+            <summary>输出编辑框</summary>
+            <param name="Html"></param>
+            <param name="expression"></param>
+            <param name="htmlAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.HtmlExtensions.ForString(System.Web.Mvc.HtmlHelper,System.String,System.String,System.Int32,System.Object)">
+            <summary>输出字符串</summary>
+            <param name="Html"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="length"></param>
+            <param name="htmlAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.HtmlExtensions.ForInt(System.Web.Mvc.HtmlHelper,System.String,System.Int64,System.String,System.Object)">
+            <summary>输出整数</summary>
+            <param name="Html"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="format"></param>
+            <param name="htmlAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.HtmlExtensions.ForDateTime(System.Web.Mvc.HtmlHelper,System.String,System.DateTime,System.String,System.Object)">
+            <summary>时间日期输出</summary>
+            <param name="Html"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="format"></param>
+            <param name="htmlAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.HtmlExtensions.ForDateTime``2(System.Web.Mvc.HtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Object)">
+            <summary>时间日期输出</summary>
+            <typeparam name="TModel"></typeparam>
+            <typeparam name="TProperty"></typeparam>
+            <param name="Html"></param>
+            <param name="expression"></param>
+            <param name="format"></param>
+            <param name="htmlAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.HtmlExtensions.ForBoolean(System.Web.Mvc.HtmlHelper,System.String,System.Boolean,System.Object)">
+            <summary>输出布尔型</summary>
+            <param name="Html"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="htmlAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.HtmlExtensions.ForDecimal(System.Web.Mvc.HtmlHelper,System.String,System.Decimal,System.String,System.Object)">
+            <summary>输出货币类型</summary>
+            <param name="Html"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="format"></param>
+            <param name="htmlAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.HtmlExtensions.ForDouble(System.Web.Mvc.HtmlHelper,System.String,System.Double,System.String,System.Object)">
+            <summary>输出浮点数</summary>
+            <param name="Html"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="format"></param>
+            <param name="htmlAttributes"></param>
             <returns></returns>
         </member>
         <member name="T:NewLife.Cube.RazorViewEngineX">
@@ -295,6 +415,204 @@
         </member>
         <member name="P:NewLife.Cube.Models.RegisterModel.ConfirmPassword">
             <summary>确认密码</summary>
+        </member>
+        <member name="T:NewLife.Cube.Precompiled.AssemblyExtensions">
+            <summary>程序集的扩展方法</summary>
+        </member>
+        <member name="T:NewLife.Cube.Precompiled.CompositePrecompiledMvcEngine">
+            <summary>复合预编译Mvc引擎</summary>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.CompositePrecompiledMvcEngine.#ctor(NewLife.Cube.Precompiled.PrecompiledViewAssembly[])">
+            <summary>复合预编译Mvc引擎</summary>
+            <param name="viewAssemblies"></param>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.CompositePrecompiledMvcEngine.#ctor(System.Collections.Generic.IEnumerable{NewLife.Cube.Precompiled.PrecompiledViewAssembly},System.Web.Mvc.IViewPageActivator)">
+            <summary>复合预编译Mvc引擎</summary>
+            <param name="viewAssemblies"></param>
+            <param name="viewPageActivator"></param>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.CompositePrecompiledMvcEngine.FileExists(System.Web.Mvc.ControllerContext,System.String)">
+            <summary>文件是否存在</summary>
+            <param name="controllerContext"></param>
+            <param name="virtualPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.CompositePrecompiledMvcEngine.CreatePartialView(System.Web.Mvc.ControllerContext,System.String)">
+            <summary>创建分部视图</summary>
+            <param name="controllerContext"></param>
+            <param name="partialPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.CompositePrecompiledMvcEngine.CreateView(System.Web.Mvc.ControllerContext,System.String,System.String)">
+            <summary>创建视图</summary>
+            <param name="controllerContext"></param>
+            <param name="viewPath"></param>
+            <param name="masterPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.CompositePrecompiledMvcEngine.CreateInstance(System.String)">
+            <summary>创建实例</summary>
+            <param name="virtualPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.CompositePrecompiledMvcEngine.Exists(System.String)">
+            <summary>是否存在</summary>
+            <param name="virtualPath"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NewLife.Cube.Precompiled.PrecompiledMvcEngine">
+            <summary>预编译Mvc引擎</summary>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledMvcEngine.#ctor(System.Reflection.Assembly)">
+            <summary>实例化预编译Mvc引擎</summary>
+            <param name="assembly"></param>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledMvcEngine.#ctor(System.Reflection.Assembly,System.String)">
+            <summary>实例化预编译Mvc引擎</summary>
+            <param name="assembly"></param>
+            <param name="baseVirtualPath"></param>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledMvcEngine.#ctor(System.Reflection.Assembly,System.String,System.Web.Mvc.IViewPageActivator)">
+            <summary>实例化预编译Mvc引擎</summary>
+            <param name="assembly"></param>
+            <param name="baseVirtualPath"></param>
+            <param name="viewPageActivator"></param>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledMvcEngine.FileExists(System.Web.Mvc.ControllerContext,System.String)">
+            <summary>文件是否存在</summary>
+            <param name="controllerContext"></param>
+            <param name="virtualPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledMvcEngine.CreatePartialView(System.Web.Mvc.ControllerContext,System.String)">
+            <summary>创建分部视图</summary>
+            <param name="controllerContext"></param>
+            <param name="partialPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledMvcEngine.CreateView(System.Web.Mvc.ControllerContext,System.String,System.String)">
+            <summary>创建视图</summary>
+            <param name="controllerContext"></param>
+            <param name="viewPath"></param>
+            <param name="masterPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledMvcEngine.CreateInstance(System.String)">
+            <summary>创建实例</summary>
+            <param name="virtualPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledMvcEngine.Exists(System.String)">
+            <summary>是否存在</summary>
+            <param name="virtualPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledMvcEngine.IsPhysicalFileNewer(System.String,System.String,System.Lazy{System.DateTime})">
+            <summary>是否物理文件更新</summary>
+            <param name="virtualPath"></param>
+            <param name="baseVirtualPath"></param>
+            <param name="assemblyLastWriteTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledMvcEngine.GetTypeMappings(System.Reflection.Assembly,System.String)">
+            <summary>遍历获取所有类型映射</summary>
+            <param name="asm"></param>
+            <param name="baseVirtualPath"></param>
+            <returns></returns>
+        </member>
+        <member name="P:NewLife.Cube.Precompiled.PrecompiledMvcEngine.PreemptPhysicalFiles">
+            <summary>优先使用物理文件</summary>
+        </member>
+        <member name="P:NewLife.Cube.Precompiled.PrecompiledMvcEngine.UsePhysicalViewsIfNewer">
+            <summary>使用更新的物理文件</summary>
+        </member>
+        <member name="T:NewLife.Cube.Precompiled.PrecompiledMvcView">
+            <summary>预编译视图</summary>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledMvcView.#ctor(System.String,System.String,System.Type,System.Boolean,System.Collections.Generic.IEnumerable{System.String},System.Web.Mvc.IViewPageActivator)">
+            <summary>实例化预编译视图</summary>
+            <param name="virtualPath"></param>
+            <param name="masterPath"></param>
+            <param name="type"></param>
+            <param name="runViewStartPages"></param>
+            <param name="fileExtension"></param>
+            <param name="viewPageActivator"></param>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledMvcView.Render(System.Web.Mvc.ViewContext,System.IO.TextWriter)">
+            <summary>生成视图内容</summary>
+            <param name="viewContext"></param>
+            <param name="writer"></param>
+        </member>
+        <member name="P:NewLife.Cube.Precompiled.PrecompiledMvcView.RunViewStartPages">
+            <summary>是否运行视图开始页ViewStart</summary>
+        </member>
+        <member name="P:NewLife.Cube.Precompiled.PrecompiledMvcView.ViewStartFileExtensions">
+            <summary>视图开始页扩展</summary>
+        </member>
+        <member name="P:NewLife.Cube.Precompiled.PrecompiledMvcView.VirtualPath">
+            <summary>虚拟路径</summary>
+        </member>
+        <member name="T:NewLife.Cube.Precompiled.PrecompiledViewAssembly">
+            <summary>预编译视图程序集</summary>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledViewAssembly.#ctor(System.Reflection.Assembly)">
+            <summary>实例化预编译视图程序集</summary>
+            <param name="assembly"></param>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledViewAssembly.#ctor(System.Reflection.Assembly,System.String)">
+            <summary>实例化预编译视图程序集</summary>
+            <param name="assembly"></param>
+            <param name="baseVirtualPath"></param>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledViewAssembly.OfType``1(System.String,System.Boolean,System.Boolean)">
+            <summary>为指定类型所在程序集创建实例</summary>
+            <typeparam name="T"></typeparam>
+            <param name="baseVirtualPath"></param>
+            <param name="usePhysicalViewsIfNewer"></param>
+            <param name="preemptPhysicalFiles"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledViewAssembly.OfType``1(System.Boolean,System.Boolean)">
+            <summary>为指定类型所在程序集创建实例</summary>
+            <typeparam name="T"></typeparam>
+            <param name="usePhysicalViewsIfNewer"></param>
+            <param name="preemptPhysicalFiles"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledViewAssembly.GetTypeMappings">
+            <summary>遍历获取所有类型映射</summary>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledViewAssembly.IsPhysicalFileNewer(System.String)">
+            <summary>物理文件是否更新</summary>
+            <param name="virtualPath"></param>
+            <returns></returns>
+        </member>
+        <member name="P:NewLife.Cube.Precompiled.PrecompiledViewAssembly.PreemptPhysicalFiles">
+            <summary>优先使用物理文件</summary>
+        </member>
+        <member name="P:NewLife.Cube.Precompiled.PrecompiledViewAssembly.UsePhysicalViewsIfNewer">
+            <summary>使用更新的物理文件</summary>
+        </member>
+        <member name="T:NewLife.Cube.Precompiled.PrecompiledViewLocationCache">
+            <summary>预编译视图程序集缓存</summary>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledViewLocationCache.#ctor(System.String,System.Web.Mvc.IViewLocationCache)">
+            <summary>实例化</summary>
+            <param name="assemblyName"></param>
+            <param name="innerCache"></param>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledViewLocationCache.GetViewLocation(System.Web.HttpContextBase,System.String)">
+            <summary>获取视图位置</summary>
+            <param name="httpContext"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Precompiled.PrecompiledViewLocationCache.InsertViewLocation(System.Web.HttpContextBase,System.String,System.String)">
+            <summary>插入视图位置</summary>
+            <param name="httpContext"></param>
+            <param name="key"></param>
+            <param name="virtualPath"></param>
         </member>
     </members>
 </doc>
