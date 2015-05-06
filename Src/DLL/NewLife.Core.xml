@@ -474,6 +474,9 @@
         <member name="P:NewLife.Collections.SafeStack`1.Capacity">
             <summary>最大容量</summary>
         </member>
+        <member name="P:NewLife.Collections.SafeStack`1.Avg">
+            <summary>平均</summary>
+        </member>
         <member name="T:NewLife.Collections.ISafeStackItem">
             <summary>安全栈项接口。采用安全栈存储的数据必须实现该接口</summary>
         </member>

@@ -287,17 +287,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Areas\Admin\Views\Index\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Index\Main.cshtml" />
-    <Content Include="Areas\Admin\Views\Index\_Left.cshtml" />
-    <Content Include="Areas\Admin\Views\Index\_Navbar.cshtml" />
-    <Content Include="Areas\Admin\Views\Menu\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Role\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Sys\SysConfig.cshtml" />
-    <Content Include="Areas\Admin\Views\User\Form.cshtml" />
-    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Web.config" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Project\Views\Web.config" />
     <Content Include="Areas\Project\Views\Task\Form.cshtml" />
     <Content Include="Areas\Project\Views\_ViewStart.cshtml" />
@@ -341,25 +330,14 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Form.cshtml" />
     <Content Include="Views\Shared\Index.cshtml" />
-    <Content Include="Views\Shared\_Ace_Layout.cshtml" />
-    <Content Include="Views\Shared\_Form_Item.cshtml" />
-    <Content Include="Views\Shared\_List_Data.cshtml" />
-    <Content Include="Views\Shared\_List_Data_Action.cshtml" />
-    <Content Include="Views\Shared\_List_Data_Item.cshtml" />
-    <Content Include="Views\Shared\_List_Pager.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_List_Pager1.cshtml" />
-    <Content Include="Views\Shared\_List_Toolbar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Project\Models\" />

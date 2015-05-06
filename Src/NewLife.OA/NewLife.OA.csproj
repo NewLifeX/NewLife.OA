@@ -53,7 +53,9 @@
     <Compile Include="任务管理\任务评论.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OA.xml" />
+    <Content Include="OA.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="XCoder.log">
