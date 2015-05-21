@@ -46,7 +46,7 @@ namespace NewLife.OA
         [DisplayName("标题")]
         [Description("标题")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn(3, "Title", "标题", null, "nvarchar(50)", 0, 0, true)]
+        [BindColumn(3, "Title", "标题", null, "nvarchar(50)", 0, 0, true, Master=true)]
         public virtual String Title
         {
             get { return _Title; }
