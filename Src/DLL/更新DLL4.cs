@@ -1,30 +1,17 @@
-﻿// 自动选择最新的文件源
-var src = @"C:\X\DLL4".AsDirectory();
-var src2 = @"C:\X\Bin4".AsDirectory();
-if(src.LastWriteTime < src2.LastWriteTime) src = src2;
-src2 = @"E:\X\DLL4".AsDirectory();
-if(src.LastWriteTime < src2.LastWriteTime) src = src2;
-src2 = @"E:\X\Bin4".AsDirectory();
-if(src.LastWriteTime < src2.LastWriteTime) src = src2;
-
-var di = ".".AsDirectory();
-var root = di.FullName.EnsureEnd("\\");
-
-Console.WriteLine("复制 {0} => {1}", src.FullName, root);
-
-foreach(var fi in di.GetAllFiles("*.dll;*.exe;*.xml;*.pdb;*.cs"))
+// 自动选择最新的文件源
+var srcs = new String[] { @"..\Bin4", @"C:\X\DLL4", @"C:\X\Bin4", @"E:\X\DLL4", @"E:\X\Bin4" };
+var cur = ".".GetFullPath();
+foreach (var item in srcs)
 {
-	var fileName = fi.FullName.TrimStart(root);
-	//Console.WriteLine(fileName);
-	var srcFile = src.FullName.CombinePath(fileName).AsFile();
-	// 源文件必须存在，并且比当前文件要新
-	if(!srcFile.Exists || srcFile.LastWriteTime <= fi.LastWriteTime) continue;
-	
-	try
-	{
-		Console.Write(fileName);
-	    srcFile.CopyTo(fi.FullName, true);
-		Console.WriteLine("\tOK!");
-	}
-	catch(Exception ex) { Console.WriteLine(" " + ex.Message); }
+    // 跳过当前目录
+    if (item.EqualIgnoreCase(cur)) continue;
+
+    Console.WriteLine("复制 {0} => {1}", item, cur);
+
+    try
+    {
+        item.AsDirectory().CopyToIfNewer(cur, "*.dll;*.exe;*.xml;*.pdb;*.cs", false,
+            name => Console.WriteLine("\t{1}\t{0}", name, item.CombinePath(name).AsFile().LastWriteTime.ToFullString()));
+    }
+    catch (Exception ex) { Console.WriteLine(" " + ex.Message); }
 }

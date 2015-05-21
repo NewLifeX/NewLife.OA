@@ -474,9 +474,6 @@
         <member name="P:NewLife.Collections.SafeStack`1.Capacity">
             <summary>最大容量</summary>
         </member>
-        <member name="P:NewLife.Collections.SafeStack`1.Avg">
-            <summary>平均</summary>
-        </member>
         <member name="T:NewLife.Collections.ISafeStackItem">
             <summary>安全栈项接口。采用安全栈存储的数据必须实现该接口</summary>
         </member>
@@ -1600,16 +1597,18 @@
             <summary>把Zip格式数据写入到文件中</summary>
             <param name="fileName"></param>
         </member>
-        <member name="M:NewLife.Compression.ZipFile.Extract(System.String,System.Boolean)">
+        <member name="M:NewLife.Compression.ZipFile.Extract(System.String,System.Boolean,System.Boolean)">
             <summary>解压缩</summary>
             <param name="outputPath">目标路径</param>
             <param name="overrideExisting">是否覆盖已有文件</param>
+            <param name="throwException"></param>
         </member>
-        <member name="M:NewLife.Compression.ZipFile.Extract(System.String,System.String,System.Boolean)">
+        <member name="M:NewLife.Compression.ZipFile.Extract(System.String,System.String,System.Boolean,System.Boolean)">
             <summary>快速解压缩</summary>
             <param name="fileName"></param>
             <param name="outputPath"></param>
             <param name="overrideExisting"></param>
+            <param name="throwException"></param>
         </member>
         <member name="M:NewLife.Compression.ZipFile.AddFile(System.String,System.String,System.Nullable{System.Boolean})">
             <summary>添加文件。
@@ -1798,6 +1797,9 @@
             Code taken from Castle Project's Castle.Core Library
             &lt;a href="http://www.castleproject.org/"&gt;Castle Project's Castle.Core Library&lt;/a&gt;
             </remarks>
+        </member>
+        <member name="M:NewLife.Extension.SpeakProvider.CheckVoice">
+            <summary>检查是否安装了语音库</summary>
         </member>
         <member name="T:System.Linq.EnumerableEx">
             <summary>
@@ -2600,6 +2602,12 @@
             <param name="encoding"></param>
             <returns></returns>
         </member>
+        <member name="M:System.IO.PathHelper.CopyToIfNewer(System.IO.FileInfo,System.String)">
+            <summary>复制到目标文件，目标文件必须已存在，且源文件较新</summary>
+            <param name="fi">源文件</param>
+            <param name="destFileName">目标文件</param>
+            <returns></returns>
+        </member>
         <member name="M:System.IO.PathHelper.AsDirectory(System.String)">
             <summary>路径作为目录信息</summary>
             <param name="dir"></param>
@@ -2608,8 +2616,17 @@
         <member name="M:System.IO.PathHelper.GetAllFiles(System.IO.DirectoryInfo,System.String,System.Boolean)">
             <summary>获取目录内所有符合条件的文件，支持多文件扩展匹配</summary>
             <param name="di">目录</param>
-            <param name="exts">文件扩展列表。比如*.exe|*.dll|*.config</param>
+            <param name="exts">文件扩展列表。比如*.exe;*.dll;*.config</param>
             <param name="allSub">是否包含所有子孙目录文件</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.IO.PathHelper.CopyToIfNewer(System.IO.DirectoryInfo,System.String,System.String,System.Boolean,System.Action{System.String})">
+            <summary>对比源目录和目标目录，复制双方都存在且源目录较新的文件</summary>
+            <param name="di">源目录</param>
+            <param name="destDirName">目标目录</param>
+            <param name="exts">文件扩展列表。比如*.exe;*.dll;*.config</param>
+            <param name="allSub">是否包含所有子孙目录文件</param>
+            <param name="callback">复制每一个文件之前的回调</param>
             <returns></returns>
         </member>
         <member name="P:System.IO.PathHelper.BaseDirectory">
@@ -2855,6 +2872,24 @@
         </member>
         <member name="F:NewLife.Log.LogLevel.Off">
             <summary>关闭所有日志记录</summary>
+        </member>
+        <member name="T:NewLife.Log.NetworkLog">
+            <summary>网络日志</summary>
+        </member>
+        <member name="M:NewLife.Log.NetworkLog.Dispose">
+            <summary>销毁</summary>
+        </member>
+        <member name="M:NewLife.Log.NetworkLog.OnWrite(NewLife.Log.LogLevel,System.String,System.Object[])">
+            <summary>写日志</summary>
+            <param name="level"></param>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
+        <member name="P:NewLife.Log.NetworkLog.Client">
+            <summary>网络套接字</summary>
+        </member>
+        <member name="P:NewLife.Log.NetworkLog.Remote">
+            <summary>远程服务器地址</summary>
         </member>
         <member name="T:NewLife.Log.TextControlLog">
             <summary>文本控件输出日志</summary>
@@ -4182,7 +4217,7 @@
             <returns></returns>
         </member>
         <member name="P:NewLife.Net.ReceivedEventArgs.Data">
-            <summary>数据</summary>
+            <summary>数据。设置数据时会修改Length属性</summary>
         </member>
         <member name="P:NewLife.Net.ReceivedEventArgs.Length">
             <summary>数据长度</summary>
@@ -4194,7 +4229,7 @@
             <summary>是否把数据反馈给对方</summary>
         </member>
         <member name="P:NewLife.Net.ReceivedEventArgs.UserState">
-            <summary>用户数据</summary>
+            <summary>用户数据。比如远程地址等</summary>
         </member>
         <member name="T:NewLife.Net.ITransport">
             <summary>帧数据传输接口</summary>
@@ -4907,12 +4942,6 @@
         </member>
         <member name="T:NewLife.Net.UdpServer.SyncItem">
             <summary>同步对象</summary>
-        </member>
-        <member name="T:NewLife.Net.UdpReceivedEventArgs">
-            <summary>收到Udp数据包的事件参数</summary>
-        </member>
-        <member name="P:NewLife.Net.UdpReceivedEventArgs.Remote">
-            <summary>远程地址</summary>
         </member>
         <member name="T:NewLife.Net.UdpHelper">
             <summary>Udp扩展</summary>
@@ -7053,6 +7082,13 @@
             <param name="type">类型</param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Reflection.Reflect.As``1(System.Reflection.MethodInfo,System.Object)">
+            <summary>把一个方法转为泛型委托，便于快速反射调用</summary>
+            <typeparam name="TFunc"></typeparam>
+            <param name="method"></param>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
         <member name="P:NewLife.Reflection.Reflect.Provider">
             <summary>当前反射提供者</summary>
         </member>
@@ -7298,6 +7334,9 @@
         </member>
         <member name="P:NewLife.Reflection.ScriptEngine.Log">
             <summary>日志</summary>
+        </member>
+        <member name="P:NewLife.Reflection.ScriptEngine.WorkingDirectory">
+            <summary>工作目录。执行时，将会作为环境变量的当前目录和PathHelper目录，执行后还原</summary>
         </member>
         <member name="T:NewLife.Security.Certificate">
             <summary>证书</summary>
@@ -11738,6 +11777,12 @@
             <param name="assembly"></param>
             <returns></returns>
         </member>
+        <member name="M:System.AttributeX.GetDisplayName(System.Reflection.MemberInfo,System.Boolean)">
+            <summary>获取成员绑定的显示名，优先DisplayName，然后Description</summary>
+            <param name="member"></param>
+            <param name="inherit"></param>
+            <returns></returns>
+        </member>
         <member name="M:System.AttributeX.GetCustomAttributeValue``2(System.Reflection.Assembly)">
             <summary>获取自定义属性的值。可用于ReflectionOnly加载的程序集</summary>
             <typeparam name="TAttribute"></typeparam>
@@ -13995,9 +14040,9 @@
         </member>
         <member name="M:NewLife.Log.XTrace.GetCaller(System.Int32,System.Int32,System.String)">
             <summary>获取调用栈</summary>
-            <param name="start"></param>
-            <param name="maxNum"></param>
-            <param name="split"></param>
+            <param name="start">要跳过的方法数，默认1，也就是跳过GetCaller</param>
+            <param name="maxNum">最大层数</param>
+            <param name="split">分割符号，默认左箭头加上换行</param>
             <returns></returns>
         </member>
         <member name="P:NewLife.Log.XTrace.Log">
@@ -14114,40 +14159,40 @@
         <member name="P:NewLife.Web.UrlConfig.Item.Target">
             <summary>目标地址</summary>
         </member>
-        <member name="T:NewLife.Web.PageParameter">
+        <member name="T:NewLife.Data.PageParameter">
             <summary>分页参数信息</summary>
         </member>
-        <member name="M:NewLife.Web.PageParameter.#ctor">
+        <member name="M:NewLife.Data.PageParameter.#ctor">
             <summary>实例化分页参数</summary>
         </member>
-        <member name="M:NewLife.Web.PageParameter.#ctor(NewLife.Web.PageParameter)">
+        <member name="M:NewLife.Data.PageParameter.#ctor(NewLife.Data.PageParameter)">
             <summary>通过另一个分页参数来实例化当前分页参数</summary>
             <param name="pm"></param>
         </member>
-        <member name="M:NewLife.Web.PageParameter.CopyFrom(NewLife.Web.PageParameter)">
+        <member name="M:NewLife.Data.PageParameter.CopyFrom(NewLife.Data.PageParameter)">
             <summary>从另一个分页参数拷贝到当前分页参数</summary>
             <param name="pm"></param>
             <returns></returns>
         </member>
-        <member name="P:NewLife.Web.PageParameter.Sort">
+        <member name="P:NewLife.Data.PageParameter.Sort">
             <summary>排序字段</summary>
         </member>
-        <member name="P:NewLife.Web.PageParameter.Desc">
+        <member name="P:NewLife.Data.PageParameter.Desc">
             <summary>是否降序</summary>
         </member>
-        <member name="P:NewLife.Web.PageParameter.PageIndex">
+        <member name="P:NewLife.Data.PageParameter.PageIndex">
             <summary>页面索引</summary>
         </member>
-        <member name="P:NewLife.Web.PageParameter.PageSize">
+        <member name="P:NewLife.Data.PageParameter.PageSize">
             <summary>页面大小</summary>
         </member>
-        <member name="P:NewLife.Web.PageParameter.TotalCount">
+        <member name="P:NewLife.Data.PageParameter.TotalCount">
             <summary>总记录数</summary>
         </member>
-        <member name="P:NewLife.Web.PageParameter.PageCount">
+        <member name="P:NewLife.Data.PageParameter.PageCount">
             <summary>页数</summary>
         </member>
-        <member name="P:NewLife.Web.PageParameter.OrderBy">
+        <member name="P:NewLife.Data.PageParameter.OrderBy">
             <summary>排序字句</summary>
         </member>
         <member name="T:NewLife.Web.Pager">
@@ -14159,7 +14204,7 @@
         <member name="M:NewLife.Web.Pager.#ctor">
             <summary>实例化</summary>
         </member>
-        <member name="M:NewLife.Web.Pager.#ctor(NewLife.Web.PageParameter)">
+        <member name="M:NewLife.Web.Pager.#ctor(NewLife.Data.PageParameter)">
             <summary>用另一个分页参数实例化</summary>
             <param name="pm"></param>
         </member>
@@ -14256,6 +14301,13 @@
             <param name="destdir">要下载到的目标目录</param>
             <returns>返回已下载的文件，无效时返回空</returns>
         </member>
+        <member name="M:NewLife.Web.WebClientX.DownloadLinkAndExtract(System.String,System.String,System.String)">
+            <summary>分析指定页面指定名称的链接，并下载到目标目录，解压Zip后返回目标文件</summary>
+            <param name="url">指定页面</param>
+            <param name="name">页面上指定名称的链接</param>
+            <param name="destdir">要下载到的目标目录</param>
+            <returns></returns>
+        </member>
         <member name="P:NewLife.Web.WebClientX.Cookie">
             <summary>Cookie容器</summary>
         </member>
@@ -14276,6 +14328,9 @@
         </member>
         <member name="P:NewLife.Web.WebClientX.UserAgent">
             <summary>User-Agent 标头，指定有关客户端代理的信息</summary>
+        </member>
+        <member name="P:NewLife.Web.WebClientX.Log">
+            <summary>日志</summary>
         </member>
         <member name="T:NewLife.Web.WebDownload">
             <summary>提供网页下载支持，在服务端把一个数据流作为附件传给浏览器，带有断点续传和限速的功能</summary>

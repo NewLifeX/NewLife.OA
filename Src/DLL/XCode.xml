@@ -627,6 +627,9 @@
         <member name="P:XCode.BindColumnAttribute.IsUnicode">
             <summary>是否Unicode</summary>
         </member>
+        <member name="P:XCode.BindColumnAttribute.Master">
+            <summary>是否主字段。主字段作为业务主要字段，代表当前数据行意义</summary>
+        </member>
         <member name="T:XCode.BindIndexAttribute">
             <summary>用于指定数据类所绑定到的索引</summary>
         </member>
@@ -1863,7 +1866,7 @@
             <param name="mode">查询模式，分为记录集和记录总数两种，默认Both表示同时查询两者</param>
             <returns>实体集</returns>
         </member>
-        <member name="M:XCode.Entity`1.FindAll(System.String,NewLife.Web.PageParameter)">
+        <member name="M:XCode.Entity`1.FindAll(System.String,NewLife.Data.PageParameter)">
             <summary>同时查询满足条件的记录集和记录总数。没有数据时返回空集合而不是null</summary>
             <param name="whereClause">条件，不带Where</param>
             <param name="param">分页排序参数，同时返回满足条件的总记录数</param>
@@ -1959,7 +1962,7 @@
             <param name="mode"></param>
             <returns></returns>
         </member>
-        <member name="M:XCode.Entity`1.Search(System.String,NewLife.Web.PageParameter)">
+        <member name="M:XCode.Entity`1.Search(System.String,NewLife.Data.PageParameter)">
             <summary>同时查询满足条件的记录集和记录总数。没有数据时返回空集合而不是null</summary>
             <param name="key"></param>
             <param name="param">分页排序参数，同时返回满足条件的总记录数</param>
@@ -2268,6 +2271,9 @@
         </member>
         <member name="P:XCode.Entity`1.Meta.Unique">
             <summary>唯一键，返回第一个标识列或者唯一的主键</summary>
+        </member>
+        <member name="P:XCode.Entity`1.Meta.Master">
+            <summary>主字段。主字段作为业务主要字段，代表当前数据行意义</summary>
         </member>
         <member name="P:XCode.Entity`1.Meta.DBO">
             <summary>数据操作对象。</summary>
@@ -2586,6 +2592,9 @@
         <member name="P:XCode.IEntityOperate.Unique">
             <summary>唯一键，返回第一个标识列或者唯一的主键</summary>
         </member>
+        <member name="P:XCode.IEntityOperate.Master">
+            <summary>主字段。主字段作为业务主要字段，代表当前数据行意义</summary>
+        </member>
         <member name="P:XCode.IEntityOperate.ConnName">
             <summary>连接名</summary>
         </member>
@@ -2896,6 +2905,9 @@
         <member name="P:XCode.Entity`1.EntityOperate.Unique">
             <summary>唯一键，返回第一个标识列或者唯一的主键</summary>
         </member>
+        <member name="P:XCode.Entity`1.EntityOperate.Master">
+            <summary>主字段。主字段作为业务主要字段，代表当前数据行意义</summary>
+        </member>
         <member name="P:XCode.Entity`1.EntityOperate.ConnName">
             <summary>连接名</summary>
         </member>
@@ -3044,7 +3056,7 @@
             <summary>当前管理提供者</summary>
         </member>
         <member name="P:XCode.Membership.ManageProvider.User">
-            <summary>登录登录用户</summary>
+            <summary>当前登录用户</summary>
         </member>
         <member name="P:XCode.Membership.ManageProvider.Menu">
             <summary>菜单工厂</summary>
@@ -3083,6 +3095,12 @@
             <param name="rolename">角色名称</param>
             <param name="enable">是否启用。某些系统可能需要验证审核</param>
             <returns></returns>
+        </member>
+        <member name="P:XCode.Membership.ManageProvider`1.UserType">
+            <summary>用户类型</summary>
+        </member>
+        <member name="P:XCode.Membership.ManageProvider`1.Current">
+            <summary>当前用户</summary>
         </member>
         <member name="T:XCode.Membership.IManageUser">
             <summary>用户接口</summary>
@@ -3540,6 +3558,14 @@
             <param name="isEnable">是否启用</param>
             <returns></returns>
         </member>
+        <member name="M:XCode.Membership.User`1.Add(System.String,System.String,System.Int32,System.String)">
+            <summary>添加用户，如果存在则直接返回</summary>
+            <param name="name"></param>
+            <param name="pass"></param>
+            <param name="roleid"></param>
+            <param name="display"></param>
+            <returns></returns>
+        </member>
         <member name="M:XCode.Membership.User`1.ToString">
             <summary>已重载。显示友好名字</summary>
             <returns></returns>
@@ -3741,6 +3767,11 @@
         <member name="T:XCode.IEntityTree">
             <summary>实体树接口</summary>
         </member>
+        <member name="M:XCode.IEntityTree.FindAllChildsExcept(XCode.IEntityTree)">
+            <summary>获取完整树，包含根节点，排除指定分支。多用于树节点父级选择</summary>
+            <param name="exclude"></param>
+            <returns></returns>
+        </member>
         <member name="P:XCode.IEntityTree.Parent">
             <summary>父实体</summary>
         </member>
@@ -3755,6 +3786,9 @@
         </member>
         <member name="P:XCode.IEntityTree.Deepth">
             <summary>深度</summary>
+        </member>
+        <member name="P:XCode.IEntityTree.TreeNodeText">
+            <summary>树形节点名，根据深度带全角空格前缀</summary>
         </member>
         <member name="F:XCode.EntityTree`2.Setting">
             <summary>实体树操作者</summary>
@@ -3788,15 +3822,21 @@
             <param name="parentKey"></param>
             <returns></returns>
         </member>
+        <member name="M:XCode.EntityTree`2.FindAllChildsExcept(XCode.IEntityTree)">
+            <summary>获取完整树，包含根节点，排除指定分支。多用于树节点父级选择</summary>
+            <param name="exclude"></param>
+            <returns></returns>
+        </member>
         <member name="M:XCode.EntityTree`2.FindAllParentsByKey(`0)">
             <summary>查找指定键的所有父节点，从高到底以深度层次树结构输出</summary>
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:XCode.EntityTree`2.FindAllChilds(XCode.IEntityTree,System.Boolean)">
+        <member name="M:XCode.EntityTree`2.FindAllChilds(XCode.IEntityTree,System.Boolean,XCode.IEntityTree)">
             <summary>查找指定节点的所有子节点，以深度层次树结构输出</summary>
             <param name="entity">根节点</param>
             <param name="includeSelf">返回列表是否包含根节点，默认false</param>
+            <param name="exclude">要排除的节点</param>
             <returns></returns>
         </member>
         <member name="M:XCode.EntityTree`2.FindAllParents(XCode.IEntityTree,System.Boolean)">
@@ -3847,6 +3887,11 @@
         <member name="M:XCode.EntityTree`2.Valid(System.Boolean)">
             <summary>验证树形数据是否有效</summary>
             <param name="isNew">是否新数据</param>
+        </member>
+        <member name="M:XCode.EntityTree`2.XCode#IEntityTree#FindAllChildsExcept(XCode.IEntityTree)">
+            <summary>获取完整树，包含根节点，排除指定分支。多用于树节点父级选择</summary>
+            <param name="exclude"></param>
+            <returns></returns>
         </member>
         <member name="P:XCode.EntityTree`2.Sort">
             <summary>排序值</summary>
@@ -3924,8 +3969,15 @@
             <param name="func">回调</param>
             <returns></returns>
         </member>
+        <member name="M:XCode.Membership.IMenu.Add(System.String,System.String,System.String)">
+            <summary>添加子菜单</summary>
+            <param name="name"></param>
+            <param name="displayName"></param>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
         <member name="M:XCode.Membership.IMenu.FindByPath(System.String)">
-            <summary>根据层次路径查找</summary>
+            <summary>根据层次路径查找。因为需要指定在某个菜单子级查找路径，所以是成员方法而不是静态方法</summary>
             <param name="path">层次路径</param>
             <returns></returns>
         </member>
@@ -3948,6 +4000,9 @@
         </member>
         <member name="P:XCode.Membership.IMenu.AllChilds">
             <summary>子孙菜单</summary>
+        </member>
+        <member name="P:XCode.Membership.IMenu.Permissions">
+            <summary>可选权限子项</summary>
         </member>
         <member name="P:XCode.Membership.IMenu.ID">
             <summary>编号</summary>
@@ -3973,8 +4028,15 @@
         <member name="P:XCode.Membership.IMenu.Necessary">
             <summary>必要的菜单。必须至少有角色拥有这些权限，如果没有则自动授权给系统角色</summary>
         </member>
+        <member name="P:XCode.Membership.IMenu.Permission">
+            <summary>权限子项。逗号分隔，每个权限子项名值竖线分隔</summary>
+        </member>
         <member name="M:XCode.Membership.Menu`1.InitData">
             <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
+        </member>
+        <member name="M:XCode.Membership.Menu`1.Valid(System.Boolean)">
+            <summary>验证数据，通过抛出异常的方式提示验证失败。</summary>
+            <param name="isNew">是否新数据</param>
         </member>
         <member name="M:XCode.Membership.Menu`1.Save">
             <summary>已重载。调用Save时写日志，而调用Insert和Update时不写日志</summary>
@@ -3983,6 +4045,13 @@
         <member name="M:XCode.Membership.Menu`1.Delete">
             <summary>已重载。</summary>
             <returns></returns>
+        </member>
+        <member name="M:XCode.Membership.Menu`1.OnLoad">
+            <summary>加载权限字典</summary>
+        </member>
+        <member name="M:XCode.Membership.Menu`1.OnPropertyChanged(System.String)">
+            <summary>如果Permission被修改，则重新加载</summary>
+            <param name="fieldName"></param>
         </member>
         <member name="M:XCode.Membership.Menu`1.FindByID(System.Int32)">
             <summary>根据编号查找</summary>
@@ -4021,12 +4090,30 @@
             <param name="url"></param>
             <returns></returns>
         </member>
-        <member name="M:XCode.Membership.Menu`1.ToString">
-            <summary>已重载。</summary>
+        <member name="M:XCode.Membership.Menu`1.ScanAndAdd">
+            <summary>扫描配置文件中指定的目录，仅为兼容旧版本，将来不做功能更新</summary>
             <returns></returns>
         </member>
-        <member name="M:XCode.Membership.Menu`1.Import">
-            <summary>导入</summary>
+        <member name="M:XCode.Membership.Menu`1.ScanAndAdd(System.String,`0,System.Collections.Generic.ICollection{System.String},System.Boolean)">
+            <summary>扫描指定目录并添加文件到顶级菜单之下</summary>
+            <param name="dir">扫描目录</param>
+            <param name="parent">父级</param>
+            <param name="fileFilter">过滤文件名</param>
+            <param name="isFilterChildDir">是否在子目录中过滤</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.Membership.Menu`1.GetPathForScan(System.String)">
+            <summary>获取目录层级</summary>
+            <param name="dir"></param>
+            <returns></returns>
+        </member>
+        <member name="F:XCode.Membership.Menu`1._NotBizDirs">
+            <summary>非业务的目录列表</summary>
+        </member>
+        <member name="M:XCode.Membership.Menu`1.IsBizDir(System.String)">
+            <summary>是否业务目录</summary>
+            <param name="dir"></param>
+            <returns></returns>
         </member>
         <member name="M:XCode.Membership.Menu`1.WriteLog(System.String,System.String)">
             <summary>写日志</summary>
@@ -4043,9 +4130,16 @@
             <param name="list"></param>
             <returns></returns>
         </member>
+        <member name="M:XCode.Membership.Menu`1.Import">
+            <summary>导入</summary>
+        </member>
         <member name="M:XCode.Membership.Menu`1.Import(System.String)">
             <summary>导入</summary>
             <param name="xml"></param>
+        </member>
+        <member name="M:XCode.Membership.Menu`1.ToString">
+            <summary>已重载。</summary>
+            <returns></returns>
         </member>
         <member name="M:XCode.Membership.Menu`1.XCode#Membership#IMenu#GetFullPath(System.Boolean,System.String,System.Func{XCode.Membership.IMenu,System.String})">
             <summary>取得全路径的实体，由上向下排序</summary>
@@ -4064,6 +4158,12 @@
         </member>
         <member name="P:XCode.Membership.Menu`1.Necessaries">
             <summary>必要的菜单。必须至少有角色拥有这些权限，如果没有则自动授权给系统角色</summary>
+        </member>
+        <member name="P:XCode.Membership.Menu`1.FriendName">
+            <summary>友好名称。优先显示名</summary>
+        </member>
+        <member name="P:XCode.Membership.Menu`1.Permissions">
+            <summary>可选权限子项</summary>
         </member>
         <member name="P:XCode.Membership.Menu`1.XCode#Membership#IMenu#Parent">
             <summary>父菜单</summary>
@@ -4098,6 +4198,9 @@
         <member name="P:XCode.Membership.Menu`1.Necessary">
             <summary>必要的菜单。必须至少有角色拥有这些权限，如果没有则自动授权给系统角色</summary>
         </member>
+        <member name="P:XCode.Membership.Menu`1.Permission">
+            <summary>权限子项。逗号分隔，每个权限子项名值竖线分隔</summary>
+        </member>
         <member name="P:XCode.Membership.Menu`1.Item(System.String)">
             <summary>
             获取/设置 字段值。
@@ -4118,6 +4221,11 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:XCode.Membership.IMenuFactory.FindByUrl(System.String)">
+            <summary>根据Url找到菜单</summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
         <member name="M:XCode.Membership.IMenuFactory.GetMySubMenus(System.Int32)">
             <summary>获取指定菜单下，当前用户有权访问的子菜单。</summary>
             <param name="menuid"></param>
@@ -4130,9 +4238,20 @@
             <param name="nameSpace"></param>
             <returns></returns>
         </member>
+        <member name="P:XCode.Membership.IMenuFactory.Root">
+            <summary>根菜单</summary>
+        </member>
+        <member name="P:XCode.Membership.IMenuFactory.Current">
+            <summary>当前请求所在菜单。自动根据当前请求的文件路径定位</summary>
+        </member>
         <member name="M:XCode.Membership.Menu`1.MenuFactory.XCode#Membership#IMenuFactory#FindByID(System.Int32)">
             <summary>根据编号找到菜单</summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.Membership.Menu`1.MenuFactory.XCode#Membership#IMenuFactory#FindByUrl(System.String)">
+            <summary>根据Url找到菜单</summary>
+            <param name="url"></param>
             <returns></returns>
         </member>
         <member name="M:XCode.Membership.Menu`1.MenuFactory.XCode#Membership#IMenuFactory#GetMySubMenus(System.Int32)">
@@ -4146,6 +4265,9 @@
             <param name="asm">要扫描的程序集</param>
             <param name="nameSpace">要扫描的命名空间</param>
             <returns></returns>
+        </member>
+        <member name="P:XCode.Membership.Menu`1.MenuFactory.XCode#Membership#IMenuFactory#Current">
+            <summary>当前请求所在菜单。自动根据当前请求的文件路径定位</summary>
         </member>
         <member name="T:XCode.Membership.Menu`1._">
             <summary>取得菜单字段信息的快捷方式</summary>
@@ -4174,6 +4296,9 @@
         <member name="F:XCode.Membership.Menu`1._.Necessary">
             <summary>必要的菜单。必须至少有角色拥有这些权限，如果没有则自动授权给系统角色</summary>
         </member>
+        <member name="F:XCode.Membership.Menu`1._.Permission">
+            <summary>权限子项。逗号分隔，每个权限子项名值竖线分隔</summary>
+        </member>
         <member name="T:XCode.Membership.Menu`1.__">
             <summary>取得菜单字段名称的快捷方式</summary>
         </member>
@@ -4201,14 +4326,17 @@
         <member name="F:XCode.Membership.Menu`1.__.Necessary">
             <summary>必要的菜单。必须至少有角色拥有这些权限，如果没有则自动授权给系统角色</summary>
         </member>
+        <member name="F:XCode.Membership.Menu`1.__.Permission">
+            <summary>权限子项。逗号分隔，每个权限子项名值竖线分隔</summary>
+        </member>
         <member name="T:XCode.Membership.PermissionFlags">
             <summary>操作权限</summary>
         </member>
         <member name="F:XCode.Membership.PermissionFlags.None">
             <summary>无权限</summary>
         </member>
-        <member name="F:XCode.Membership.PermissionFlags.All">
-            <summary>所有权限</summary>
+        <member name="F:XCode.Membership.PermissionFlags.Detail">
+            <summary>查看权限</summary>
         </member>
         <member name="F:XCode.Membership.PermissionFlags.Insert">
             <summary>添加权限</summary>
@@ -4218,6 +4346,9 @@
         </member>
         <member name="F:XCode.Membership.PermissionFlags.Delete">
             <summary>删除权限</summary>
+        </member>
+        <member name="F:XCode.Membership.PermissionFlags.All">
+            <summary>所有权限</summary>
         </member>
         <member name="T:XCode.Membership.Role">
             <summary>角色</summary>
@@ -4243,6 +4374,11 @@
         </member>
         <member name="M:XCode.Membership.IRole.Set(System.Int32,XCode.Membership.PermissionFlags)">
             <summary>设置该角色拥有指定资源的指定权限</summary>
+            <param name="resid"></param>
+            <param name="flag"></param>
+        </member>
+        <member name="M:XCode.Membership.IRole.Reset(System.Int32,XCode.Membership.PermissionFlags)">
+            <summary>重置该角色指定的权限</summary>
             <param name="resid"></param>
             <param name="flag"></param>
         </member>
@@ -4339,6 +4475,11 @@
             <param name="resid"></param>
             <param name="flag"></param>
         </member>
+        <member name="M:XCode.Membership.Role`1.Reset(System.Int32,XCode.Membership.PermissionFlags)">
+            <summary>重置该角色指定的权限</summary>
+            <param name="resid"></param>
+            <param name="flag"></param>
+        </member>
         <member name="M:XCode.Membership.Role`1.CheckValid(System.Int32[])">
             <summary>检查是否有无效权限项，有则删除</summary>
             <param name="resids"></param>
@@ -4346,6 +4487,12 @@
         <member name="M:XCode.Membership.Role`1.XCode#Membership#IRole#FindOrCreateByName(System.String)">
             <summary>根据名称查找角色，若不存在则创建</summary>
             <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.Membership.Role`1.Add(System.String,System.Boolean)">
+            <summary>添加角色，如果存在，则直接返回，否则创建</summary>
+            <param name="name"></param>
+            <param name="issys"></param>
             <returns></returns>
         </member>
         <member name="M:XCode.Membership.Role`1.RowDataBound(System.Object,System.Web.UI.WebControls.GridViewRowEventArgs,XCode.Membership.IRole,System.Boolean)">
@@ -5263,6 +5410,9 @@
         </member>
         <member name="P:XCode.Configuration.TableItem.PrimaryKeys">
             <summary>主键</summary>
+        </member>
+        <member name="P:XCode.Configuration.TableItem.Master">
+            <summary>主字段。主字段作为业务主要字段，代表当前数据行意义</summary>
         </member>
         <member name="P:XCode.Configuration.TableItem.FieldNames">
             <summary>字段名集合，不区分大小写的哈希表存储，外部不要修改元素数据</summary>
@@ -7325,6 +7475,9 @@
         <member name="P:XCode.DataAccessLayer.IDataColumn.PrimaryKey">
             <summary>主键</summary>
         </member>
+        <member name="P:XCode.DataAccessLayer.IDataColumn.Master">
+            <summary>是否主字段。主字段作为业务主要字段，代表当前数据行意义</summary>
+        </member>
         <member name="P:XCode.DataAccessLayer.IDataColumn.Length">
             <summary>长度</summary>
         </member>
@@ -7496,6 +7649,9 @@
         </member>
         <member name="P:XCode.DataAccessLayer.IDataTable.PrimaryKeys">
             <summary>主键集合。可以是空集合，但不能为null。</summary>
+        </member>
+        <member name="P:XCode.DataAccessLayer.IDataTable.Master">
+            <summary>主字段。主字段作为业务主要字段，代表当前数据行意义</summary>
         </member>
         <member name="P:XCode.DataAccessLayer.IDataTable.Properties">
             <summary>扩展属性</summary>
@@ -8402,6 +8558,9 @@
         <member name="P:XCode.Configuration.FieldItem.PrimaryKey">
             <summary>是否主键</summary>
         </member>
+        <member name="P:XCode.Configuration.FieldItem.Master">
+            <summary>是否主字段。主字段作为业务主要字段，代表当前数据行意义</summary>
+        </member>
         <member name="P:XCode.Configuration.FieldItem.IsNullable">
             <summary>是否允许空</summary>
         </member>
@@ -8426,6 +8585,9 @@
         </member>
         <member name="P:XCode.Configuration.FieldItem.DefaultValue">
             <summary>默认值</summary>
+        </member>
+        <member name="P:XCode.Configuration.FieldItem.ReadOnly">
+            <summary>是否只读</summary>
         </member>
         <member name="P:XCode.Configuration.FieldItem.Table">
             <summary>表</summary>
@@ -8536,72 +8698,6 @@
             <param name="field">字段</param>
             <param name="onlyDefine">仅仅定义</param>
             <returns></returns>
-        </member>
-        <member name="M:XCode.DataAccessLayer.AccessMetaData.SetSchema(XCode.DataAccessLayer.DDLSchema,System.Object[])">
-            <summary>设置数据定义模式</summary>
-            <param name="schema"></param>
-            <param name="values"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.DataAccessLayer.AccessMetaData.CreateDatabase">
-            <summary>创建数据库</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOTabe.Table">
-            <summary>表</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOTabe.ConnectionString">
-            <summary>连接字符串</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOTabe.FileName">
-            <summary>文件名</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOTabe.Conn">
-            <summary>链接</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOTabe.Cat">
-            <summary></summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOTabe.TableName">
-            <summary>表名</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOTabe.TableDef">
-            <summary>表定义</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOTabe.Dbe">
-            <summary>链接</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOTabe.Db">
-            <summary></summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOTabe.Columns">
-            <summary>字段集合</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOTabe.Supported">
-            <summary>是否支持</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOTabe.Description">
-            <summary>描述</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOColumn.Column">
-            <summary>字段</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOColumn.Table">
-            <summary>表</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOColumn.Name">
-            <summary>名称</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOColumn.Description">
-            <summary>描述</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOColumn.Default">
-            <summary>描述</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOColumn.AutoIncrement">
-            <summary>是否自增</summary>
-        </member>
-        <member name="P:XCode.DataAccessLayer.ADOColumn.Nullable">
-            <summary>是否允许空</summary>
         </member>
         <member name="M:XCode.DataAccessLayer.MySql.OnCreateSession">
             <summary>创建数据库会话</summary>
@@ -9247,6 +9343,9 @@
         <member name="P:XCode.DataAccessLayer.XField.PrimaryKey">
             <summary>主键</summary>
         </member>
+        <member name="P:XCode.DataAccessLayer.XField.Master">
+            <summary>是否主字段。主字段作为业务主要字段，代表当前数据行意义</summary>
+        </member>
         <member name="P:XCode.DataAccessLayer.XField.Length">
             <summary>长度</summary>
         </member>
@@ -9393,6 +9492,9 @@
         </member>
         <member name="P:XCode.DataAccessLayer.XTable.Indexes">
             <summary>索引集合。可以是空集合，但不能为null。</summary>
+        </member>
+        <member name="P:XCode.DataAccessLayer.XTable.Master">
+            <summary>主字段。主字段作为业务主要字段，代表当前数据行意义</summary>
         </member>
         <member name="P:XCode.DataAccessLayer.XTable.PrimaryKeys">
             <summary>主键集合。可以是空集合，但不能为null。</summary>
@@ -10113,9 +10215,10 @@
         <member name="M:XCode.Cache.SingleEntityCache`2.RemoveFirst">
             <summary>移除第一个缓存项</summary>
         </member>
-        <member name="M:XCode.Cache.SingleEntityCache`2.AutoUpdate(XCode.Cache.SingleEntityCache{`0,`1}.CacheItem)">
+        <member name="M:XCode.Cache.SingleEntityCache`2.AutoUpdate(XCode.Cache.SingleEntityCache{`0,`1}.CacheItem,System.String)">
             <summary>自动更新，最主要是在原连接名和表名里面更新对象</summary>
             <param name="item"></param>
+            <param name="reason"></param>
         </member>
         <member name="M:XCode.Cache.SingleEntityCache`2.Initialize">
             <summary>初始化单对象缓存，服务端启动时预载入实体记录集</summary>
@@ -10534,6 +10637,9 @@
         <member name="M:XCode.Web.EntityGrid.Init">
             <summary>获取参数</summary>
         </member>
+        <member name="M:XCode.Web.EntityGrid.GetParam">
+            <summary>获取参数</summary>
+        </member>
         <member name="M:XCode.Web.EntityGrid.RenderPage">
             <summary>生成分页输出</summary>
             <returns></returns>
@@ -10684,256 +10790,6 @@
         </member>
         <member name="P:XCode.Web.DbRunTimeModule.DbRunTimeFormat">
             <summary>执行时间字符串</summary>
-        </member>
-        <member name="T:XCode.Test.MyEntity`1">
-            <summary>我的基类</summary>
-        </member>
-        <member name="T:XCode.Test.IEntityTest">
-            <summary>实体测试接口</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.Guid">
-            <summary>主键一</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.Guid2">
-            <summary>主键二</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.ID">
-            <summary>自增编号</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.ID2">
-            <summary>编号二</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.Name">
-            <summary>名称</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.Password">
-            <summary>密码</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.DisplayName">
-            <summary>显示名</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.IsEnable">
-            <summary>启用</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.Logins">
-            <summary>登录次数</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.LastLogin">
-            <summary>最后登陆</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.StartDate">
-            <summary>开始日期</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.EndTime">
-            <summary>结束时间</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.Total">
-            <summary>总数</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.Item2">
-            <summary>百分比</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.EntityTest2">
-            <summary>实数</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.Money">
-            <summary>金额</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.File">
-            <summary>文件</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.Remark">
-            <summary>备注一</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.Remark2">
-            <summary>备注二</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.Description">
-            <summary>说明</summary>
-        </member>
-        <member name="P:XCode.Test.IEntityTest.Item(System.String)">
-            <summary>获取/设置 字段值。</summary>
-            <param name="name">字段名</param>
-            <returns></returns>
-        </member>
-        <member name="T:XCode.Test.EntityTest`1">
-            <summary>实体测试</summary>
-            <summary>实体测试</summary>
-        </member>
-        <member name="M:XCode.Test.EntityTest`1.InitData">
-            <summary>初始化数据</summary>
-        </member>
-        <member name="M:XCode.Test.EntityTest`1.Test">
-            <summary>测试主方法</summary>
-        </member>
-        <member name="M:XCode.Test.EntityTest`1.FindByKeyForEdit(System.Guid,System.String)">
-            <summary>根据主键查询一个实体测试实体对象用于表单编辑</summary>
-            <param name="guid">主键一</param>
-            <param name="guid2">主键二</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.Test.EntityTest`1.FindByName(System.String)">
-            <summary>根据名称查找</summary>
-            <param name="name">名称</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.Test.EntityTest`1.FindAllByIsEnableAndStartDateAndEndTime(System.Boolean,System.DateTime,System.DateTime)">
-            <summary>根据启用、开始日期、结束时间查找</summary>
-            <param name="isenable">启用</param>
-            <param name="startdate">开始日期</param>
-            <param name="endtime">结束时间</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.Test.EntityTest`1.FindByID(System.SByte)">
-            <summary>根据自增编号查找</summary>
-            <param name="id">自增编号</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.Test.EntityTest`1.FindByGuidAndGuid2(System.Guid,System.String)">
-            <summary>根据主键一、主键二查找</summary>
-            <param name="guid">主键一</param>
-            <param name="guid2">主键二</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.Test.EntityTest`1.SearchWhere(System.String)">
-            <summary>构造搜索条件</summary>
-            <param name="key">关键字</param>
-            <returns></returns>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.Guid">
-            <summary>主键一</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.Guid2">
-            <summary>主键二</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.ID">
-            <summary>自增编号</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.ID2">
-            <summary>编号二</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.Name">
-            <summary>名称</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.Password">
-            <summary>密码</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.DisplayName">
-            <summary>显示名</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.IsEnable">
-            <summary>启用</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.Logins">
-            <summary>登录次数</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.LastLogin">
-            <summary>最后登陆</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.StartDate">
-            <summary>开始日期</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.EndTime">
-            <summary>结束时间</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.Total">
-            <summary>总数</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.Item2">
-            <summary>百分比</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.EntityTest2">
-            <summary>实数</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.Money">
-            <summary>金额</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.File">
-            <summary>文件</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.Remark">
-            <summary>备注一</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.Remark2">
-            <summary>备注二</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.Description">
-            <summary>说明</summary>
-        </member>
-        <member name="P:XCode.Test.EntityTest`1.Item(System.String)">
-            <summary>
-            获取/设置 字段值。
-            一个索引，基类使用反射实现。
-            派生实体类可重写该索引，以避免反射带来的性能损耗
-            </summary>
-            <param name="name">字段名</param>
-            <returns></returns>
-        </member>
-        <member name="T:XCode.Test.EntityTest`1._">
-            <summary>取得实体测试字段信息的快捷方式</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.Guid">
-            <summary>主键一</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.Guid2">
-            <summary>主键二</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.ID">
-            <summary>自增编号</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.ID2">
-            <summary>编号二</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.Name">
-            <summary>名称</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.Password">
-            <summary>密码</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.DisplayName">
-            <summary>显示名</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.IsEnable">
-            <summary>启用</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.Logins">
-            <summary>登录次数</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.LastLogin">
-            <summary>最后登陆</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.StartDate">
-            <summary>开始日期</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.EndTime">
-            <summary>结束时间</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.Total">
-            <summary>总数</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.Item2">
-            <summary>百分比</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.EntityTest2">
-            <summary>实数</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.Money">
-            <summary>金额</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.File">
-            <summary>文件</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.Remark">
-            <summary>备注一</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.Remark2">
-            <summary>备注二</summary>
-        </member>
-        <member name="F:XCode.Test.EntityTest`1._.Description">
-            <summary>说明</summary>
-        </member>
-        <member name="T:XCode.Test.EntityTest">
-            <summary>实体测试</summary>
         </member>
     </members>
 </doc>
