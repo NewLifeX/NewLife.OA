@@ -11,6 +11,16 @@ using XCode.Membership;
 
 namespace NewLife.OA
 {
+    /// <summary>工作状态</summary>
+    public enum WorkStatus
+    {
+        准备 = 0,
+        进行 = 1,
+        暂停 = 2,
+        取消 = 3,
+        完成 = 4
+    }
+
     /// <summary>任务</summary>
     public partial class WorkTask : Entity<WorkTask>
     {
@@ -139,6 +149,10 @@ namespace NewLife.OA
         /// <summary>负责人</summary>
         [DisplayName("负责人")]
         public String MasterName { get { return Master != null ? Master.Name : null; } }
+
+        /// <summary>工作状态</summary>
+        [DisplayName("状态")]
+        public WorkStatus WorkStatus { get { return (WorkStatus)Status; } set { Status = (Int32)value; } }
         #endregion
 
         #region 扩展查询﻿

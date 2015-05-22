@@ -6,23 +6,6 @@
     var fact = EntityFactory.CreateOperate(ViewData.ModelMetadata.ModelType);
     var isNew = (Model as IEntity).IsNullKey;
 }
-@functions {
-
-    String GetWidth(FieldItem item)
-    {
-        switch (Type.GetTypeCode(item.Type))
-        {
-            case TypeCode.Boolean:
-                return "col-md-3";
-            case TypeCode.String:
-                if (item.Length <= 0 || item.Length > 300)
-                    return "col-md-5";
-                else
-                    return "col-md-3";
-        }
-        return "col-md-1";
-    }
-}
 <div class="panel panel-default">
     <div class="form-horizontal">
         @if (ViewBag.StatusMessage != null)
@@ -64,52 +47,53 @@
             <div class="form-group">
                 <label class="control-label col-md-2">开始时间</label>
                 <div class="input-group col-md-2" style="float: left">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    @Html.TextBox(WorkTask._.StartTime.Name, Model.StartTime == DateTime.MinValue ? null : Model.StartTime.ToFullString(), new { @class = "form-control date form_datetime", @type = "date" })
+                    @Html.ForDateTime(m => m.StartTime)
                 </div>
                 <label class="control-label col-md-2">结束时间</label>
                 <div class="input-group col-md-2">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    @Html.TextBox(WorkTask._.EndTime.Name, Model.EndTime == DateTime.MinValue ? null : Model.EndTime.ToFullString(), new { @class = "form-control date form_datetime", @type = "date" })
+                    @Html.ForDateTime(m => m.EndTime)
                 </div>
             </div>
-            <div class="form-group">
-                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Cost))
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-2">浏览数</label>
-                <div class="col-md-1">
-                    @Model.Views.ToString("n0")
+            if (!isNew)
+            {
+                <div class="form-group">
+                    @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Cost))
                 </div>
-                <label class="control-label col-md-1">修改次数</label>
-                <div class="col-md-1">
-                    @Model.Historys.ToString("n0")
+                <div class="form-group">
+                    <label class="control-label col-md-2">浏览数</label>
+                    <div class="col-md-1">
+                        @Model.Views.ToString("n0")
+                    </div>
+                    <label class="control-label col-md-1">修改次数</label>
+                    <div class="col-md-1">
+                        @Model.Historys.ToString("n0")
+                    </div>
+                    <label class="control-label col-md-1">评论数</label>
+                    <div class="col-md-1">
+                        @Model.Comments.ToString("n0")
+                    </div>
                 </div>
-                <label class="control-label col-md-1">评论数</label>
-                <div class="col-md-1">
-                    @Model.Comments.ToString("n0")
+                <div class="form-group">
+                    <label class="control-label col-md-2">创建者</label>
+                    <div class="col-md-2">
+                        @Model.CreateName
+                    </div>
+                    <label class="control-label col-md-2">创建时间</label>
+                    <div class="col-md-2">
+                        @Model.CreateTime.ToFullString()
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-2">创建者</label>
-                <div class="col-md-2">
-                    @Model.CreateName
+                <div class="form-group">
+                    <label class="control-label col-md-2">更新者</label>
+                    <div class="col-md-2">
+                        @Model.UpdateUserID
+                    </div>
+                    <label class="control-label col-md-2">更新时间</label>
+                    <div class="col-md-2">
+                        @(Model.UpdateTime > DateTime.MinValue ? Model.UpdateTime.ToFullString() : null)
+                    </div>
                 </div>
-                <label class="control-label col-md-2">创建时间</label>
-                <div class="col-md-2">
-                    @Model.CreateTime.ToFullString()
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-2">更新者</label>
-                <div class="col-md-2">
-                    @Model.UpdateUserID
-                </div>
-                <label class="control-label col-md-2">更新时间</label>
-                <div class="col-md-2">
-                    @(Model.UpdateTime > DateTime.MinValue ? Model.UpdateTime.ToFullString() : null)
-                </div>
-            </div>
+            }
             <div class="form-actions">
                 <label class="control-label col-md-4"></label>
                 <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-@(isNew ? "plus" : "save")"></i><strong>@(isNew ? "新增" : "保存")</strong></button>
