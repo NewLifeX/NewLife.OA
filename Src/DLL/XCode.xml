@@ -1463,8 +1463,8 @@
             <param name="info"></param>
             <param name="context"></param>
         </member>
-        <member name="T:XCode.Membership.EntityBase`1">
-            <summary>通用实体类基类</summary>
+        <member name="T:XCode.Membership.LogEntity`1">
+            <summary>日志实体类基类</summary>
             <typeparam name="TEntity"></typeparam>
         </member>
         <member name="T:XCode.Entity`1">
@@ -2935,16 +2935,20 @@
         <member name="P:XCode.Entity`1.EntityOperate.AdditionalFields">
             <summary>默认累加字段</summary>
         </member>
-        <member name="M:XCode.Membership.EntityBase`1.Save">
+        <member name="M:XCode.Membership.LogEntity`1.Save">
             <summary>已重载。调用Save时写日志，而调用Insert和Update时不写日志</summary>
             <returns></returns>
         </member>
-        <member name="M:XCode.Membership.EntityBase`1.WriteLog(System.String,System.String)">
+        <member name="M:XCode.Membership.LogEntity`1.Delete">
+            <summary>删除时写日志</summary>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.Membership.LogEntity`1.WriteLog(System.String,System.String)">
             <summary>写日志</summary>
             <param name="action">操作</param>
             <param name="remark">备注</param>
         </member>
-        <member name="M:XCode.Membership.EntityBase`1.WriteLog(System.String,XCode.IEntity)">
+        <member name="M:XCode.Membership.LogEntity`1.WriteLog(System.String,XCode.IEntity)">
             <summary>输出实体对象日志</summary>
             <param name="action"></param>
             <param name="entity"></param>
@@ -3183,6 +3187,82 @@
         </member>
         <member name="T:XCode.Membership.DefaultLogProvider">
             <summary>默认日志提供者，使用实体类<seealso cref="T:XCode.Membership.Log"/></summary>
+        </member>
+        <member name="T:XCode.Membership.UserTimeEntity`1">
+            <summary>用户时间实体基类</summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="T:XCode.Membership.IUserInfo">
+            <summary>用户信息接口。包含创建用户和更新用户</summary>
+        </member>
+        <member name="P:XCode.Membership.IUserInfo.CreateUserID">
+            <summary>创建用户ID</summary>
+        </member>
+        <member name="P:XCode.Membership.IUserInfo.CreateUser">
+            <summary>创建用户</summary>
+        </member>
+        <member name="P:XCode.Membership.IUserInfo.CreateUserName">
+            <summary>创建用户名</summary>
+        </member>
+        <member name="P:XCode.Membership.IUserInfo.UpdateUserID">
+            <summary>更新用户ID</summary>
+        </member>
+        <member name="P:XCode.Membership.IUserInfo.UpdateUser">
+            <summary>更新用户</summary>
+        </member>
+        <member name="P:XCode.Membership.IUserInfo.UpdateUserName">
+            <summary>更新用户名</summary>
+        </member>
+        <member name="T:XCode.Membership.ITimeInfo">
+            <summary>时间信息接口。包含创建时间和更新时间</summary>
+        </member>
+        <member name="P:XCode.Membership.ITimeInfo.CreateTime">
+            <summary>创建时间</summary>
+        </member>
+        <member name="P:XCode.Membership.ITimeInfo.UpdateTime">
+            <summary>更新时间</summary>
+        </member>
+        <member name="M:XCode.Membership.UserTimeEntity`1.Valid(System.Boolean)">
+            <summary>验证数据，自动加上创建和更新的信息</summary>
+            <param name="isNew"></param>
+        </member>
+        <member name="M:XCode.Membership.UserTimeEntity`1.SetDirtyItem(System.String,System.Object)">
+            <summary>设置脏数据项。如果某个键存在并且数据没有脏，则设置</summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="P:XCode.Membership.UserTimeEntity`1.CreateUser">
+            <summary>创建人</summary>
+        </member>
+        <member name="P:XCode.Membership.UserTimeEntity`1.CreateUserName">
+            <summary>创建人名称</summary>
+        </member>
+        <member name="P:XCode.Membership.UserTimeEntity`1.UpdateUser">
+            <summary>更新人</summary>
+        </member>
+        <member name="P:XCode.Membership.UserTimeEntity`1.UpdateUserName">
+            <summary>更新人名称</summary>
+        </member>
+        <member name="T:XCode.Membership.UserTimeEntity`1.__Name">
+            <summary>字段名</summary>
+        </member>
+        <member name="F:XCode.Membership.UserTimeEntity`1.__Name.CreateUserID">
+            <summary>创建人</summary>
+        </member>
+        <member name="F:XCode.Membership.UserTimeEntity`1.__Name.UpdateUserID">
+            <summary>更新人</summary>
+        </member>
+        <member name="F:XCode.Membership.UserTimeEntity`1.__Name.CreateUserName">
+            <summary>创建人</summary>
+        </member>
+        <member name="F:XCode.Membership.UserTimeEntity`1.__Name.UpdateUserName">
+            <summary>更新人</summary>
+        </member>
+        <member name="F:XCode.Membership.UserTimeEntity`1.__Name.CreateTime">
+            <summary>创建时间</summary>
+        </member>
+        <member name="F:XCode.Membership.UserTimeEntity`1.__Name.UpdateTime">
+            <summary>更新时间</summary>
         </member>
         <member name="T:XCode.Membership.Log`1">
             <summary>日志</summary>

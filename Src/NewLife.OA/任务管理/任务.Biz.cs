@@ -22,7 +22,7 @@ namespace NewLife.OA
     }
 
     /// <summary>任务</summary>
-    public partial class WorkTask : Entity<WorkTask>
+    public partial class WorkTask : UserTimeEntity<WorkTask>
     {
         #region 对象操作﻿
         protected override WorkTask CreateInstance(bool forEdit = false)
@@ -40,18 +40,13 @@ namespace NewLife.OA
         /// <param name="isNew"></param>
         public override void Valid(Boolean isNew)
         {
-            // 这里验证参数范围，建议抛出参数异常，指定参数名，前端用户界面可以捕获参数异常并聚焦到对应的参数输入框
-            //if (String.IsNullOrEmpty(Name)) throw new ArgumentNullException(_.Name, _.Name.DisplayName + "无效！");
-            //if (!isNew && ID < 1) throw new ArgumentOutOfRangeException(_.ID, _.ID.DisplayName + "必须大于0！");
+            if (!HasDirty) return;
 
+            if (String.IsNullOrEmpty(Name)) throw new ArgumentNullException(_.Name, _.Name.DisplayName + "不能为空！");
+            
             // 建议先调用基类方法，基类方法会对唯一索引的数据进行验证
             base.Valid(isNew);
 
-            // 在新插入数据或者修改了指定字段时进行唯一性验证，CheckExist内部抛出参数异常
-            //if (isNew || Dirtys[__.Name]) CheckExist(__.Name);
-
-            if (isNew && !Dirtys[__.CreateTime]) CreateTime = DateTime.Now;
-            if (!Dirtys[__.UpdateTime]) UpdateTime = DateTime.Now;
         }
 
         ///// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
@@ -110,7 +105,13 @@ namespace NewLife.OA
         #region 扩展属性﻿
         public IManageUser Creater { get { return ManageProvider.Provider.FindByID(CreateUserID); } }
 
+        [DisplayName("创建人")]
         public String CreateName { get { return Creater == null ? "" : Creater.ToString(); } }
+
+        public IManageUser Updater { get { return ManageProvider.Provider.FindByID(UpdateUserID); } }
+
+        [DisplayName("更新人")]
+        public String UpdateName { get { return Updater == null ? "" : Updater.ToString(); } }
 
         private WorkTask _Parent;
         /// <summary>父任务</summary>
