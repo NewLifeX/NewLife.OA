@@ -43,7 +43,7 @@ namespace NewLife.OA
             if (!HasDirty) return;
 
             if (String.IsNullOrEmpty(Name)) throw new ArgumentNullException(_.Name, _.Name.DisplayName + "不能为空！");
-            
+
             // 建议先调用基类方法，基类方法会对唯一索引的数据进行验证
             base.Valid(isNew);
 
@@ -103,15 +103,15 @@ namespace NewLife.OA
         #endregion
 
         #region 扩展属性﻿
-        public IManageUser Creater { get { return ManageProvider.Provider.FindByID(CreateUserID); } }
+        //public IManageUser Creater { get { return ManageProvider.Provider.FindByID(CreateUserID); } }
 
-        [DisplayName("创建人")]
-        public String CreateName { get { return Creater == null ? "" : Creater.ToString(); } }
+        //[DisplayName("创建人")]
+        //public String CreateName { get { return Creater == null ? "" : Creater.ToString(); } }
 
-        public IManageUser Updater { get { return ManageProvider.Provider.FindByID(UpdateUserID); } }
+        //public IManageUser Updater { get { return ManageProvider.Provider.FindByID(UpdateUserID); } }
 
-        [DisplayName("更新人")]
-        public String UpdateName { get { return Updater == null ? "" : Updater.ToString(); } }
+        //[DisplayName("更新人")]
+        //public String UpdateName { get { return Updater == null ? "" : Updater.ToString(); } }
 
         private WorkTask _Parent;
         /// <summary>父任务</summary>
@@ -149,7 +149,7 @@ namespace NewLife.OA
 
         /// <summary>负责人</summary>
         [DisplayName("负责人")]
-        public String MasterName { get { return Master != null ? Master.Name : null; } }
+        public String MasterName { get { return Master != null ? Master.ToString() : null; } }
 
         /// <summary>工作状态</summary>
         [DisplayName("状态")]
