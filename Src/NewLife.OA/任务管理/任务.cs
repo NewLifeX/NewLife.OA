@@ -60,12 +60,24 @@ namespace NewLife.OA
             set { if (OnPropertyChanging(__.ParentID, value)) { _ParentID = value; OnPropertyChanged(__.ParentID); } }
         }
 
+        private Int32 _ChildCount;
+        /// <summary>子任务数</summary>
+        [DisplayName("子任务数")]
+        [Description("子任务数")]
+        [DataObjectField(false, false, true, 10)]
+        [BindColumn(4, "ChildCount", "子任务数", null, "int", 10, 0, false)]
+        public virtual Int32 ChildCount
+        {
+            get { return _ChildCount; }
+            set { if (OnPropertyChanging(__.ChildCount, value)) { _ChildCount = value; OnPropertyChanged(__.ChildCount); } }
+        }
+
         private Int32 _Score;
         /// <summary>积分。任务的权重，父任务权重等于子任务总和</summary>
         [DisplayName("积分")]
         [Description("积分。任务的权重，父任务权重等于子任务总和")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(4, "Score", "积分。任务的权重，父任务权重等于子任务总和", null, "int", 10, 0, false)]
+        [BindColumn(5, "Score", "积分。任务的权重，父任务权重等于子任务总和", null, "int", 10, 0, false)]
         public virtual Int32 Score
         {
             get { return _Score; }
@@ -77,7 +89,7 @@ namespace NewLife.OA
         [DisplayName("优先级")]
         [Description("优先级。数字越大优先级越高")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(5, "Priority", "优先级。数字越大优先级越高", null, "int", 10, 0, false)]
+        [BindColumn(6, "Priority", "优先级。数字越大优先级越高", null, "int", 10, 0, false)]
         public virtual Int32 Priority
         {
             get { return _Priority; }
@@ -89,7 +101,7 @@ namespace NewLife.OA
         [DisplayName("备注")]
         [Description("备注")]
         [DataObjectField(false, false, true, 500)]
-        [BindColumn(6, "Remark", "备注", null, "nvarchar(500)", 0, 0, true)]
+        [BindColumn(7, "Remark", "备注", null, "nvarchar(500)", 0, 0, true)]
         public virtual String Remark
         {
             get { return _Remark; }
@@ -101,7 +113,7 @@ namespace NewLife.OA
         [DisplayName("状态")]
         [Description("状态。准备、进行、暂停、取消、完成")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(7, "Status", "状态。准备、进行、暂停、取消、完成", null, "int", 10, 0, false)]
+        [BindColumn(8, "Status", "状态。准备、进行、暂停、取消、完成", null, "int", 10, 0, false)]
         public virtual Int32 Status
         {
             get { return _Status; }
@@ -113,7 +125,7 @@ namespace NewLife.OA
         [DisplayName("计划开始时间")]
         [Description("计划开始时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(8, "PlanTime", "计划开始时间", null, "datetime", 3, 0, false)]
+        [BindColumn(9, "PlanTime", "计划开始时间", null, "datetime", 3, 0, false)]
         public virtual DateTime PlanTime
         {
             get { return _PlanTime; }
@@ -125,7 +137,7 @@ namespace NewLife.OA
         [DisplayName("计划工作日")]
         [Description("计划工作日。需要多少个工作日")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(9, "PlanCost", "计划工作日。需要多少个工作日", null, "int", 10, 0, false)]
+        [BindColumn(10, "PlanCost", "计划工作日。需要多少个工作日", null, "int", 10, 0, false)]
         public virtual Int32 PlanCost
         {
             get { return _PlanCost; }
@@ -137,7 +149,7 @@ namespace NewLife.OA
         [DisplayName("开始时间")]
         [Description("开始时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(10, "StartTime", "开始时间", null, "datetime", 3, 0, false)]
+        [BindColumn(11, "StartTime", "开始时间", null, "datetime", 3, 0, false)]
         public virtual DateTime StartTime
         {
             get { return _StartTime; }
@@ -149,7 +161,7 @@ namespace NewLife.OA
         [DisplayName("结束时间")]
         [Description("结束时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(11, "EndTime", "结束时间", null, "datetime", 3, 0, false)]
+        [BindColumn(12, "EndTime", "结束时间", null, "datetime", 3, 0, false)]
         public virtual DateTime EndTime
         {
             get { return _EndTime; }
@@ -161,7 +173,7 @@ namespace NewLife.OA
         [DisplayName("实际工作日")]
         [Description("实际工作日")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(12, "Cost", "实际工作日", null, "int", 10, 0, false)]
+        [BindColumn(13, "Cost", "实际工作日", null, "int", 10, 0, false)]
         public virtual Int32 Cost
         {
             get { return _Cost; }
@@ -173,7 +185,7 @@ namespace NewLife.OA
         [DisplayName("进度")]
         [Description("进度。0到100")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(13, "Progress", "进度。0到100", null, "int", 10, 0, false)]
+        [BindColumn(14, "Progress", "进度。0到100", null, "int", 10, 0, false)]
         public virtual Int32 Progress
         {
             get { return _Progress; }
@@ -185,7 +197,7 @@ namespace NewLife.OA
         [DisplayName("负责人")]
         [Description("负责人")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(14, "MasterID", "负责人", null, "int", 10, 0, false)]
+        [BindColumn(15, "MasterID", "负责人", null, "int", 10, 0, false)]
         public virtual Int32 MasterID
         {
             get { return _MasterID; }
@@ -197,7 +209,7 @@ namespace NewLife.OA
         [DisplayName("浏览数")]
         [Description("浏览数")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(15, "Views", "浏览数", null, "int", 10, 0, false)]
+        [BindColumn(16, "Views", "浏览数", null, "int", 10, 0, false)]
         public virtual Int32 Views
         {
             get { return _Views; }
@@ -209,7 +221,7 @@ namespace NewLife.OA
         [DisplayName("修改次数")]
         [Description("修改次数")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(16, "Historys", "修改次数", null, "int", 10, 0, false)]
+        [BindColumn(17, "Historys", "修改次数", null, "int", 10, 0, false)]
         public virtual Int32 Historys
         {
             get { return _Historys; }
@@ -221,7 +233,7 @@ namespace NewLife.OA
         [DisplayName("评论数")]
         [Description("评论数")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(17, "Comments", "评论数", null, "int", 10, 0, false)]
+        [BindColumn(18, "Comments", "评论数", null, "int", 10, 0, false)]
         public virtual Int32 Comments
         {
             get { return _Comments; }
@@ -233,7 +245,7 @@ namespace NewLife.OA
         [DisplayName("创建者")]
         [Description("创建者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(18, "CreateUserID", "创建者", null, "int", 10, 0, false)]
+        [BindColumn(19, "CreateUserID", "创建者", null, "int", 10, 0, false)]
         public virtual Int32 CreateUserID
         {
             get { return _CreateUserID; }
@@ -245,7 +257,7 @@ namespace NewLife.OA
         [DisplayName("创建时间")]
         [Description("创建时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(19, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
+        [BindColumn(20, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
         public virtual DateTime CreateTime
         {
             get { return _CreateTime; }
@@ -257,7 +269,7 @@ namespace NewLife.OA
         [DisplayName("更新者")]
         [Description("更新者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(20, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
+        [BindColumn(21, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
         public virtual Int32 UpdateUserID
         {
             get { return _UpdateUserID; }
@@ -269,7 +281,7 @@ namespace NewLife.OA
         [DisplayName("更新时间")]
         [Description("更新时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(21, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
+        [BindColumn(22, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
         public virtual DateTime UpdateTime
         {
             get { return _UpdateTime; }
@@ -294,6 +306,7 @@ namespace NewLife.OA
                     case __.ID : return _ID;
                     case __.Name : return _Name;
                     case __.ParentID : return _ParentID;
+                    case __.ChildCount : return _ChildCount;
                     case __.Score : return _Score;
                     case __.Priority : return _Priority;
                     case __.Remark : return _Remark;
@@ -322,6 +335,7 @@ namespace NewLife.OA
                     case __.ID : _ID = Convert.ToInt32(value); break;
                     case __.Name : _Name = Convert.ToString(value); break;
                     case __.ParentID : _ParentID = Convert.ToInt32(value); break;
+                    case __.ChildCount : _ChildCount = Convert.ToInt32(value); break;
                     case __.Score : _Score = Convert.ToInt32(value); break;
                     case __.Priority : _Priority = Convert.ToInt32(value); break;
                     case __.Remark : _Remark = Convert.ToString(value); break;
@@ -358,6 +372,9 @@ namespace NewLife.OA
 
             ///<summary>父任务。顶级任务的父任务为0</summary>
             public static readonly Field ParentID = FindByName(__.ParentID);
+
+            ///<summary>子任务数</summary>
+            public static readonly Field ChildCount = FindByName(__.ChildCount);
 
             ///<summary>积分。任务的权重，父任务权重等于子任务总和</summary>
             public static readonly Field Score = FindByName(__.Score);
@@ -427,6 +444,9 @@ namespace NewLife.OA
 
             ///<summary>父任务。顶级任务的父任务为0</summary>
             public const String ParentID = "ParentID";
+
+            ///<summary>子任务数</summary>
+            public const String ChildCount = "ChildCount";
 
             ///<summary>积分。任务的权重，父任务权重等于子任务总和</summary>
             public const String Score = "Score";
@@ -498,6 +518,9 @@ namespace NewLife.OA
 
         /// <summary>父任务。顶级任务的父任务为0</summary>
         Int32 ParentID { get; set; }
+
+        /// <summary>子任务数</summary>
+        Int32 ChildCount { get; set; }
 
         /// <summary>积分。任务的权重，父任务权重等于子任务总和</summary>
         Int32 Score { get; set; }
