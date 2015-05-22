@@ -101,9 +101,34 @@ namespace NewLife.OA
         public IManageUser Creater { get { return ManageProvider.Provider.FindByID(CreateUserID); } }
 
         public String CreateName { get { return Creater == null ? "" : Creater.ToString(); } }
+
+        private WorkTask _Parent;
+        /// <summary>父任务</summary>
+        public WorkTask Parent
+        {
+            get
+            {
+                if (_Parent == null && ParentID > 0 && !Dirtys.ContainsKey("Parent"))
+                {
+                    _Parent = FindByID(ParentID);
+                    Dirtys["Parent"] = true;
+                }
+                return _Parent;
+            }
+        }
+
+        /// <summary>父任务名</summary>
+        public String ParentName { get { return Parent != null ? Parent.Name : null; } }
         #endregion
 
         #region 扩展查询﻿
+        public static WorkTask FindByID(Int32 id)
+        {
+            if (Meta.Count < 1000) return Meta.Cache.Entities.Find(__.ID, id);
+
+            return Meta.SingleCache[id];
+        }
+
         /// <summary>根据名称查找</summary>
         /// <param name="name">名称</param>
         /// <returns></returns>

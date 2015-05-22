@@ -957,6 +957,12 @@
         <member name="P:NewLife.Runtime.OSName">
             <summary>操作系统</summary>
         </member>
+        <member name="P:NewLife.Runtime.PhysicalMemory">
+            <summary>物理内存大小。单位MB</summary>
+        </member>
+        <member name="P:NewLife.Runtime.AvailableMemory">
+            <summary>可用物理内存大小。单位MB</summary>
+        </member>
         <member name="T:NewLife.OSSuites">
             <summary>标识系统上的程序组</summary>
         </member>
@@ -13138,6 +13144,12 @@
         <member name="T:NewLife.Common.HardInfo">
             <summary>硬件信息</summary>
         </member>
+        <member name="M:NewLife.Common.HardInfo.GetInfo(System.String,System.String)">
+            <summary>获取WMI信息</summary>
+            <param name="path"></param>
+            <param name="property"></param>
+            <returns></returns>
+        </member>
         <member name="M:NewLife.Common.HardInfo.ToExtend">
             <summary></summary>
             <returns></returns>
@@ -13197,6 +13209,9 @@
         </member>
         <member name="P:NewLife.Common.HardInfo.Current">
             <summary>当前机器硬件信息</summary>
+        </member>
+        <member name="T:NewLife.Common.HardInfo._">
+            <summary>内部获取</summary>
         </member>
         <member name="P:NewLife.Common.HardInfo._.BaseBoard">
             <summary>主板序列号</summary>

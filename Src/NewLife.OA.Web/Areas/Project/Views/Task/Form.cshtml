@@ -32,7 +32,7 @@
                 <strong>@ViewBag.StatusMessage</strong>
             </div>
         }
-        @using (Html.BeginForm("Save/" + (Object)Model[fact.Unique.Name], ViewContext.Controller.GetType().Name.TrimEnd("Controller")))
+        @using (Html.BeginForm((isNew ? "Add" : "Edit"), null, new { id = Model[fact.Unique.Name] }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary()
@@ -57,7 +57,7 @@
             <div class="form-group">
                 <label class="control-label col-md-2">计划开始时间</label>
                 <div class="input-group col-md-2" style="float: left">
-                    @Html.DateTimeFor(m=>m.PlanTime)
+                    @Html.ForDateTime(m => m.PlanTime)
                 </div>
                 @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.PlanCost))
             </div>
@@ -118,14 +118,3 @@
         }
     </div>
 </div>
-@section css{
-    <script src="~/Content/laydate/laydate.js"></script>
-}
-@section scripts{
-    <script>
-        laydate({
-            elem: '#StartTime', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
-            event: 'focus' //响应事件。如果没有传入event，则按照默认的click
-        });
-    </script>
-}

@@ -286,6 +286,7 @@
     <Content Include="Config\Sys.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\Project\Views\Task\_List_Data.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

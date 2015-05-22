@@ -11,5 +11,15 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
     [DisplayName("任务")]
     public class TaskController : EntityController<WorkTask>
     {
+        static TaskController()
+        {
+            // 过滤要显示的字段
+            var names = "ID,Name,ParentName,Score,Priority,Status,Progress,MasterName,StartTime".Split(",");
+            var fs = WorkTask.Meta.AllFields;
+            var list = names.Select(e => fs.FirstOrDefault(f => f.Name.EqualIgnoreCase(e))).Where(e => e != null);
+            //list.RemoveAll(e => !names.Contains(e.Name));
+            ListFields.Clear();
+            ListFields.AddRange(list);
+        }
     }
 }
