@@ -393,6 +393,14 @@
             <param name="name"></param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Cube.HtmlExtensions.ForEnum(System.Web.Mvc.HtmlHelper,System.String,System.Object,System.String)">
+            <summary>枚举</summary>
+            <param name="Html"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="label"></param>
+            <returns></returns>
+        </member>
         <member name="T:NewLife.Cube.RazorViewEngineX">
             <summary>自定义视图引擎。为了让系统优先查找当前区域目录</summary>
         </member>
