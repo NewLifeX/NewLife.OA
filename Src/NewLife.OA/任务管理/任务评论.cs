@@ -13,6 +13,9 @@ namespace NewLife.OA
     [DataObject]
     [Description("任务评论")]
     [BindIndex("IX_TaskComment_WorkTaskID", false, "WorkTaskID")]
+    [BindRelation("WorkTaskID", false, "WorkTask", "ID")]
+    [BindRelation("CreateUserID", false, "User", "ID")]
+    [BindRelation("UpdateUserID", false, "User", "ID")]
     [BindTable("TaskComment", Description = "任务评论", ConnName = "OA", DbType = DatabaseType.SqlServer)]
     public partial class TaskComment : ITaskComment
     {

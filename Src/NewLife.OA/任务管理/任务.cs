@@ -16,6 +16,10 @@ namespace NewLife.OA
     [BindIndex("IX_WorkTask_ParentID", false, "ParentID")]
     [BindIndex("IX_WorkTask_MasterID", false, "MasterID")]
     [BindIndex("IX_WorkTask_Status", false, "Status")]
+    [BindRelation("ParentID", false, "WorkTask", "ID")]
+    [BindRelation("MasterID", false, "User", "ID")]
+    [BindRelation("CreateUserID", false, "User", "ID")]
+    [BindRelation("UpdateUserID", false, "User", "ID")]
     [BindTable("WorkTask", Description = "任务", ConnName = "OA", DbType = DatabaseType.SqlServer)]
     public partial class WorkTask : IWorkTask
     {

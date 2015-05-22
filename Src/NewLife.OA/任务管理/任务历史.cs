@@ -15,6 +15,9 @@ namespace NewLife.OA
     [BindIndex("IX_TaskHistory_WorkTaskID", false, "WorkTaskID")]
     [BindIndex("IX_TaskHistory_Kind", false, "Kind")]
     [BindIndex("IX_TaskHistory_WorkTaskID_Kind", false, "WorkTaskID,Kind")]
+    [BindRelation("WorkTaskID", false, "WorkTask", "ID")]
+    [BindRelation("CreateUserID", false, "User", "ID")]
+    [BindRelation("UpdateUserID", false, "User", "ID")]
     [BindTable("TaskHistory", Description = "任务历史", ConnName = "OA", DbType = DatabaseType.SqlServer)]
     public partial class TaskHistory : ITaskHistory
     {

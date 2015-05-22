@@ -16,6 +16,8 @@ namespace NewLife.OA
     [BindIndex("IX_TaskMember_WorkTaskID", false, "WorkTaskID")]
     [BindIndex("IX_TaskMember_MemberID", false, "MemberID")]
     [BindIndex("IX_TaskMember_MemberID_Kind", false, "MemberID,Kind")]
+    [BindRelation("WorkTaskID", false, "WorkTask", "ID")]
+    [BindRelation("MemberID", false, "User", "ID")]
     [BindTable("TaskMember", Description = "任务成员", ConnName = "OA", DbType = DatabaseType.SqlServer)]
     public partial class TaskMember : ITaskMember
     {

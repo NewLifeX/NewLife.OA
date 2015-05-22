@@ -118,7 +118,27 @@ namespace NewLife.OA
         }
 
         /// <summary>父任务名</summary>
+        [DisplayName("父任务")]
         public String ParentName { get { return Parent != null ? Parent.Name : null; } }
+
+        private UserX _Master;
+        /// <summary>负责人</summary>
+        public UserX Master
+        {
+            get
+            {
+                if (_Master == null && MasterID > 0 && !Dirtys.ContainsKey("Master"))
+                {
+                    _Master = UserX.FindByID(MasterID);
+                    Dirtys["Master"] = true;
+                }
+                return _Master;
+            }
+        }
+
+        /// <summary>负责人</summary>
+        [DisplayName("负责人")]
+        public String MasterName { get { return Master != null ? Master.Name : null; } }
         #endregion
 
         #region 扩展查询﻿

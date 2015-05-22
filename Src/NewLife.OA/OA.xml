@@ -30,6 +30,12 @@
       <Index Columns="MasterID" />
       <Index Columns="Status" />
     </Indexes>
+    <Relations>
+      <Relation Column="ParentID" RelationTable="WorkTask" RelationColumn="ID" />
+      <Relation Column="MasterID" RelationTable="User" RelationColumn="ID" />
+      <Relation Column="CreateUserID" RelationTable="User" RelationColumn="ID" />
+      <Relation Column="UpdateUserID" RelationTable="User" RelationColumn="ID" />
+    </Relations>
   </Table>
   <Table Name="TaskMember" Description="任务成员" DbType="SqlServer" 页面分类="Task">
     <Columns>
@@ -48,6 +54,10 @@
       <Index Columns="MemberID" />
       <Index Columns="MemberID,Kind" />
     </Indexes>
+    <Relations>
+      <Relation Column="WorkTaskID" RelationTable="WorkTask" RelationColumn="ID" />
+      <Relation Column="MemberID" RelationTable="User" RelationColumn="ID" />
+    </Relations>
   </Table>
   <Table Name="TaskHistory" Description="任务历史" DbType="SqlServer" 页面分类="Task">
     <Columns>
@@ -67,6 +77,11 @@
       <Index Columns="Kind" />
       <Index Columns="WorkTaskID,Kind" />
     </Indexes>
+    <Relations>
+      <Relation Column="WorkTaskID" RelationTable="WorkTask" RelationColumn="ID" />
+      <Relation Column="CreateUserID" RelationTable="User" RelationColumn="ID" />
+      <Relation Column="UpdateUserID" RelationTable="User" RelationColumn="ID" />
+    </Relations>
   </Table>
   <Table Name="TaskComment" Description="任务评论" DbType="SqlServer" 页面分类="Task">
     <Columns>
@@ -82,5 +97,10 @@
     <Indexes>
       <Index Columns="WorkTaskID" />
     </Indexes>
+    <Relations>
+      <Relation Column="WorkTaskID" RelationTable="WorkTask" RelationColumn="ID" />
+      <Relation Column="CreateUserID" RelationTable="User" RelationColumn="ID" />
+      <Relation Column="UpdateUserID" RelationTable="User" RelationColumn="ID" />
+    </Relations>
   </Table>
 </Tables>
