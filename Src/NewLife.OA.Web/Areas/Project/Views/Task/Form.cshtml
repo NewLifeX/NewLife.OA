@@ -43,7 +43,7 @@
                 <label class="control-label col-md-2">负责人</label>
                 <div class="input-group col-md-2" style="float: left">
                     <!--TODO:请对负责人及成员的下拉列表ID重新命名，目前两处命名只是为了功能演示，保证页面正常运行.另外未处理多选后保存多选成员数据到数据库的处理环节-->
-                    @Html.DropDownList("OldMaster", new SelectList(UserX.FindAllWithCache(), "ID", "DisplayName", Model.MasterID), "无")
+                    @Html.DropDownList(WorkTask._.MasterID, new SelectList(UserX.FindAllWithCache(), "ID", "DisplayName", Model.MasterID), "无")
                 </div>
                 <label class="control-label col-md-2">成员</label>
                 <div class="input-group col-md-2" style="float: left">
@@ -62,11 +62,11 @@
                             }
                         }
 
-                        @Html.DropDownList(WorkTask._.MasterID.Name, members, null, new { @class = "multiselect", @multiple = "" });
+                        @Html.DropDownList("Members", members, null, new { @class = "multiselect", @multiple = "" });
                     }
                     else
                     {
-                        @Html.DropDownList(WorkTask._.MasterID.Name, new SelectList(UserX.FindAllWithCache(), "ID", "DisplayName"), null, new { @class = "multiselect", @multiple = "" });
+                        @Html.DropDownList("Members", new SelectList(UserX.FindAllWithCache(), "ID", "DisplayName"), null, new { @class = "multiselect", @multiple = "" });
                     }
                 </div>
             </div>
