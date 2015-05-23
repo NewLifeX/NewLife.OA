@@ -2798,6 +2798,9 @@
             <param name="args"></param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Log.Logger.GetHead">
+            <summary>输出日志头，包含所有环境信息</summary>
+        </member>
         <member name="P:NewLife.Log.Logger.Level">
             <summary>日志等级，只输出大于等于该级别的日志，默认Info，打开NewLife.Debug时默认为最低的Debug</summary>
         </member>
