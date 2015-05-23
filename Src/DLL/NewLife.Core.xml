@@ -1080,8 +1080,11 @@
         <member name="P:NewLife.Common.SysConfig`1.EMail">
             <summary>电子邮件</summary>
         </member>
-        <member name="P:NewLife.Common.SysConfig`1.IsEnable">
-            <summary>是否启用</summary>
+        <member name="P:NewLife.Common.SysConfig`1.Develop">
+            <summary>开发者模式</summary>
+        </member>
+        <member name="P:NewLife.Common.SysConfig`1.Enable">
+            <summary>启用</summary>
         </member>
         <member name="P:NewLife.Common.SysConfig`1.InstallTime">
             <summary>安装时间</summary>

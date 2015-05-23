@@ -114,11 +114,19 @@
             <param name="menu"></param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Cube.EntityController`1.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
+            <summary>动作执行前</summary>
+            <param name="filterContext"></param>
+        </member>
         <member name="P:NewLife.Cube.EntityController`1.ListFields">
             <summary>列表字段过滤</summary>
         </member>
         <member name="P:NewLife.Cube.EntityController`1.FormFields">
             <summary>表单字段过滤</summary>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.RoleController.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
+            <summary>动作执行前</summary>
+            <param name="filterContext"></param>
         </member>
         <member name="M:NewLife.Cube.Admin.Controllers.RoleController.Edit(XCode.Membership.Role)">
             <summary>保存</summary>
@@ -127,6 +135,10 @@
         </member>
         <member name="T:NewLife.Cube.Admin.Controllers.LogController">
             <summary>日志控制器</summary>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.LogController.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
+            <summary>动作执行前</summary>
+            <param name="filterContext"></param>
         </member>
         <member name="M:NewLife.Cube.Admin.Controllers.LogController.Add(XCode.Membership.Log)">
             <summary>不允许添加修改日志</summary>
@@ -175,6 +187,10 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.MenuController.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
+            <summary>动作执行前</summary>
+            <param name="filterContext"></param>
+        </member>
         <member name="T:NewLife.Cube.Admin.Controllers.SysController">
             <summary>系统设置控制器</summary>
         </member>
@@ -185,6 +201,10 @@
         </member>
         <member name="T:NewLife.Cube.Admin.Controllers.UserController">
             <summary>用户控制器</summary>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.UserController.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
+            <summary>动作执行前</summary>
+            <param name="filterContext"></param>
         </member>
         <member name="M:NewLife.Cube.Admin.Controllers.UserController.FormView(XCode.Membership.UserX)">
             <summary>表单页视图。</summary>

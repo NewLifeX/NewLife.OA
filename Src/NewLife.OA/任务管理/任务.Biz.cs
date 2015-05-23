@@ -12,14 +12,24 @@ using System.Linq;
 
 namespace NewLife.OA
 {
-    /// <summary>工作状态</summary>
-    public enum WorkStatus
+    /// <summary>任务状态</summary>
+    public enum TaskStatus
     {
         准备 = 0,
         进行 = 1,
         暂停 = 2,
         取消 = 3,
         完成 = 4
+    }
+
+    /// <summary>任务优先级</summary>
+    public enum TaskPriorities
+    {
+        空闲,
+        低级,
+        普通,
+        高级,
+        实时
     }
 
     /// <summary>任务</summary>
@@ -152,9 +162,13 @@ namespace NewLife.OA
         [DisplayName("负责人")]
         public String MasterName { get { return Master != null ? Master.ToString() : null; } }
 
-        /// <summary>工作状态</summary>
+        /// <summary>任务状态</summary>
         [DisplayName("状态")]
-        public WorkStatus WorkStatus { get { return (WorkStatus)Status; } set { Status = (Int32)value; } }
+        public TaskStatus TaskStatus { get { return (TaskStatus)Status; } set { Status = (Int32)value; } }
+
+        /// <summary>任务优先级</summary>
+        [DisplayName("优先级")]
+        public TaskPriorities TaskPriority { get { return (TaskPriorities)Priority; } set { Priority = (Int32)value; } }
 
         private EntityList<TaskMember> _Members;
         /// <summary>成员</summary>
