@@ -69,8 +69,11 @@
             if (!isNew)
             {
                 <div class="form-group">
-                    @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Cost))
-                </div>
+                    <label class="control-label col-md-2">实际工作日</label>
+                    <div class="col-md-1">
+                        @Model.Cost.ToString("n0")
+                    </div>
+               </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">浏览数</label>
                     <div class="col-md-1">
