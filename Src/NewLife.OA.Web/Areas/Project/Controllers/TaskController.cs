@@ -13,6 +13,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            ViewBag.HeaderTitle = "";
             ViewBag.HeaderContent = "";
 
             base.OnActionExecuting(filterContext);
