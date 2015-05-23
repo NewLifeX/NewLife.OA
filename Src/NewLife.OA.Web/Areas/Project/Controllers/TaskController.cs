@@ -21,5 +21,16 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             ListFields.Clear();
             ListFields.AddRange(list);
         }
+
+        ///// <summary>验证实体对象</summary>
+        ///// <param name="entity"></param>
+        ///// <returns></returns>
+        //protected override bool Valid(WorkTask entity)
+        //{
+        //    // 接收处理成员列表
+        //    var mbs = Request["MemberIDs"].SplitAsInt();
+
+        //    return base.Valid(entity);
+        //}
     }
 }

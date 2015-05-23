@@ -16,6 +16,13 @@ using XCode.Configuration;
 
 namespace NewLife.OA
 {
+    /// <summary>成员类型</summary>
+    public enum MemberKinds
+    {
+        负责人 = 1,
+        成员 = 2,
+    }
+
     /// <summary>任务成员</summary>
     public partial class TaskMember : Entity<TaskMember>
     {
@@ -78,22 +85,12 @@ namespace NewLife.OA
         #endregion
 
         #region 扩展属性﻿
+        /// <summary>成员类型</summary>
+        [DisplayName("成员类型")]
+        public MemberKinds MemberKind { get { return (MemberKinds)Kind; } set { Kind = (Int32)value; } }
         #endregion
 
         #region 扩展查询﻿
-        /// <summary>根据任务、成员查找</summary>
-        /// <param name="worktaskid">任务</param>
-        /// <param name="memberid">成员</param>
-        /// <returns></returns>
-        [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public static TaskMember FindByWorkTaskIDAndMemberID(Int32 worktaskid, Int32 memberid)
-        {
-            if (Meta.Count >= 1000)
-                return Find(new String[] { __.WorkTaskID, __.MemberID }, new Object[] { worktaskid, memberid });
-            else // 实体缓存
-                return Meta.Cache.Entities.Find(e => e.WorkTaskID == worktaskid && e.MemberID == memberid);
-        }
-
         /// <summary>根据任务查找</summary>
         /// <param name="worktaskid">任务</param>
         /// <returns></returns>
@@ -119,16 +116,16 @@ namespace NewLife.OA
         }
 
         /// <summary>根据成员、种类查找</summary>
-        /// <param name="memberid">成员</param>
+        /// <param name="taskid">成员</param>
         /// <param name="kind">种类</param>
         /// <returns></returns>
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public static EntityList<TaskMember> FindAllByMemberIDAndKind(Int32 memberid, Int32 kind)
+        public static EntityList<TaskMember> FindAllByWorkTaskIDAndKind(Int32 taskid, MemberKinds kind)
         {
             if (Meta.Count >= 1000)
-                return FindAll(new String[] { __.MemberID, __.Kind }, new Object[] { memberid, kind });
+                return FindAll(new String[] { __.WorkTaskID, __.Kind }, new Object[] { taskid, kind });
             else // 实体缓存
-                return Meta.Cache.Entities.FindAll(e => e.MemberID == memberid && e.Kind == kind);
+                return Meta.Cache.Entities.FindAll(e => e.WorkTaskID == taskid && e.MemberKind == kind);
         }
         #endregion
 

@@ -50,10 +50,9 @@
       <Column Name="LastUpdateTime" DataType="DateTime" Description="最后更新时间" />
     </Columns>
     <Indexes>
-      <Index Columns="WorkTaskID,MemberID" Unique="True" />
       <Index Columns="WorkTaskID" />
       <Index Columns="MemberID" />
-      <Index Columns="MemberID,Kind" />
+      <Index Columns="WorkTaskID,Kind" />
     </Indexes>
     <Relations>
       <Relation Column="WorkTaskID" RelationTable="WorkTask" RelationColumn="ID" />

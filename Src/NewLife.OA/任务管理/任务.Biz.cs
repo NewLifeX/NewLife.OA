@@ -8,6 +8,7 @@
 using System.ComponentModel;
 using XCode;
 using XCode.Membership;
+using System.Linq;
 
 namespace NewLife.OA
 {
@@ -154,6 +155,41 @@ namespace NewLife.OA
         /// <summary>工作状态</summary>
         [DisplayName("状态")]
         public WorkStatus WorkStatus { get { return (WorkStatus)Status; } set { Status = (Int32)value; } }
+
+        private EntityList<TaskMember> _Members;
+        /// <summary>成员</summary>
+        [DisplayName("成员")]
+        public EntityList<TaskMember> Members
+        {
+            get
+            {
+                if (_Members == null && ID > 0 && !Dirtys.ContainsKey("Members"))
+                {
+                    _Members = TaskMember.FindAllByWorkTaskIDAndKind(ID, MemberKinds.成员);
+                    Dirtys["Members"] = true;
+                }
+                return _Members;
+            }
+        }
+
+        private Int32[] _MemberIDs;
+        /// <summary>成员</summary>
+        [DisplayName("成员")]
+        public Int32[] MemberIDs
+        {
+            get
+            {
+                if (_MemberIDs == null) _MemberIDs = Members == null ? new Int32[0] : Members.ToList().Select(m => m.MemberID).ToArray();
+                return _MemberIDs;
+            }
+            set
+            {
+                _MemberIDs = value;
+
+                _Members = null;
+                Dirtys.Remove("Members");
+            }
+        }
         #endregion
 
         #region 扩展查询﻿

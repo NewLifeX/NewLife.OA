@@ -99,6 +99,11 @@
             <param name="entity"></param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Cube.EntityController`1.Valid(`0)">
+            <summary>验证实体对象</summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
         <member name="M:NewLife.Cube.EntityController`1.GetFields(System.Boolean)">
             <summary>获取要显示的字段列表</summary>
             <param name="isForm">是否是表单</param>
