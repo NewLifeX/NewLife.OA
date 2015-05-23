@@ -401,6 +401,38 @@
             <param name="label"></param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Cube.HtmlExtensions.ForDropDownList(System.Web.Mvc.HtmlHelper,System.String,System.Collections.IDictionary,System.Object,System.String)">
+            <summary>字典的下拉列表</summary>
+            <param name="Html"></param>
+            <param name="name"></param>
+            <param name="dic"></param>
+            <param name="selectedValue"></param>
+            <param name="optionLabel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.HtmlExtensions.ForDropDownList(System.Web.Mvc.HtmlHelper,System.String,XCode.IEntityList,System.String)">
+            <summary>实体列表的下拉列表。单选，自动匹配当前模型的选中项</summary>
+            <param name="Html"></param>
+            <param name="name"></param>
+            <param name="list"></param>
+            <param name="optionLabel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.HtmlExtensions.ForListBox(System.Web.Mvc.HtmlHelper,System.String,System.Collections.IDictionary,System.Collections.IEnumerable)">
+            <summary>字典的下拉列表</summary>
+            <param name="Html"></param>
+            <param name="name"></param>
+            <param name="dic"></param>
+            <param name="selectedValues"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.HtmlExtensions.ForListBox(System.Web.Mvc.HtmlHelper,System.String,XCode.IEntityList)">
+            <summary>实体列表的下拉列表。多选，自动匹配当前模型的选中项，支持数组类型或字符串类型（自动分割）的选中项</summary>
+            <param name="Html"></param>
+            <param name="name"></param>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
         <member name="T:NewLife.Cube.RazorViewEngineX">
             <summary>自定义视图引擎。为了让系统优先查找当前区域目录</summary>
         </member>

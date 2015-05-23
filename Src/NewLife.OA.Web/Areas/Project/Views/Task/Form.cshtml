@@ -43,31 +43,11 @@
                 <label class="control-label col-md-2">负责人</label>
                 <div class="input-group col-md-2" style="float: left">
                     <!--TODO:请对负责人及成员的下拉列表ID重新命名，目前两处命名只是为了功能演示，保证页面正常运行.另外未处理多选后保存多选成员数据到数据库的处理环节-->
-                    @Html.DropDownList(WorkTask._.MasterID, new SelectList(UserX.FindAllWithCache(), "ID", "DisplayName", Model.MasterID), "无")
+                    @Html.ForDropDownList(WorkTask._.MasterID, UserX.FindAllWithCache(), "无")
                 </div>
                 <label class="control-label col-md-2">成员</label>
                 <div class="input-group col-md-2" style="float: left">
-                    @if (!isNew)
-                    {
-                        List<SelectListItem> members = new List<SelectListItem>();
-                        foreach (var t in UserX.FindAllWithCache())
-                        {
-                            if (t.ID == Model.MasterID)
-                            {
-                                members.Add(new SelectListItem { Text = t.DisplayName, Value = t.ID.ToString(), Selected = true });
-                            }
-                            else
-                            {
-                                members.Add(new SelectListItem { Text = t.DisplayName, Value = t.ID.ToString() });
-                            }
-                        }
-
-                        @Html.DropDownList("Members", members, null, new { @class = "multiselect", @multiple = "" });
-                    }
-                    else
-                    {
-                        @Html.DropDownList("Members", new SelectList(UserX.FindAllWithCache(), "ID", "DisplayName"), null, new { @class = "multiselect", @multiple = "" });
-                    }
+                    @Html.ForListBox("Members", UserX.FindAllWithCache())
                 </div>
             </div>
             <div class="form-group">

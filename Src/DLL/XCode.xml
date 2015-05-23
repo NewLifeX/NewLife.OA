@@ -8157,6 +8157,11 @@
             <summary>导出Json</summary>
             <returns></returns>
         </member>
+        <member name="M:XCode.IEntityList.ToDictionary(System.String)">
+            <summary>实体列表转为字典。主键为Key</summary>
+            <param name="valueField">作为Value部分的字段，默认为空表示整个实体对象为值</param>
+            <returns></returns>
+        </member>
         <member name="M:XCode.IEntityList.ToDataTable(System.Boolean)">
             <summary>转为DataTable</summary>
             <param name="allowUpdate">是否允许更新数据，如果允许，将可以对DataTable进行添删改等操作</param>
@@ -10199,6 +10204,11 @@
         </member>
         <member name="M:XCode.EntityList`1.ToList">
             <summary>转为泛型List，方便进行Linq</summary>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.EntityList`1.ToDictionary(System.String)">
+            <summary>实体列表转为字典。主键为Key</summary>
+            <param name="valueField">作为Value部分的字段，默认为空表示整个实体对象为值</param>
             <returns></returns>
         </member>
         <member name="M:XCode.EntityList`1.From(System.Collections.IEnumerable)">
