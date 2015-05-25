@@ -54,9 +54,9 @@ namespace NewLife.OA
             if (!HasDirty) return;
 
             if (String.IsNullOrEmpty(Name)) throw new ArgumentNullException(_.Name, _.Name.DisplayName + "不能为空！");
-            if (String.IsNullOrEmpty(Name)) throw new ArgumentNullException(_.Name, _.Name.DisplayName + "不能为空！");
-            if (String.IsNullOrEmpty(Name)) throw new ArgumentNullException(_.Name, _.Name.DisplayName + "不能为空！");
-            if (String.IsNullOrEmpty(Name)) throw new ArgumentNullException(_.Name, _.Name.DisplayName + "不能为空！");
+            if (MasterID <= 0) throw new ArgumentNullException(_.MasterID, _.MasterID.DisplayName + "不能为空！");
+            if (PlanStartTime <= DateTime.MinValue) throw new ArgumentNullException(_.PlanStartTime, _.PlanStartTime.DisplayName + "不能为空！");
+            if (PlanEndTime <= DateTime.MinValue) throw new ArgumentNullException(_.PlanEndTime, _.PlanEndTime.DisplayName + "不能为空！");
             if (String.IsNullOrEmpty(Name)) throw new ArgumentNullException(_.Name, _.Name.DisplayName + "不能为空！");
 
             // 建议先调用基类方法，基类方法会对唯一索引的数据进行验证
