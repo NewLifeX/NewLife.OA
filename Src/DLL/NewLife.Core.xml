@@ -1134,6 +1134,13 @@
             <param name="value">待转换对象</param>
             <returns></returns>
         </member>
+        <member name="M:System.Utility.ToFullString(System.DateTime,System.String)">
+            <summary>时间日期转为yyyy-MM-dd HH:mm:ss完整字符串，支持指定最小时间的字符串</summary>
+            <remarks>最常用的时间日期格式，可以无视各平台以及系统自定义的时间格式</remarks>
+            <param name="value">待转换对象</param>
+            <param name="emptyValue">字符串空值时（DateTime.MinValue）显示的字符串，null表示原样显示最小时间，String.Empty表示不显示</param>
+            <returns></returns>
+        </member>
         <member name="P:System.Utility.Convert">
             <summary>类型转换提供者</summary>
             <remarks>重载默认提供者<seealso cref="T:System.DefaultConvert"/>并赋值给<see cref="P:System.Utility.Convert"/>可改变所有类型转换的行为</remarks>
@@ -1171,9 +1178,10 @@
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:System.DefaultConvert.ToFullString(System.DateTime)">
+        <member name="M:System.DefaultConvert.ToFullString(System.DateTime,System.String)">
             <summary>时间日期转为yyyy-MM-dd HH:mm:ss完整字符串</summary>
-            <param name="value"></param>
+            <param name="value">待转换对象</param>
+            <param name="emptyValue">字符串空值时显示的字符串，null表示原样显示最小时间，String.Empty表示不显示</param>
             <returns></returns>
         </member>
         <member name="T:NewLife.Compression.ZipException">
@@ -2715,8 +2723,8 @@
         <member name="P:NewLife.IO.StreamWriterX.Closable">
             <summary>是否在最后关闭流</summary>
         </member>
-        <member name="T:NewLife.Log.CompositeLog">
-            <summary>复合日志提供者，多种方式输出</summary>
+        <member name="T:NewLife.Log.ActionLog">
+            <summary>依托于动作的日志类</summary>
         </member>
         <member name="T:NewLife.Log.Logger">
             <summary>日志基类。提供日志的基本实现</summary>
@@ -2809,6 +2817,22 @@
         </member>
         <member name="P:NewLife.Log.Logger.Null">
             <summary>空日志实现</summary>
+        </member>
+        <member name="M:NewLife.Log.ActionLog.#ctor(System.Action{System.String,System.Object[]})">
+            <summary>使用指定方法否则动作日志</summary>
+            <param name="action"></param>
+        </member>
+        <member name="M:NewLife.Log.ActionLog.OnWrite(NewLife.Log.LogLevel,System.String,System.Object[])">
+            <summary>写日志</summary>
+            <param name="level"></param>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
+        <member name="P:NewLife.Log.ActionLog.Method">
+            <summary>方法</summary>
+        </member>
+        <member name="T:NewLife.Log.CompositeLog">
+            <summary>复合日志提供者，多种方式输出</summary>
         </member>
         <member name="M:NewLife.Log.CompositeLog.#ctor">
             <summary>实例化</summary>
@@ -3748,6 +3772,11 @@
             异常处理理念：确保主流程简单易用，特殊情况的异常通过事件处理！
             </remarks>
         </member>
+        <member name="M:NewLife.Net.ISocket.WriteLog(System.String,System.Object[])">
+            <summary>已重载。日志加上前缀</summary>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
         <member name="P:NewLife.Net.ISocket.Name">
             <summary>名称。主要用于日志输出</summary>
         </member>
@@ -3871,7 +3900,7 @@
             <summary>打开</summary>
             <returns>是否成功</returns>
         </member>
-        <member name="M:NewLife.Net.ISocketClient.Close">
+        <member name="M:NewLife.Net.ISocketClient.Close(System.String)">
             <summary>关闭</summary>
             <returns>是否成功</returns>
         </member>
@@ -4080,7 +4109,7 @@
             <summary>唤醒指定MAC地址的计算机</summary>
             <param name="macs"></param>
         </member>
-        <member name="M:System.NetHelper.Close(System.Net.Sockets.Socket,System.Boolean)">
+        <member name="M:System.NetHelper.Shutdown(System.Net.Sockets.Socket,System.Boolean)">
             <summary>关闭连接</summary>
             <param name="socket"></param>
             <param name="reuseAddress"></param>
@@ -4536,11 +4565,11 @@
         <member name="M:NewLife.Net.SessionBase.CheckDynamic">
             <summary>检查是否动态端口。如果是动态端口，则把随机得到的端口拷贝到Port</summary>
         </member>
-        <member name="M:NewLife.Net.SessionBase.Close">
+        <member name="M:NewLife.Net.SessionBase.Close(System.String)">
             <summary>关闭</summary>
             <returns>是否成功</returns>
         </member>
-        <member name="M:NewLife.Net.SessionBase.OnClose">
+        <member name="M:NewLife.Net.SessionBase.OnClose(System.String)">
             <summary>关闭</summary>
             <returns></returns>
         </member>
@@ -4676,7 +4705,7 @@
         <member name="M:NewLife.Net.TcpSession.OnOpen">
             <summary>打开</summary>
         </member>
-        <member name="M:NewLife.Net.TcpSession.OnClose">
+        <member name="M:NewLife.Net.TcpSession.OnClose(System.String)">
             <summary>关闭</summary>
         </member>
         <member name="M:NewLife.Net.TcpSession.Send(System.Byte[],System.Int32,System.Int32)">
@@ -4709,6 +4738,9 @@
             <param name="data"></param>
             <param name="count"></param>
         </member>
+        <member name="F:NewLife.Net.TcpSession._Reconnect">
+            <summary>重连次数</summary>
+        </member>
         <member name="M:NewLife.Net.TcpSession.ToString">
             <summary>已重载。</summary>
             <returns></returns>
@@ -4717,7 +4749,7 @@
             <summary>客户端</summary>
         </member>
         <member name="P:NewLife.Net.TcpSession.DisconnectWhenEmptyData">
-            <summary>收到空数据时抛出异常并断开连接。</summary>
+            <summary>收到空数据时抛出异常并断开连接。默认true</summary>
         </member>
         <member name="P:NewLife.Net.TcpSession.Stream">
             <summary>会话数据流，供用户程序使用。可用于解决Tcp粘包的问题。</summary>
@@ -4726,7 +4758,7 @@
             <summary>Socket服务器。当前通讯所在的Socket服务器，其实是TcpServer/UdpServer。该属性决定本会话是客户端会话还是服务的会话</summary>
         </member>
         <member name="P:NewLife.Net.TcpSession.AutoReconnect">
-            <summary>是否自动重连，默认true。发生异常断开连接时，自动重连服务端。</summary>
+            <summary>自动重连次数，默认3。发生异常断开连接时，自动重连服务端。</summary>
         </member>
         <member name="P:NewLife.Net.TcpSession.Packet">
             <summary>用于粘包处理的数据流缓冲区，指针位于末端，便于附加数据。前面是7位压缩编码整数表示的报文长度</summary>
@@ -4884,7 +4916,7 @@
         <member name="M:NewLife.Net.UdpServer.OnOpen">
             <summary>打开</summary>
         </member>
-        <member name="M:NewLife.Net.UdpServer.OnClose">
+        <member name="M:NewLife.Net.UdpServer.OnClose(System.String)">
             <summary>关闭</summary>
         </member>
         <member name="M:NewLife.Net.UdpServer.Send(System.Byte[],System.Int32,System.Int32)">
@@ -5012,6 +5044,11 @@
         <member name="M:NewLife.Net.UdpSession.ToString">
             <summary>已重载。</summary>
             <returns></returns>
+        </member>
+        <member name="M:NewLife.Net.UdpSession.WriteLog(System.String,System.Object[])">
+            <summary>输出日志</summary>
+            <param name="format"></param>
+            <param name="args"></param>
         </member>
         <member name="P:NewLife.Net.UdpSession.ID">
             <summary>会话编号</summary>
@@ -12054,6 +12091,10 @@
         <member name="P:NewLife.Serialization.WriteObjectEventArgs.Type">
             <summary>对象类型</summary>
         </member>
+        <member name="T:NewLife.Serialization.Protocol`1">
+            <summary>协议基类</summary>
+            <typeparam name="T"></typeparam>
+        </member>
         <member name="T:NewLife.Serialization.RWKinds">
             <summary>序列化种类</summary>
         </member>
@@ -14065,6 +14106,10 @@
             <param name="maxNum">最大层数</param>
             <param name="split">分割符号，默认左箭头加上换行</param>
             <returns></returns>
+        </member>
+        <member name="M:NewLife.Log.XTrace.WriteVersion(System.Reflection.Assembly)">
+            <summary>输出程序集版本</summary>
+            <param name="asm"></param>
         </member>
         <member name="P:NewLife.Log.XTrace.Log">
             <summary>日志提供者，默认使用文本文件日志</summary>

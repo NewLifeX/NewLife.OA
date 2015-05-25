@@ -96,40 +96,40 @@ namespace NewLife.OA
             set { if (OnPropertyChanging(__.Priority, value)) { _Priority = value; OnPropertyChanged(__.Priority); } }
         }
 
-        private String _Remark;
-        /// <summary>备注</summary>
-        [DisplayName("备注")]
-        [Description("备注")]
-        [DataObjectField(false, false, true, 500)]
-        [BindColumn(7, "Remark", "备注", null, "nvarchar(500)", 0, 0, true)]
-        public virtual String Remark
-        {
-            get { return _Remark; }
-            set { if (OnPropertyChanging(__.Remark, value)) { _Remark = value; OnPropertyChanged(__.Remark); } }
-        }
-
         private Int32 _Status;
         /// <summary>状态。准备、进行、暂停、取消、完成</summary>
         [DisplayName("状态")]
         [Description("状态。准备、进行、暂停、取消、完成")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(8, "Status", "状态。准备、进行、暂停、取消、完成", null, "int", 10, 0, false)]
+        [BindColumn(7, "Status", "状态。准备、进行、暂停、取消、完成", null, "int", 10, 0, false)]
         public virtual Int32 Status
         {
             get { return _Status; }
             set { if (OnPropertyChanging(__.Status, value)) { _Status = value; OnPropertyChanged(__.Status); } }
         }
 
-        private DateTime _PlanTime;
+        private DateTime _PlanStartTime;
         /// <summary>计划开始时间</summary>
         [DisplayName("计划开始时间")]
         [Description("计划开始时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(9, "PlanTime", "计划开始时间", null, "datetime", 3, 0, false)]
-        public virtual DateTime PlanTime
+        [BindColumn(8, "PlanStartTime", "计划开始时间", null, "datetime", 3, 0, false)]
+        public virtual DateTime PlanStartTime
         {
-            get { return _PlanTime; }
-            set { if (OnPropertyChanging(__.PlanTime, value)) { _PlanTime = value; OnPropertyChanged(__.PlanTime); } }
+            get { return _PlanStartTime; }
+            set { if (OnPropertyChanging(__.PlanStartTime, value)) { _PlanStartTime = value; OnPropertyChanged(__.PlanStartTime); } }
+        }
+
+        private DateTime _PlanEndTime;
+        /// <summary>计划结束时间</summary>
+        [DisplayName("计划结束时间")]
+        [Description("计划结束时间")]
+        [DataObjectField(false, false, true, 3)]
+        [BindColumn(9, "PlanEndTime", "计划结束时间", null, "datetime", 3, 0, false)]
+        public virtual DateTime PlanEndTime
+        {
+            get { return _PlanEndTime; }
+            set { if (OnPropertyChanging(__.PlanEndTime, value)) { _PlanEndTime = value; OnPropertyChanged(__.PlanEndTime); } }
         }
 
         private Int32 _PlanCost;
@@ -287,6 +287,18 @@ namespace NewLife.OA
             get { return _UpdateTime; }
             set { if (OnPropertyChanging(__.UpdateTime, value)) { _UpdateTime = value; OnPropertyChanged(__.UpdateTime); } }
         }
+
+        private String _Content;
+        /// <summary>内容</summary>
+        [DisplayName("内容")]
+        [Description("内容")]
+        [DataObjectField(false, false, true, 500)]
+        [BindColumn(23, "Content", "内容", null, "nvarchar(500)", 0, 0, true)]
+        public virtual String Content
+        {
+            get { return _Content; }
+            set { if (OnPropertyChanging(__.Content, value)) { _Content = value; OnPropertyChanged(__.Content); } }
+        }
         #endregion
 
         #region 获取/设置 字段值
@@ -309,9 +321,9 @@ namespace NewLife.OA
                     case __.ChildCount : return _ChildCount;
                     case __.Score : return _Score;
                     case __.Priority : return _Priority;
-                    case __.Remark : return _Remark;
                     case __.Status : return _Status;
-                    case __.PlanTime : return _PlanTime;
+                    case __.PlanStartTime : return _PlanStartTime;
+                    case __.PlanEndTime : return _PlanEndTime;
                     case __.PlanCost : return _PlanCost;
                     case __.StartTime : return _StartTime;
                     case __.EndTime : return _EndTime;
@@ -325,6 +337,7 @@ namespace NewLife.OA
                     case __.CreateTime : return _CreateTime;
                     case __.UpdateUserID : return _UpdateUserID;
                     case __.UpdateTime : return _UpdateTime;
+                    case __.Content : return _Content;
                     default: return base[name];
                 }
             }
@@ -338,9 +351,9 @@ namespace NewLife.OA
                     case __.ChildCount : _ChildCount = Convert.ToInt32(value); break;
                     case __.Score : _Score = Convert.ToInt32(value); break;
                     case __.Priority : _Priority = Convert.ToInt32(value); break;
-                    case __.Remark : _Remark = Convert.ToString(value); break;
                     case __.Status : _Status = Convert.ToInt32(value); break;
-                    case __.PlanTime : _PlanTime = Convert.ToDateTime(value); break;
+                    case __.PlanStartTime : _PlanStartTime = Convert.ToDateTime(value); break;
+                    case __.PlanEndTime : _PlanEndTime = Convert.ToDateTime(value); break;
                     case __.PlanCost : _PlanCost = Convert.ToInt32(value); break;
                     case __.StartTime : _StartTime = Convert.ToDateTime(value); break;
                     case __.EndTime : _EndTime = Convert.ToDateTime(value); break;
@@ -354,6 +367,7 @@ namespace NewLife.OA
                     case __.CreateTime : _CreateTime = Convert.ToDateTime(value); break;
                     case __.UpdateUserID : _UpdateUserID = Convert.ToInt32(value); break;
                     case __.UpdateTime : _UpdateTime = Convert.ToDateTime(value); break;
+                    case __.Content : _Content = Convert.ToString(value); break;
                     default: base[name] = value; break;
                 }
             }
@@ -382,14 +396,14 @@ namespace NewLife.OA
             ///<summary>优先级。数字越大优先级越高</summary>
             public static readonly Field Priority = FindByName(__.Priority);
 
-            ///<summary>备注</summary>
-            public static readonly Field Remark = FindByName(__.Remark);
-
             ///<summary>状态。准备、进行、暂停、取消、完成</summary>
             public static readonly Field Status = FindByName(__.Status);
 
             ///<summary>计划开始时间</summary>
-            public static readonly Field PlanTime = FindByName(__.PlanTime);
+            public static readonly Field PlanStartTime = FindByName(__.PlanStartTime);
+
+            ///<summary>计划结束时间</summary>
+            public static readonly Field PlanEndTime = FindByName(__.PlanEndTime);
 
             ///<summary>计划工作日。需要多少个工作日</summary>
             public static readonly Field PlanCost = FindByName(__.PlanCost);
@@ -430,6 +444,9 @@ namespace NewLife.OA
             ///<summary>更新时间</summary>
             public static readonly Field UpdateTime = FindByName(__.UpdateTime);
 
+            ///<summary>内容</summary>
+            public static readonly Field Content = FindByName(__.Content);
+
             static Field FindByName(String name) { return Meta.Table.FindByName(name); }
         }
 
@@ -454,14 +471,14 @@ namespace NewLife.OA
             ///<summary>优先级。数字越大优先级越高</summary>
             public const String Priority = "Priority";
 
-            ///<summary>备注</summary>
-            public const String Remark = "Remark";
-
             ///<summary>状态。准备、进行、暂停、取消、完成</summary>
             public const String Status = "Status";
 
             ///<summary>计划开始时间</summary>
-            public const String PlanTime = "PlanTime";
+            public const String PlanStartTime = "PlanStartTime";
+
+            ///<summary>计划结束时间</summary>
+            public const String PlanEndTime = "PlanEndTime";
 
             ///<summary>计划工作日。需要多少个工作日</summary>
             public const String PlanCost = "PlanCost";
@@ -502,6 +519,9 @@ namespace NewLife.OA
             ///<summary>更新时间</summary>
             public const String UpdateTime = "UpdateTime";
 
+            ///<summary>内容</summary>
+            public const String Content = "Content";
+
         }
         #endregion
     }
@@ -528,14 +548,14 @@ namespace NewLife.OA
         /// <summary>优先级。数字越大优先级越高</summary>
         Int32 Priority { get; set; }
 
-        /// <summary>备注</summary>
-        String Remark { get; set; }
-
         /// <summary>状态。准备、进行、暂停、取消、完成</summary>
         Int32 Status { get; set; }
 
         /// <summary>计划开始时间</summary>
-        DateTime PlanTime { get; set; }
+        DateTime PlanStartTime { get; set; }
+
+        /// <summary>计划结束时间</summary>
+        DateTime PlanEndTime { get; set; }
 
         /// <summary>计划工作日。需要多少个工作日</summary>
         Int32 PlanCost { get; set; }
@@ -575,6 +595,9 @@ namespace NewLife.OA
 
         /// <summary>更新时间</summary>
         DateTime UpdateTime { get; set; }
+
+        /// <summary>内容</summary>
+        String Content { get; set; }
         #endregion
 
         #region 获取/设置 字段值

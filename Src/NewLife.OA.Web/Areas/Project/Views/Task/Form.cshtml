@@ -23,7 +23,7 @@
                 @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Name))
             </div>
             <div class="form-group">
-                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Remark))
+                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Content))
             </div>
             <div class="form-group">
                 <label class="control-label col-md-2">状态</label>
@@ -52,28 +52,31 @@
             <div class="form-group">
                 <label class="control-label col-md-2">计划开始时间</label>
                 <div class="input-group col-md-2" style="float: left">
-                    @Html.ForDateTime(m => m.PlanTime)
+                    @Html.ForDateTime(m => m.PlanStartTime)
                 </div>
-                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.PlanCost))
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-2">开始时间</label>
+                <label class="control-label col-md-2">计划开始时间</label>
                 <div class="input-group col-md-2" style="float: left">
-                    @Html.ForDateTime(m => m.StartTime)
-                </div>
-                <label class="control-label col-md-2">结束时间</label>
-                <div class="input-group col-md-2">
-                    @Html.ForDateTime(m => m.EndTime)
+                    @Html.ForDateTime(m => m.PlanEndTime)
                 </div>
             </div>
             if (!isNew)
             {
                 <div class="form-group">
+                    <label class="control-label col-md-2">开始时间</label>
+                    <div class="input-group col-md-2" style="float: left">
+                        @Model.StartTime.ToFullString("")
+                    </div>
+                    <label class="control-label col-md-2">结束时间</label>
+                    <div class="input-group col-md-2">
+                        @Model.EndTime.ToFullString("")
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="control-label col-md-2">实际工作日</label>
                     <div class="col-md-1">
                         @Model.Cost.ToString("n0")
                     </div>
-               </div>
+                </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">浏览数</label>
                     <div class="col-md-1">
@@ -95,7 +98,7 @@
                     </div>
                     <label class="control-label col-md-2">创建时间</label>
                     <div class="col-md-2">
-                        @Model.CreateTime.ToFullString()
+                        @Model.CreateTime.ToFullString("")
                     </div>
                 </div>
                 <div class="form-group">
@@ -105,7 +108,7 @@
                     </div>
                     <label class="control-label col-md-2">更新时间</label>
                     <div class="col-md-2">
-                        @(Model.UpdateTime > DateTime.MinValue ? Model.UpdateTime.ToFullString() : null)
+                        @Model.UpdateTime.ToFullString("")
                     </div>
                 </div>
             }

@@ -3564,10 +3564,6 @@
             <summary>验证</summary>
             <param name="isNew"></param>
         </member>
-        <member name="M:XCode.Membership.User`1.Delete">
-            <summary>已重载。</summary>
-            <returns></returns>
-        </member>
         <member name="M:XCode.Membership.User`1.FindByID(System.Int32)">
             <summary>根据编号查找</summary>
             <param name="id"></param>
@@ -4199,6 +4195,11 @@
             <summary>写日志</summary>
             <param name="action">操作</param>
             <param name="remark">备注</param>
+        </member>
+        <member name="M:XCode.Membership.Menu`1.WriteLog(System.String,XCode.IEntity)">
+            <summary>输出实体对象日志</summary>
+            <param name="action"></param>
+            <param name="entity"></param>
         </member>
         <member name="M:XCode.Membership.Menu`1.Export(System.Collections.Generic.IList{XCode.Membership.IMenu})">
             <summary>导出</summary>
