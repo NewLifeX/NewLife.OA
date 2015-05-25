@@ -282,7 +282,6 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\ace\fonts\OpenSans-300.woff" />
     <Content Include="Content\ace\fonts\OpenSans-400.woff" />
-    <Content Include="Areas\Project\Views\Shared\_Form_Item.cshtml" />
     <Content Include="Config\Sys.config">
       <SubType>Designer</SubType>
     </Content>
@@ -317,6 +316,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Project\Models\" />
+    <Folder Include="Areas\Project\Views\Shared\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

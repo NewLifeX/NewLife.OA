@@ -47,6 +47,9 @@
                 <label class="control-label col-md-2">负责人</label>
                 <div class="input-group col-md-2" style="float: left">
                     @Html.ForDropDownList(WorkTask._.MasterID, UserX.FindAllWithCache())
+                    <span class="alert-danger">
+                        @Html.ValidationMessage(WorkTask._.MasterID.Name)
+                    </span>
                 </div>
                 <label class="control-label col-md-2">成员</label>
                 <div class="input-group col-md-2" style="float: left">
@@ -57,10 +60,16 @@
                 <label class="control-label col-md-2">计划开始时间</label>
                 <div class="input-group col-md-2" style="float: left">
                     @Html.ForDateTime(m => m.PlanStartTime)
+                    <span class="alert-danger">
+                        @Html.ValidationMessage(WorkTask._.PlanStartTime.Name)
+                    </span>
                 </div>
-                <label class="control-label col-md-2">计划开始时间</label>
+                <label class="control-label col-md-2">计划结束时间</label>
                 <div class="input-group col-md-2" style="float: left">
                     @Html.ForDateTime(m => m.PlanEndTime)
+                    <span class="alert-danger">
+                        @Html.ValidationMessage(WorkTask._.PlanEndTime.Name)
+                    </span>
                 </div>
             </div>
             if (!isNew)
