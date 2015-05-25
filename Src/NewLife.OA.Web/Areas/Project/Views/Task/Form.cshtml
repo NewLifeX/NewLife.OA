@@ -29,104 +29,78 @@
             if (!isNew)
             {
                 <div class="form-group">
-                    <label class="control-label col-md-2">状态</label>
-                    <div class="input-group col-md-2" style="float: left">
-                        @Html.ForEditor(WorkTask._.Status, Model.TaskStatus)
-                    </div>
+                    @Html.Partial("_Form_Item", new Pair(Model, WorkTask.Meta.AllFields.FirstOrDefault(e => e.Name == "TaskStatus")))
+                </div>
+                <div class="form-group">
                     @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Progress))
                 </div>
             }
             <div class="form-group">
-                <label class="control-label col-md-2">优先级</label>
-                <div class="input-group col-md-2" style="float: left">
-                    @Html.ForEditor(WorkTask._.Priority, Model.TaskPriority)
-                </div>
+                @Html.Partial("_Form_Item", new Pair(Model, WorkTask.Meta.AllFields.FirstOrDefault(e => e.Name == "TaskPriority")))
+            </div>
+            <div class="form-group">
                 @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Score))
             </div>
             <div class="form-group">
-                <label class="control-label col-md-2">负责人</label>
-                <div class="input-group col-md-2" style="float: left">
+                <label class="control-label col-xs-2 col-sm-2 col-md-4">负责人</label>
+                <div class="col-xs-10 col-sm-6 col-md-4">
                     @Html.ForDropDownList(WorkTask._.MasterID, UserX.FindAllWithCache())
                     <span class="alert-danger">
                         @Html.ValidationMessage(WorkTask._.MasterID.Name)
                     </span>
                 </div>
-                <label class="control-label col-md-2">成员</label>
-                <div class="input-group col-md-2" style="float: left">
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-2 col-sm-2 col-md-4">成员</label>
+                <div class="col-xs-10 col-sm-6 col-md-4">
                     @Html.ForListBox("MemberIDs", UserX.FindAllWithCache())
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-md-2">计划开始时间</label>
-                <div class="input-group col-md-2" style="float: left">
-                    @Html.ForDateTime(m => m.PlanStartTime)
-                    <span class="alert-danger">
-                        @Html.ValidationMessage(WorkTask._.PlanStartTime.Name)
-                    </span>
-                </div>
-                <label class="control-label col-md-2">计划结束时间</label>
-                <div class="input-group col-md-2" style="float: left">
-                    @Html.ForDateTime(m => m.PlanEndTime)
-                    <span class="alert-danger">
-                        @Html.ValidationMessage(WorkTask._.PlanEndTime.Name)
-                    </span>
-                </div>
+                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.PlanStartTime))
+            </div>
+            <div class="form-group">
+                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.PlanEndTime))
             </div>
             if (!isNew)
             {
                 <div class="form-group">
-                    <label class="control-label col-md-2">开始时间</label>
-                    <div class="input-group col-md-2" style="float: left">
-                        @Model.StartTime.ToFullString("")
-                    </div>
-                    <label class="control-label col-md-2">结束时间</label>
-                    <div class="input-group col-md-2">
-                        @Model.EndTime.ToFullString("")
+                    <label class="control-label col-xs-2 col-sm-2 col-md-4">实际时间</label>
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <span class="middle">
+                            @Model.StartTime.ToFullString("") 到 @Model.EndTime.ToFullString("") 共 @Model.Cost.ToString("n0") 工作日
+                        </span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2">实际工作日</label>
-                    <div class="col-md-1">
-                        @Model.Cost.ToString("n0")
+                    <label class="control-label col-xs-2 col-sm-2 col-md-4">浏览/修改/评论</label>
+                    <div class="col-md-4">
+                        <span class="middle">
+                            @Model.Views.ToString("n0") /
+                            @Model.Historys.ToString("n0") /
+                            @Model.Comments.ToString("n0")
+                        </span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2">浏览数</label>
-                    <div class="col-md-1">
-                        @Model.Views.ToString("n0")
-                    </div>
-                    <label class="control-label col-md-1">修改次数</label>
-                    <div class="col-md-1">
-                        @Model.Historys.ToString("n0")
-                    </div>
-                    <label class="control-label col-md-1">评论数</label>
-                    <div class="col-md-1">
-                        @Model.Comments.ToString("n0")
+                    <label class="control-label col-xs-2 col-sm-2 col-md-4">创建</label>
+                    <div class="col-md-4">
+                        <span class="middle">
+                            @Model.CreateUserName @Model.CreateTime.ToFullString("")
+                        </span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2">创建者</label>
-                    <div class="col-md-2">
-                        @Model.CreateUserName
-                    </div>
-                    <label class="control-label col-md-2">创建时间</label>
-                    <div class="col-md-2">
-                        @Model.CreateTime.ToFullString("")
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2">更新者</label>
-                    <div class="col-md-2">
-                        @Model.UpdateUserName
-                    </div>
-                    <label class="control-label col-md-2">更新时间</label>
-                    <div class="col-md-2">
-                        @Model.UpdateTime.ToFullString("")
+                    <label class="control-label col-xs-2 col-sm-2 col-md-4">更新</label>
+                    <div class="col-md-4">
+                        <span class="middle">
+                            @Model.UpdateUserName @Model.UpdateTime.ToFullString("")
+                        </span>
                     </div>
                 </div>
             }
             <div class="form-actions">
-                <label class="control-label col-md-4"></label>
+                <label class="control-label col-xs-2 col-sm-2 col-md-4"></label>
                 <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-@(isNew ? "plus" : "save")"></i><strong>@(isNew ? "新增" : "保存")</strong></button>
                 <button type="button" class="btn btn-danger" onclick="history.go(-1);"><i class="glyphicon glyphicon-remove"></i><strong>取消</strong></button>
             </div>
