@@ -41,7 +41,7 @@ namespace NewLife.OA
             var entity = base.CreateInstance(forEdit);
             if (forEdit)
             {
-                entity.CreateUserID = ManageProvider.Provider.Current.ID;
+                entity.CreateUserID = ManageProvider.User.ID;
                 entity.CreateTime = DateTime.Now;
             }
             return entity;
@@ -53,6 +53,10 @@ namespace NewLife.OA
         {
             if (!HasDirty) return;
 
+            if (String.IsNullOrEmpty(Name)) throw new ArgumentNullException(_.Name, _.Name.DisplayName + "不能为空！");
+            if (String.IsNullOrEmpty(Name)) throw new ArgumentNullException(_.Name, _.Name.DisplayName + "不能为空！");
+            if (String.IsNullOrEmpty(Name)) throw new ArgumentNullException(_.Name, _.Name.DisplayName + "不能为空！");
+            if (String.IsNullOrEmpty(Name)) throw new ArgumentNullException(_.Name, _.Name.DisplayName + "不能为空！");
             if (String.IsNullOrEmpty(Name)) throw new ArgumentNullException(_.Name, _.Name.DisplayName + "不能为空！");
 
             // 建议先调用基类方法，基类方法会对唯一索引的数据进行验证
