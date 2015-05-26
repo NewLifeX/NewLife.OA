@@ -426,6 +426,14 @@
             <param name="label"></param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Cube.HtmlExtensions.ForEnum``1(System.Web.Mvc.HtmlHelper,System.String,System.Boolean)">
+            <summary>枚举多选，支持默认全选或不选。需要部分选中可使用ForListBox</summary>
+            <typeparam name="T"></typeparam>
+            <param name="Html"></param>
+            <param name="name"></param>
+            <param name="selectAll">是否全部选中。默认false</param>
+            <returns></returns>
+        </member>
         <member name="M:NewLife.Cube.HtmlExtensions.ForDropDownList(System.Web.Mvc.HtmlHelper,System.String,System.Collections.IDictionary,System.Object,System.String)">
             <summary>字典的下拉列表</summary>
             <param name="Html"></param>
