@@ -19,3 +19,11 @@
 <li>
     <a href="@Url.Action("Index", null, new { id = "" })">@(menu != null ? menu.DisplayName : ViewBag.Title)</a>
 </li>
+@{
+    // 如果有父任务，则在这里显示
+    var p = WorkTask.FindByID(ViewContext.RouteData.Values["id"].ToInt());
+}
+@if (p != null)
+{
+    <li>@p.Name</li>
+}
