@@ -35,10 +35,14 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
         /// <returns></returns>
         protected override ActionResult FormView(WorkTask entity)
         {
-            // 如果是新增任务，那么路由的id就是父任务ID，这里处理一下
             if (entity.ID == 0)
             {
+                // 如果是新增任务，那么路由的id就是父任务ID，这里处理一下
                 entity.ParentID = RouteData.Values["id"].ToInt();
+
+                // 默认今天开始，一天结束
+                entity.PlanStartTime = DateTime.Now.Date;
+                entity.PlanEndTime = DateTime.Now.Date.AddDays(1);
             }
 
             return base.FormView(entity);

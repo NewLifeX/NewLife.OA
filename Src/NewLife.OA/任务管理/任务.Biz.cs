@@ -63,59 +63,46 @@ namespace NewLife.OA
             // 建议先调用基类方法，基类方法会对唯一索引的数据进行验证
             base.Valid(isNew);
 
+            // 计算计划工作日，采取进一法
+            PlanCost = (Int32)Math.Ceiling((PlanEndTime - PlanStartTime).TotalDays);
         }
 
-        ///// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
-        //[EditorBrowsable(EditorBrowsableState.Never)]
-        //protected override void InitData()
-        //{
-        //    base.InitData();
+        void OnSaved(Int32 mode)
+        {
+            // 计算ChildCount
+            if (Parent != null)
+            {
+                Parent.ChildCount = FindCountByParentID(ParentID);
+                Parent.Save();
+            }
+        }
 
-        //    // InitData一般用于当数据表没有数据时添加一些默认数据，该实体类的任何第一次数据库操作都会触发该方法，默认异步调用
-        //    // Meta.Count是快速取得表记录数
-        //    if (Meta.Count > 0) return;
+        protected override int OnInsert()
+        {
+            var rs = base.OnInsert();
 
-        //    // 需要注意的是，如果该方法调用了其它实体类的首次数据库操作，目标实体类的数据初始化将会在同一个线程完成
-        //    if (XTrace.Debug) XTrace.WriteLine("开始初始化{0}[{1}]数据……", typeof(WorkTask).Name, Meta.Table.DataTable.DisplayName);
+            OnSaved(1);
 
-        //    var entity = new WorkTask();
-        //    entity.Name = "abc";
-        //    entity.ParentID = 0;
-        //    entity.Score = 0;
-        //    entity.Priority = 0;
-        //    entity.Remark = "abc";
-        //    entity.Status = 0;
-        //    entity.PlanTime = DateTime.Now;
-        //    entity.PlanCost = 0;
-        //    entity.StartTime = DateTime.Now;
-        //    entity.EndTime = DateTime.Now;
-        //    entity.Cost = 0;
-        //    entity.Progress = 0;
-        //    entity.MasterID = 0;
-        //    entity.Members = "abc";
-        //    entity.CreateUserID = 0;
-        //    entity.CreateTime = DateTime.Now;
-        //    entity.UpdateUserID = 0;
-        //    entity.UpdateTime = DateTime.Now;
-        //    entity.Insert();
+            return rs;
+        }
 
-        //    if (XTrace.Debug) XTrace.WriteLine("完成初始化{0}[{1}]数据！", typeof(WorkTask).Name, Meta.Table.DataTable.DisplayName);
-        //}
+        protected override int OnUpdate()
+        {
+            var rs = base.OnUpdate();
 
+            OnSaved(2);
 
-        ///// <summary>已重载。基类先调用Valid(true)验证数据，然后在事务保护内调用OnInsert</summary>
-        ///// <returns></returns>
-        //public override Int32 Insert()
-        //{
-        //    return base.Insert();
-        //}
+            return rs;
+        }
 
-        ///// <summary>已重载。在事务保护范围内处理业务，位于Valid之后</summary>
-        ///// <returns></returns>
-        //protected override Int32 OnInsert()
-        //{
-        //    return base.OnInsert();
-        //}
+        protected override int OnDelete()
+        {
+            var rs = base.OnDelete();
+
+            OnSaved(4);
+
+            return rs;
+        }
         #endregion
 
         #region 扩展属性﻿
@@ -229,6 +216,14 @@ namespace NewLife.OA
                 return FindAll(_.Name, name);
             else // 实体缓存
                 return Meta.Cache.Entities.FindAll(__.Name, name);
+        }
+
+        public static Int32 FindCountByParentID(Int32 pid)
+        {
+            if (Meta.Count >= 1000)
+                return FindCount(__.ParentID, pid);
+            else // 实体缓存
+                return Meta.Cache.Entities.ToList().Where(e => e.ParentID == pid).Count();
         }
 
         /// <summary>根据父任务。顶级任务的父任务为0查找</summary>
