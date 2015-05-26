@@ -8,40 +8,37 @@
 <div class="tableTools-container">
     <div class="form-inline">
         <form action="@Url.Action("index")@Html.Raw("?" + page.GetBaseUrl(false, true, true)) " method="post" role="form">
-            <div class="validation-summary-valid" data-valmsg-summary="true">
-                <ul>
-                    <li style="display:none"></li>
-                </ul>
-            </div>
             <div class="form-group">
-                <label for="ddlCategoryStatus" class="control-label">状态：</label>
-                @(Html.ForEnum<TaskStatus>("Status", true))
-            </div>
-            <div class="form-group">
-                <label for="Priority" class="control-label">优先级：</label>
-                @(Html.ForEnum<TaskPriorities>("Priority", true))
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="ddlAdmin">负责人：</label>
-                @Html.ForDropDownList("masterid", UserX.FindAllWithCache(), "全部")
-            </div>
-            <div class="form-group">
-                <label for="dtStart" class="control-label">时间：</label>
-                <input name="dtStart" type="date" id="dtStart" dateformat="yyyy-MM-dd" class="form-control form_datetime" />
-            </div>
-            <div class="form-group">
-                <div class="form-group">
-                    <label for="dtEnd" class="control-label">至</label>
-                    <input name="dtEnd" type="date" id="dtEnd" dateformat="yyyy-MM-dd" class="form-control form_datetime" />
-                </div>
-                <div class="input-group">
-                    @if (ManageProvider.User.Has(PermissionFlags.Insert))
-                    {
-                        @Html.ActionLink("添加" + ViewContext.Controller.GetType().GetDisplayName(), "Add", null, new { @class = "btn btn-success btn-sm" })
-                    }
-                </div>
+                @if (ManageProvider.User.Has(PermissionFlags.Insert))
+                {
+                    @Html.ActionLink("添加" + ViewContext.Controller.GetType().GetDisplayName(), "Add", null, new { @class = "btn btn-success btn-sm" })
+                }
             </div>
             <div class="pull-right form-group">
+                <div class="form-group">
+                    <label for="ddlCategoryStatus" class="control-label">状态：</label>
+                    @(Html.ForEnum<TaskStatus>("Status", true))
+                </div>
+                <div class="form-group">
+                    <label for="Priority" class="control-label">优先级：</label>
+                    @(Html.ForEnum<TaskPriorities>("Priority", true))
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="ddlAdmin">负责人：</label>
+                    @Html.ForDropDownList("masterid", UserX.FindAllWithCache(), "全部")
+                </div>
+                <div class="form-group">
+                    <label for="dtStart" class="control-label">时间：</label>
+                    <div class="input-group">
+                        @Html.ForDateTime("dtStart", DateTime.MinValue)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="dtEnd" class="control-label">至</label>
+                    <div class="input-group">
+                        @Html.ForDateTime("dtEnd", DateTime.MinValue)
+                    </div>
+                </div>
                 <div class="input-group">
                     <span class="input-group-addon">
                         <i class="ace-icon fa fa-check"></i>
