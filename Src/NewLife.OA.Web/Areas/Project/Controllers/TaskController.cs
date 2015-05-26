@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NewLife.Cube;
+using NewLife.Web;
+using XCode;
 
 namespace NewLife.OA.Web.Areas.Project.Controllers
 {
@@ -22,12 +24,22 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
         static TaskController()
         {
             // 过滤要显示的字段
-            var names = "ID,Name,Score,TaskPriority,TaskStatus,Progress,MasterName,PlanStartTime,PlanEndTime,PlanCost,StartTime,UpdateUserName,UpdateTime".Split(",");
+            var names = "Score,TaskPriority,TaskStatus,Progress,MasterName,PlanStartTime,PlanEndTime,PlanCost,StartTime,UpdateUserName,UpdateTime".Split(",");
             var fs = WorkTask.Meta.AllFields;
             var list = names.Select(e => fs.FirstOrDefault(f => f.Name.EqualIgnoreCase(e))).Where(e => e != null);
             //list.RemoveAll(e => !names.Contains(e.Name));
             ListFields.Clear();
             ListFields.AddRange(list);
+        }
+
+        protected override ActionResult IndexView(Pager p)
+        {
+            var pid = RouteData.Values["id"].ToInt();
+            var list = WorkTask.Search(pid, p["Q"], p);
+
+            list = WorkTask.Expand(list);
+
+            return View(list);
         }
 
         /// <summary>表单页视图。子控制器可以重载，以传递更多信息给视图，比如修改要显示的列</summary>

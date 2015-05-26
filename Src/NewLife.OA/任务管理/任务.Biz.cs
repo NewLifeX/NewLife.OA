@@ -5,8 +5,11 @@
  * 版权：版权所有 (C) 新生命开发团队 2002~2015
 */
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
+using NewLife.Web;
 using XCode;
 using XCode.Membership;
 
@@ -134,6 +137,30 @@ namespace NewLife.OA
         /// <summary>父任务名</summary>
         [DisplayName("父任务")]
         public String ParentName { get { return Parent != null ? Parent.Name : null; } }
+
+        /// <summary>深度</summary>
+        public Int32 Deepth { get { return Parent != null ? Parent.Deepth + 1 : 1; } }
+
+        /// <summary>树形节点名，根据深度带全角空格前缀</summary>
+        [DisplayName("任务名")]
+        public virtual String TreeNodeText
+        {
+            get
+            {
+                Int32 d = Deepth;
+                if (d <= 0) return "根";
+
+                //return new String('　', d) + "" + Name;
+                var sb = new StringBuilder();
+                for (int i = 0; i < d - 1; i++)
+                {
+                    sb.Append("&nbsp;&nbsp;&nbsp;&nbsp;");
+                }
+                if (d > 1) sb.Append("|- ");
+                sb.Append(Name);
+                return sb.ToString();
+            }
+        }
 
         private UserX _Master;
         /// <summary>负责人</summary>
@@ -264,51 +291,31 @@ namespace NewLife.OA
         #endregion
 
         #region 高级查询
-        // 以下为自定义高级查询的例子
-
-        ///// <summary>
-        ///// 查询满足条件的记录集，分页、排序
-        ///// </summary>
-        ///// <param name="key">关键字</param>
-        ///// <param name="orderClause">排序，不带Order By</param>
-        ///// <param name="startRowIndex">开始行，0表示第一行</param>
-        ///// <param name="maximumRows">最大返回行数，0表示所有行</param>
-        ///// <returns>实体集</returns>
-        //[DataObjectMethod(DataObjectMethodType.Select, true)]
-        //public static EntityList<WorkTask> Search(String key, String orderClause, Int32 startRowIndex, Int32 maximumRows)
-        //{
-        //    return FindAll(SearchWhere(key), orderClause, null, startRowIndex, maximumRows);
-        //}
-
-        ///// <summary>
-        ///// 查询满足条件的记录总数，分页和排序无效，带参数是因为ObjectDataSource要求它跟Search统一
-        ///// </summary>
-        ///// <param name="key">关键字</param>
-        ///// <param name="orderClause">排序，不带Order By</param>
-        ///// <param name="startRowIndex">开始行，0表示第一行</param>
-        ///// <param name="maximumRows">最大返回行数，0表示所有行</param>
-        ///// <returns>记录数</returns>
-        //public static Int32 SearchCount(String key, String orderClause, Int32 startRowIndex, Int32 maximumRows)
-        //{
-        //    return FindCount(SearchWhere(key), null, null, 0, 0);
-        //}
-
-        /// <summary>构造搜索条件</summary>
-        /// <param name="key">关键字</param>
-        /// <returns></returns>
-        private static String SearchWhere(String key)
+        public static EntityList<WorkTask> Search(Int32 pid, String key, Pager p)
         {
-            // WhereExpression重载&和|运算符，作为And和Or的替代
-            // SearchWhereByKeys系列方法用于构建针对字符串字段的模糊搜索
-            var exp = SearchWhereByKeys(key, null);
+            var exp = SearchWhereByKeys(key);
+            if (pid >= 0) exp &= _.ParentID == pid;
 
-            // 以下仅为演示，Field（继承自FieldItem）重载了==、!=、>、<、>=、<=等运算符（第4行）
-            //if (userid > 0) exp &= _.OperatorID == userid;
-            //if (isSign != null) exp &= _.IsSign == isSign.Value;
-            //if (start > DateTime.MinValue) exp &= _.OccurTime >= start;
-            //if (end > DateTime.MinValue) exp &= _.OccurTime < end.AddDays(1).Date;
+            return FindAll(exp, p);
+        }
 
-            return exp;
+        /// <summary>扩展任务的子孙节点</summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+        public static EntityList<WorkTask> Expand(IEnumerable<WorkTask> collection)
+        {
+            var list = new EntityList<WorkTask>();
+            foreach (var item in collection)
+            {
+                list.Add(item);
+                if (item.ChildCount > 0)
+                {
+                    var childs = FindAllByParentID(item.ID);
+                    if (childs.Count > 0) list.AddRange(Expand(childs));
+                }
+            }
+
+            return list;
         }
         #endregion
 
