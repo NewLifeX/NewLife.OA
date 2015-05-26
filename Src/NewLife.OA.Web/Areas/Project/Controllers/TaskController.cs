@@ -30,15 +30,27 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             ListFields.AddRange(list);
         }
 
-        ///// <summary>验证实体对象</summary>
-        ///// <param name="entity"></param>
-        ///// <returns></returns>
-        //protected override bool Valid(WorkTask entity)
-        //{
-        //    // 接收处理成员列表
-        //    var mbs = Request["MemberIDs"].SplitAsInt();
+        /// <summary>表单页视图。子控制器可以重载，以传递更多信息给视图，比如修改要显示的列</summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        protected override ActionResult FormView(WorkTask entity)
+        {
+            // 如果是新增任务，那么路由的id就是父任务ID，这里处理一下
+            if (entity.ID == 0)
+            {
+                entity.ParentID = RouteData.Values["id"].ToInt();
+            }
 
-        //    return base.Valid(entity);
-        //}
+            return base.FormView(entity);
+        }
+
+        public override ActionResult Add(WorkTask entity)
+        {
+            // 如果是新增任务，那么路由的id就是父任务ID，这里处理一下
+            entity.ParentID = RouteData.Values["id"].ToInt();
+            entity.ID = 0;
+
+            return base.Add(entity);
+        }
     }
 }

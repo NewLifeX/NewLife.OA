@@ -6,9 +6,9 @@
 */
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using XCode;
 using XCode.Membership;
-using System.Linq;
 
 namespace NewLife.OA
 {
