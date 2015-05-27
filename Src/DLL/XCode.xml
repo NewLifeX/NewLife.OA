@@ -8629,6 +8629,9 @@
         <member name="P:XCode.Configuration.FieldItem.Description">
             <summary>备注</summary>
         </member>
+        <member name="P:XCode.Configuration.FieldItem.DisplayName">
+            <summary>说明</summary>
+        </member>
         <member name="P:XCode.Configuration.FieldItem.Name">
             <summary>属性名</summary>
         </member>
@@ -8658,9 +8661,6 @@
         </member>
         <member name="P:XCode.Configuration.FieldItem.IsDynamic">
             <summary>是否动态字段</summary>
-        </member>
-        <member name="P:XCode.Configuration.FieldItem.DisplayName">
-            <summary>显示名。如果备注不为空则采用备注，否则采用属性名</summary>
         </member>
         <member name="P:XCode.Configuration.FieldItem.ColumnName">
             <summary>用于数据绑定的字段名</summary>
