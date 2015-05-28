@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Tables Version="8.18.5620.19686">
+<Tables Version="8.18.5614.1400">
   <Table Name="WorkTask" Description="任务" DbType="SqlServer" 页面分类="Task">
     <Columns>
       <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
@@ -7,6 +7,7 @@
       <Column Name="ParentID" DataType="Int32" Description="父任务。顶级任务的父任务为0" />
       <Column Name="ChildCount" DataType="Int32" Description="子任务数" />
       <Column Name="Score" DataType="Int32" Description="积分。任务的权重，父任务权重等于子任务总和" />
+      <Column Name="ScorePercent" DataType="Int32" Description="积分比重。在同级任务中的比重百分比" />
       <Column Name="Priority" DataType="Int32" Description="优先级。数字越大优先级越高" />
       <Column Name="Status" DataType="Int32" Description="状态。准备、进行、暂停、取消、完成" />
       <Column Name="PlanStartTime" DataType="DateTime" Description="计划开始时间" />
@@ -20,6 +21,7 @@
       <Column Name="Views" DataType="Int32" Description="浏览数" />
       <Column Name="Historys" DataType="Int32" Description="修改次数" />
       <Column Name="Comments" DataType="Int32" Description="评论数" />
+      <Column Name="LastComment" DataType="DateTime" Description="最后评论" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
       <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
       <Column Name="UpdateUserID" DataType="Int32" Description="更新者" />
