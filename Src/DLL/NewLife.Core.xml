@@ -1141,6 +1141,13 @@
             <param name="emptyValue">字符串空值时（DateTime.MinValue）显示的字符串，null表示原样显示最小时间，String.Empty表示不显示</param>
             <returns></returns>
         </member>
+        <member name="M:System.Utility.ToString(System.DateTime,System.String,System.String)">
+            <summary>时间日期转为指定格式字符串</summary>
+            <param name="value">待转换对象</param>
+            <param name="format">格式化字符串</param>
+            <param name="emptyValue">字符串空值时显示的字符串，null表示原样显示最小时间，String.Empty表示不显示</param>
+            <returns></returns>
+        </member>
         <member name="P:System.Utility.Convert">
             <summary>类型转换提供者</summary>
             <remarks>重载默认提供者<seealso cref="T:System.DefaultConvert"/>并赋值给<see cref="P:System.Utility.Convert"/>可改变所有类型转换的行为</remarks>
@@ -1181,6 +1188,13 @@
         <member name="M:System.DefaultConvert.ToFullString(System.DateTime,System.String)">
             <summary>时间日期转为yyyy-MM-dd HH:mm:ss完整字符串</summary>
             <param name="value">待转换对象</param>
+            <param name="emptyValue">字符串空值时显示的字符串，null表示原样显示最小时间，String.Empty表示不显示</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.DefaultConvert.ToString(System.DateTime,System.String,System.String)">
+            <summary>时间日期转为指定格式字符串</summary>
+            <param name="value">待转换对象</param>
+            <param name="format">格式化字符串</param>
             <param name="emptyValue">字符串空值时显示的字符串，null表示原样显示最小时间，String.Empty表示不显示</param>
             <returns></returns>
         </member>

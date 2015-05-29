@@ -23,10 +23,13 @@
                     <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("Priority"))">优先级</a></th>
                     <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("Status"))">状态</a></th>
                     <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("Progress"))">进度</a></th>
-                    @foreach (var item in fields)
-                    {
-                        <th class="text-center"><a href="@Html.Raw(page.GetSortUrl(item.Name))">@item.DisplayName</a></th>
-                    }
+                    <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("MasterID"))">负责人</a></th>
+                    <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("PlanStartTime"))">计划开始</a></th>
+                    <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("PlanEndTime"))">计划结束</a></th>
+                    <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("PlanCost"))">工作日</a></th>
+                    <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("StartTime"))">开始时间</a></th>
+                    <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("UpdateUserName"))">更新人</a></th>
+                    <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("UpdateTime"))">更新时间</a></th>
                     <th class="text-center">子任务</th>
                     <th class="text-center">操作</th>
                 </tr>
@@ -39,29 +42,32 @@
                         <td>
                             @if (entity.ChildCount == 0)
                             {
-                                @Html.Raw(entity.TreeNodeText)
+                            @Html.Raw(entity.TreeNodeText)
                             }
                             else
                             {
-                                <a href="@Url.Action("Index",new { id = entity.ID })">@Html.Raw(entity.TreeNodeText)</a>
+                            <a href="@Url.Action("Index",new { id = entity.ID })">@Html.Raw(entity.TreeNodeText)</a>
                             }
                         </td>
                         <td class="text-center">
                             @if (entity.ParentID != 0 && entity.ScorePercent > 0)
                             {
-                                <text></text>@entity.ScorePercent<text>%, </text>
+                            <text></text>@entity.ScorePercent<text>%, </text>
                             }
                             @entity.Score
                         </td>
                         <td class="text-center">@entity.TaskPriority</td>
                         <td class="text-center">@entity.TaskStatus</td>
                         <td class="text-center">@entity.Progress</td>
-                        @foreach (var item in fields)
-                        {
-                            @Html.Partial("_List_Data_Item", new Pair(entity, item))
-                        }
+                        <td>@entity.MasterName</td>
+                        <td>@entity.PlanStartTime.ToString("yyyy-MM-dd", "")</td>
+                        <td>@entity.PlanEndTime.ToString("yyyy-MM-dd", "")</td>
+                        <td class="text-center">@entity.PlanCost</td>
+                        <td>@entity.StartTime.ToString("yyyy-MM-dd", "")</td>
+                        <td>@entity.UpdateUserName</td>
+                        <td>@entity.UpdateTime.ToString("yyyy-MM-dd", "")</td>
                         <td class="text-center">
-                            @entity.ChildCount 个 @Html.ActionLink("添加子任务", "Add", new { id = entity.ID })
+                            @entity.ChildCount 个 @Html.ActionLink("添加", "Add", new { id = entity.ID })
                         </td>
                         @if (ManageProvider.User.Has(PermissionFlags.Detail, PermissionFlags.Update, PermissionFlags.Delete))
                         {
