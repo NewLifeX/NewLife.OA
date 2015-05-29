@@ -35,7 +35,11 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
         protected override ActionResult IndexView(Pager p)
         {
             var pid = RouteData.Values["id"].ToInt();
-            var list = WorkTask.Search(pid, p["Q"], p);
+            var sts = Request["status"].SplitAsInt().Select(e => (TaskStatus)e).ToArray();
+            var tps = Request["Priority"].SplitAsInt().Select(e => (TaskPriorities)e).ToArray();
+            var masterid = Request["masterid"].ToInt();
+
+            var list = WorkTask.Search(pid, sts, tps, masterid, p["Q"], p);
 
             list = WorkTask.Expand(list);
 

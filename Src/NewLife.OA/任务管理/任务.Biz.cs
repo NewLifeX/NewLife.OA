@@ -291,10 +291,13 @@ namespace NewLife.OA
         #endregion
 
         #region 高级查询
-        public static EntityList<WorkTask> Search(Int32 pid, String key, Pager p)
+        public static EntityList<WorkTask> Search(Int32 pid, TaskStatus[] status, TaskPriorities[] tps, Int32 masterid, String key, Pager p)
         {
             var exp = SearchWhereByKeys(key);
             if (pid >= 0) exp &= _.ParentID == pid;
+            if (status != null) exp &= _.Status.In(status);
+            if (tps != null) exp &= _.Priority.In(tps);
+            if (masterid > 0) exp &= _.MasterID == masterid;
 
             return FindAll(exp, p);
         }
