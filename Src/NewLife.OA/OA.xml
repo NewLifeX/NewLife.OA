@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Tables Version="8.18.5614.1400">
+<Tables Version="8.18.5624.26027">
   <Table Name="WorkTask" Description="任务" DbType="SqlServer" 页面分类="Task">
     <Columns>
       <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
@@ -65,8 +65,8 @@
   <Table Name="TaskHistory" Description="任务历史" DbType="SqlServer" 页面分类="Task">
     <Columns>
       <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
-      <Column Name="WorkTaskID" DataType="Int32" Description="任务" />
-      <Column Name="Kind" DataType="Int32" Description="种类。状态改变，优先级改变，积分改变，成员改变" />
+      <Column Name="TaskID" DataType="Int32" Description="任务" />
+      <Column Name="Kind" DataType="String" Description="种类" />
       <Column Name="SrcValue" DataType="String" Description="原来的值" />
       <Column Name="NewValue" DataType="String" Description="新的值" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
@@ -76,12 +76,12 @@
       <Column Name="Remark" DataType="String" Length="500" Description="备注" />
     </Columns>
     <Indexes>
-      <Index Columns="WorkTaskID" />
+      <Index Columns="TaskID" />
       <Index Columns="Kind" />
-      <Index Columns="WorkTaskID,Kind" />
+      <Index Columns="TaskID,Kind" />
     </Indexes>
     <Relations>
-      <Relation Column="WorkTaskID" RelationTable="WorkTask" RelationColumn="ID" />
+      <Relation Column="TaskID" RelationTable="WorkTask" RelationColumn="ID" />
       <Relation Column="CreateUserID" RelationTable="User" RelationColumn="ID" />
       <Relation Column="UpdateUserID" RelationTable="User" RelationColumn="ID" />
     </Relations>

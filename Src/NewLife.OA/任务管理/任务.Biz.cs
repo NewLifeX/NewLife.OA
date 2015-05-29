@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using NewLife.Web;
 using XCode;
+using XCode.Configuration;
 using XCode.Membership;
 
 namespace NewLife.OA
@@ -70,6 +71,14 @@ namespace NewLife.OA
             PlanCost = (Int32)Math.Ceiling((PlanEndTime - PlanStartTime).TotalDays);
         }
 
+        WorkTask _bak;
+        protected override void OnLoad()
+        {
+            base.OnLoad();
+
+            _bak = this.CloneEntity();
+        }
+
         void OnSaved(Int32 mode)
         {
             // 计算ChildCount
@@ -86,11 +95,15 @@ namespace NewLife.OA
 
             OnSaved(1);
 
+            TaskHistory.Add(ID, "创建", null, Name);
+
             return rs;
         }
 
         protected override int OnUpdate()
         {
+            WriteHistory();
+
             var rs = base.OnUpdate();
 
             OnSaved(2);
@@ -103,6 +116,8 @@ namespace NewLife.OA
             var rs = base.OnDelete();
 
             OnSaved(4);
+
+            TaskHistory.Add(ID, "删除", null, Name);
 
             return rs;
         }
@@ -329,6 +344,27 @@ namespace NewLife.OA
         #endregion
 
         #region 业务
+        /// <summary>写任务历史</summary>
+        void WriteHistory()
+        {
+            if (_bak == null) throw new Exception("非法更新任务！");
+
+            // 找到旧有数据
+            var entity = _bak;
+
+            var names = new Field[] { _.Name, _.ParentID, _.ScorePercent, _.PlanStartTime, _.PlanEndTime, _.Progress };
+            foreach (var item in names)
+            {
+                if (Dirtys[item.Name])
+                {
+                    TaskHistory.Add(ID, item.DisplayName, _bak[item.Name], this[item.Name], Name);
+                }
+            }
+            if (Dirtys[__.Priority]) TaskHistory.Add(ID, _.Priority.DisplayName, _bak.TaskPriority, this.TaskPriority, Name);
+            if (Dirtys[__.Status]) TaskHistory.Add(ID, _.Status.DisplayName, _bak.TaskStatus, this.TaskStatus, Name);
+            if (Dirtys[__.MasterID]) TaskHistory.Add(ID, _.MasterID.DisplayName, _bak.MasterName, this.MasterName, Name);
+            if (Dirtys[__.Content]) TaskHistory.Add(ID, _.Content.DisplayName, _bak.Content, this.Content, Name);
+        }
         #endregion
     }
 }

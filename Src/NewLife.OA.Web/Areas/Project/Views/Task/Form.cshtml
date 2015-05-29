@@ -79,12 +79,12 @@
                     </span>
                 </div>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label class="control-label col-xs-2 col-sm-2 col-md-4">成员</label>
                 <div class="col-xs-10 col-sm-6 col-md-4">
                     @Html.ForListBox("MemberIDs", UserX.FindAllWithCache())
                 </div>
-            </div>
+            </div>*@
             <div class="form-group">
                 @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.PlanStartTime))
             </div>

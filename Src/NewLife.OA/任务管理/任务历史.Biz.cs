@@ -8,77 +8,39 @@
 using System.ComponentModel;
 using NewLife.Web;
 using XCode;
+using XCode.Membership;
 
 namespace NewLife.OA
 {
     /// <summary>任务历史</summary>
-    public partial class TaskHistory : Entity<TaskHistory>
+    public partial class TaskHistory : UserTimeEntity<TaskHistory>
     {
         #region 对象操作﻿
+        ///// <summary>验证数据，通过抛出异常的方式提示验证失败。</summary>
+        ///// <param name="isNew"></param>
+        //public override void Valid(Boolean isNew)
+        //{
+        //    // 建议先调用基类方法，基类方法会对唯一索引的数据进行验证
+        //    base.Valid(isNew);
+        //}
 
-        /// <summary>验证数据，通过抛出异常的方式提示验证失败。</summary>
-        /// <param name="isNew"></param>
-        public override void Valid(Boolean isNew)
+        public override int Update()
         {
-            // 这里验证参数范围，建议抛出参数异常，指定参数名，前端用户界面可以捕获参数异常并聚焦到对应的参数输入框
-            //if (String.IsNullOrEmpty(Name)) throw new ArgumentNullException(_.Name, _.Name.DisplayName + "无效！");
-            //if (!isNew && ID < 1) throw new ArgumentOutOfRangeException(_.ID, _.ID.DisplayName + "必须大于0！");
-
-            // 建议先调用基类方法，基类方法会对唯一索引的数据进行验证
-            base.Valid(isNew);
-
-            // 在新插入数据或者修改了指定字段时进行唯一性验证，CheckExist内部抛出参数异常
-            //if (isNew || Dirtys[__.Name]) CheckExist(__.Name);
-
-            if (isNew && !Dirtys[__.CreateTime]) CreateTime = DateTime.Now;
-            if (!Dirtys[__.UpdateTime]) UpdateTime = DateTime.Now;
+            throw new XException("禁止修改任务历史！");
         }
 
-        ///// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
-        //[EditorBrowsable(EditorBrowsableState.Never)]
-        //protected override void InitData()
-        //{
-        //    base.InitData();
-
-        //    // InitData一般用于当数据表没有数据时添加一些默认数据，该实体类的任何第一次数据库操作都会触发该方法，默认异步调用
-        //    // Meta.Count是快速取得表记录数
-        //    if (Meta.Count > 0) return;
-
-        //    // 需要注意的是，如果该方法调用了其它实体类的首次数据库操作，目标实体类的数据初始化将会在同一个线程完成
-        //    if (XTrace.Debug) XTrace.WriteLine("开始初始化{0}[{1}]数据……", typeof(TaskHistory).Name, Meta.Table.DataTable.DisplayName);
-
-        //    var entity = new TaskHistory();
-        //    entity.WorkTaskID = 0;
-        //    entity.Kind = 0;
-        //    entity.SrcValue = "abc";
-        //    entity.NewValue = "abc";
-        //    entity.CreateUserID = 0;
-        //    entity.CreateTime = DateTime.Now;
-        //    entity.UpdateUserID = 0;
-        //    entity.UpdateTime = DateTime.Now;
-        //    entity.Remark = "abc";
-        //    entity.Insert();
-
-        //    if (XTrace.Debug) XTrace.WriteLine("完成初始化{0}[{1}]数据！", typeof(TaskHistory).Name, Meta.Table.DataTable.DisplayName);
-        //}
-
-
-        ///// <summary>已重载。基类先调用Valid(true)验证数据，然后在事务保护内调用OnInsert</summary>
-        ///// <returns></returns>
-        //public override Int32 Insert()
-        //{
-        //    return base.Insert();
-        //}
-
-        ///// <summary>已重载。在事务保护范围内处理业务，位于Valid之后</summary>
-        ///// <returns></returns>
-        //protected override Int32 OnInsert()
-        //{
-        //    return base.OnInsert();
-        //}
+        public override int Delete()
+        {
+            throw new XException("禁止删除任务历史！");
+        }
         #endregion
 
         #region 扩展属性﻿
+        /// <summary>关联任务</summary>
+        public WorkTask Task { get { return WorkTask.FindByID(TaskID); } }
+
+        /// <summary>任务名称</summary>
+        public String TaskName { get { var task = Task; return task != null ? task.Name : null; } }
         #endregion
 
         #region 扩展查询﻿
@@ -86,12 +48,12 @@ namespace NewLife.OA
         /// <param name="worktaskid">任务</param>
         /// <returns></returns>
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public static EntityList<TaskHistory> FindAllByWorkTaskID(Int32 worktaskid)
+        public static EntityList<TaskHistory> FindAllByTaskID(Int32 worktaskid)
         {
             if (Meta.Count >= 1000)
-                return FindAll(_.WorkTaskID, worktaskid);
+                return FindAll(_.TaskID, worktaskid);
             else // 实体缓存
-                return Meta.Cache.Entities.FindAll(__.WorkTaskID, worktaskid);
+                return Meta.Cache.Entities.FindAll(__.TaskID, worktaskid);
         }
 
         /// <summary>根据种类。状态改变，优先级改变，积分改变，成员改变查找</summary>
@@ -111,19 +73,21 @@ namespace NewLife.OA
         /// <param name="kind">种类。状态改变，优先级改变，积分改变，成员改变</param>
         /// <returns></returns>
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public static EntityList<TaskHistory> FindAllByWorkTaskIDAndKind(Int32 worktaskid, Int32 kind)
+        public static EntityList<TaskHistory> FindAllByTaskIDAndKind(Int32 worktaskid, String kind)
         {
             if (Meta.Count >= 1000)
-                return FindAll(new String[] { __.WorkTaskID, __.Kind }, new Object[] { worktaskid, kind });
+                return FindAll(new String[] { __.TaskID, __.Kind }, new Object[] { worktaskid, kind });
             else // 实体缓存
-                return Meta.Cache.Entities.FindAll(e => e.WorkTaskID == worktaskid && e.Kind == kind);
+                return Meta.Cache.Entities.FindAll(e => e.TaskID == worktaskid && e.Kind == kind);
         }
         #endregion
 
         #region 高级查询
         public static EntityList<TaskHistory> Search(Int32 taskid, Pager p)
         {
-            var exp = _.WorkTaskID == taskid;
+            var exp = _.TaskID == taskid;
+
+            //if (p.Sort.IsNullOrEmpty()) p.Sort = _.ID.Desc();
 
             return FindAll(exp, p);
         }
@@ -133,6 +97,26 @@ namespace NewLife.OA
         #endregion
 
         #region 业务
+        /// <summary>添加任务历史</summary>
+        /// <param name="taskid"></param>
+        /// <param name="kind"></param>
+        /// <param name="oldValue"></param>
+        /// <param name="newValue"></param>
+        /// <param name="remark"></param>
+        /// <returns></returns>
+        public static TaskHistory Add(Int32 taskid, String kind, Object oldValue, Object newValue, String remark = null)
+        {
+            var entity = new TaskHistory();
+            entity.TaskID = taskid;
+            entity.Kind = kind;
+            entity.SrcValue = oldValue + "";
+            entity.NewValue = newValue + "";
+            entity.Remark = remark;
+
+            entity.Insert();
+
+            return entity;
+        }
         #endregion
     }
 }
