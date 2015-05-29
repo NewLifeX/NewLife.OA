@@ -39,7 +39,10 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             var tps = Request["Priority"].SplitAsInt().Select(e => (TaskPriorities)e).ToArray();
             var masterid = Request["masterid"].ToInt();
 
-            var list = WorkTask.Search(pid, sts, tps, masterid, p["Q"], p);
+            var start = Request["dtStart"].ToDateTime();
+            var end = Request["dtEnd"].ToDateTime();
+
+            var list = WorkTask.Search(pid, sts, tps, masterid, start, end, p["Q"], p);
 
             list = WorkTask.Expand(list);
 
