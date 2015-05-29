@@ -140,6 +140,11 @@
             <summary>动作执行前</summary>
             <param name="filterContext"></param>
         </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.LogController.IndexView(NewLife.Web.Pager)">
+            <summary>列表页视图。子控制器可重载，以传递更多信息给视图，比如修改要显示的列</summary>
+            <param name="p"></param>
+            <returns></returns>
+        </member>
         <member name="M:NewLife.Cube.Admin.Controllers.LogController.Add(XCode.Membership.Log)">
             <summary>不允许添加修改日志</summary>
             <param name="entity"></param>
@@ -205,6 +210,11 @@
         <member name="M:NewLife.Cube.Admin.Controllers.UserController.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
             <summary>动作执行前</summary>
             <param name="filterContext"></param>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.UserController.IndexView(NewLife.Web.Pager)">
+            <summary>列表页视图。子控制器可重载，以传递更多信息给视图，比如修改要显示的列</summary>
+            <param name="p"></param>
+            <returns></returns>
         </member>
         <member name="M:NewLife.Cube.Admin.Controllers.UserController.FormView(XCode.Membership.UserX)">
             <summary>表单页视图。</summary>
@@ -447,21 +457,23 @@
             <param name="selectAll">是否全部选中。默认false</param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.Cube.HtmlExtensions.ForDropDownList(System.Web.Mvc.HtmlHelper,System.String,System.Collections.IDictionary,System.Object,System.String)">
+        <member name="M:NewLife.Cube.HtmlExtensions.ForDropDownList(System.Web.Mvc.HtmlHelper,System.String,System.Collections.IEnumerable,System.Object,System.String,System.Boolean)">
             <summary>字典的下拉列表</summary>
             <param name="Html"></param>
             <param name="name"></param>
-            <param name="dic"></param>
+            <param name="items"></param>
             <param name="selectedValue"></param>
             <param name="optionLabel"></param>
+            <param name="autoPostback">自动回发</param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.Cube.HtmlExtensions.ForDropDownList(System.Web.Mvc.HtmlHelper,System.String,XCode.IEntityList,System.String)">
+        <member name="M:NewLife.Cube.HtmlExtensions.ForDropDownList(System.Web.Mvc.HtmlHelper,System.String,XCode.IEntityList,System.String,System.Boolean)">
             <summary>实体列表的下拉列表。单选，自动匹配当前模型的选中项</summary>
             <param name="Html"></param>
             <param name="name"></param>
             <param name="list"></param>
             <param name="optionLabel"></param>
+            <param name="autoPostback">自动回发</param>
             <returns></returns>
         </member>
         <member name="M:NewLife.Cube.HtmlExtensions.ForListBox(System.Web.Mvc.HtmlHelper,System.String,System.Collections.IDictionary,System.Collections.IEnumerable)">

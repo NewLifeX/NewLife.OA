@@ -2948,11 +2948,6 @@
             <param name="action">操作</param>
             <param name="remark">备注</param>
         </member>
-        <member name="M:XCode.Membership.LogEntity`1.WriteLog(System.String,XCode.IEntity)">
-            <summary>输出实体对象日志</summary>
-            <param name="action"></param>
-            <param name="entity"></param>
-        </member>
         <member name="T:XCode.Membership.IManageProvider">
             <summary>管理提供者接口</summary>
             <remarks>
@@ -3169,6 +3164,11 @@
             <param name="action">操作</param>
             <param name="remark">备注</param>
         </member>
+        <member name="M:XCode.Membership.LogProvider.WriteLog(System.String,XCode.IEntity)">
+            <summary>输出实体对象日志</summary>
+            <param name="action"></param>
+            <param name="entity"></param>
+        </member>
         <member name="P:XCode.Membership.LogProvider.Enable">
             <summary>是否使用日志</summary>
         </member>
@@ -3355,6 +3355,10 @@
         </member>
         <member name="M:XCode.Membership.Log`1.FindAllCategory">
             <summary>查找所有类别名</summary>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.Membership.Log`1.FindAllCategoryName">
+            <summary>获取所有类别名称</summary>
             <returns></returns>
         </member>
         <member name="M:XCode.Membership.Log`1.Create(System.String,System.String)">
@@ -3632,6 +3636,14 @@
             <param name="key">关键字</param>
             <param name="roleId">角色ID</param>
             <param name="isEnable">是否启用</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.Membership.User`1.Search(System.String,System.Int32,System.Nullable{System.Boolean},NewLife.Web.Pager)">
+            <summary>参数化查询</summary>
+            <param name="key"></param>
+            <param name="roleId"></param>
+            <param name="isEnable"></param>
+            <param name="p"></param>
             <returns></returns>
         </member>
         <member name="M:XCode.Membership.User`1.Add(System.String,System.String,System.Int32,System.String)">
@@ -4195,11 +4207,6 @@
             <summary>写日志</summary>
             <param name="action">操作</param>
             <param name="remark">备注</param>
-        </member>
-        <member name="M:XCode.Membership.Menu`1.WriteLog(System.String,XCode.IEntity)">
-            <summary>输出实体对象日志</summary>
-            <param name="action"></param>
-            <param name="entity"></param>
         </member>
         <member name="M:XCode.Membership.Menu`1.Export(System.Collections.Generic.IList{XCode.Membership.IMenu})">
             <summary>导出</summary>
