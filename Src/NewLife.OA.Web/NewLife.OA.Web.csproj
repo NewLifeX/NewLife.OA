@@ -290,6 +290,8 @@
     <Content Include="Areas\Project\Views\Task\Index.cshtml" />
     <Content Include="Areas\Project\Views\Task\_List_Toolbar.cshtml" />
     <Content Include="Areas\Project\Views\Task\_Layout_Nav.cshtml" />
+    <Content Include="Areas\Project\Views\TaskHistory\Show.cshtml" />
+    <Content Include="Areas\Project\Views\TaskComment\Show.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

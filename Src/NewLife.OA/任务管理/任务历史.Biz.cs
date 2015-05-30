@@ -38,9 +38,11 @@ namespace NewLife.OA
 
         #region 扩展属性﻿
         /// <summary>关联任务</summary>
+        [BindRelation("TaskID", false, "WorkTask", "ID")]
         public WorkTask Task { get { return WorkTask.FindByID(TaskID); } }
 
         /// <summary>任务名称</summary>
+        [DisplayName("任务名称")]
         public String TaskName { get { var task = Task; return task != null ? task.Name : null; } }
         #endregion
 
