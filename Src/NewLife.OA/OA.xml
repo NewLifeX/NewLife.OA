@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Tables Version="8.18.5624.26027">
+<Tables Version="8.18.5614.1400">
   <Table Name="WorkTask" Description="任务" DbType="SqlServer" 页面分类="Task">
     <Columns>
       <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="Name" DataType="String" Master="True" Description="名称" />
       <Column Name="ParentID" DataType="Int32" Description="父任务。顶级任务的父任务为0" />
       <Column Name="ChildCount" DataType="Int32" Description="子任务数" />
-      <Column Name="Score" DataType="Int32" Description="积分。任务的权重，父任务权重等于子任务总和" />
-      <Column Name="ScorePercent" DataType="Int32" Description="积分比重。在同级任务中的比重百分比" />
+      <Column Name="Score" DataType="Int32" Description="积分。绩效考核权重，顶级任务指定，子任务通过比重来分享" />
+      <Column Name="Percent" DataType="Int32" Description="同级比重。0~100在同级任务中的比重百分比" />
+      <Column Name="LockPercent" DataType="Boolean" Description="比重锁定。锁定后，同级任务增加或调整比重时，不改变当前任务比重" />
       <Column Name="Priority" DataType="Int32" Description="优先级。数字越大优先级越高" />
       <Column Name="Status" DataType="Int32" Description="状态。准备、进行、暂停、取消、完成" />
       <Column Name="PlanStartTime" DataType="DateTime" Description="计划开始时间" />
       <Column Name="PlanEndTime" DataType="DateTime" Description="计划结束时间" />
       <Column Name="PlanCost" DataType="Int32" Description="计划工作日。需要多少个工作日" />
+      <Column Name="LockPlanTime" DataType="Boolean" Description="计划时间锁定。锁定后，子任务的计划时间不得超过父任务" />
       <Column Name="StartTime" DataType="DateTime" Description="开始时间" />
       <Column Name="EndTime" DataType="DateTime" Description="结束时间" />
       <Column Name="Cost" DataType="Int32" Description="实际工作日" />

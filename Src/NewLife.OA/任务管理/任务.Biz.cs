@@ -356,7 +356,7 @@ namespace NewLife.OA
             // 找到旧有数据
             var entity = _bak;
 
-            var names = new Field[] { _.Name, _.ParentID, _.ScorePercent, _.PlanStartTime, _.PlanEndTime, _.Progress };
+            var names = new Field[] { _.Name, _.ParentID, _.Percent, _.PlanStartTime, _.PlanEndTime, _.Progress };
             foreach (var item in names)
             {
                 if (Dirtys[item.Name])
