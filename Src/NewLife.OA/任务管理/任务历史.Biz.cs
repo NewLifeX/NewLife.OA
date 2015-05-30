@@ -5,6 +5,7 @@
  * 版权：版权所有 (C) 新生命开发团队 2002~2015
 */
 ﻿using System;
+using System.Linq;
 using System.ComponentModel;
 using NewLife.Web;
 using XCode;
@@ -54,6 +55,14 @@ namespace NewLife.OA
                 return FindAll(_.TaskID, worktaskid);
             else // 实体缓存
                 return Meta.Cache.Entities.FindAll(__.TaskID, worktaskid);
+        }
+
+        public static Int32 FindCountByTaskID(Int32 taskid)
+        {
+            if (Meta.Count >= 1000)
+                return FindCount(__.TaskID, taskid);
+            else
+                return Meta.Cache.Entities.ToList().Count(e => e.TaskID == taskid);
         }
 
         /// <summary>根据种类。状态改变，优先级改变，积分改变，成员改变查找</summary>

@@ -89,7 +89,7 @@
   <Table Name="TaskComment" Description="任务评论" DbType="SqlServer" 页面分类="Task">
     <Columns>
       <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
-      <Column Name="WorkTaskID" DataType="Int32" Description="任务" />
+      <Column Name="TaskID" DataType="Int32" Description="任务" />
       <Column Name="Title" DataType="String" Master="True" Description="标题" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
       <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
@@ -98,10 +98,10 @@
       <Column Name="Content" DataType="String" Length="-1" Description="内容" />
     </Columns>
     <Indexes>
-      <Index Columns="WorkTaskID" />
+      <Index Columns="TaskID" />
     </Indexes>
     <Relations>
-      <Relation Column="WorkTaskID" RelationTable="WorkTask" RelationColumn="ID" />
+      <Relation Column="TaskID" RelationTable="WorkTask" RelationColumn="ID" />
       <Relation Column="CreateUserID" RelationTable="User" RelationColumn="ID" />
       <Relation Column="UpdateUserID" RelationTable="User" RelationColumn="ID" />
     </Relations>

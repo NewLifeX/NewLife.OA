@@ -104,6 +104,10 @@ namespace NewLife.OA
         {
             WriteHistory();
 
+            // 更新历史数和评论数
+            Historys = TaskHistory.FindCountByTaskID(ID);
+            Comments = TaskComment.FindCountByTaskID(ID);
+
             var rs = base.OnUpdate();
 
             OnSaved(2);

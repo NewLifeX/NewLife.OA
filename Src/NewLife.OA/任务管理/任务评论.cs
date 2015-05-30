@@ -12,8 +12,8 @@ namespace NewLife.OA
     [Serializable]
     [DataObject]
     [Description("任务评论")]
-    [BindIndex("IX_TaskComment_WorkTaskID", false, "WorkTaskID")]
-    [BindRelation("WorkTaskID", false, "WorkTask", "ID")]
+    [BindIndex("IX_TaskComment_TaskID", false, "TaskID")]
+    [BindRelation("TaskID", false, "WorkTask", "ID")]
     [BindRelation("CreateUserID", false, "User", "ID")]
     [BindRelation("UpdateUserID", false, "User", "ID")]
     [BindTable("TaskComment", Description = "任务评论", ConnName = "OA", DbType = DatabaseType.SqlServer)]
@@ -32,16 +32,16 @@ namespace NewLife.OA
             set { if (OnPropertyChanging(__.ID, value)) { _ID = value; OnPropertyChanged(__.ID); } }
         }
 
-        private Int32 _WorkTaskID;
+        private Int32 _TaskID;
         /// <summary>任务</summary>
         [DisplayName("任务")]
         [Description("任务")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(2, "WorkTaskID", "任务", null, "int", 10, 0, false)]
-        public virtual Int32 WorkTaskID
+        [BindColumn(2, "TaskID", "任务", null, "int", 10, 0, false)]
+        public virtual Int32 TaskID
         {
-            get { return _WorkTaskID; }
-            set { if (OnPropertyChanging(__.WorkTaskID, value)) { _WorkTaskID = value; OnPropertyChanged(__.WorkTaskID); } }
+            get { return _TaskID; }
+            set { if (OnPropertyChanging(__.TaskID, value)) { _TaskID = value; OnPropertyChanged(__.TaskID); } }
         }
 
         private String _Title;
@@ -132,7 +132,7 @@ namespace NewLife.OA
                 switch (name)
                 {
                     case __.ID : return _ID;
-                    case __.WorkTaskID : return _WorkTaskID;
+                    case __.TaskID : return _TaskID;
                     case __.Title : return _Title;
                     case __.CreateUserID : return _CreateUserID;
                     case __.CreateTime : return _CreateTime;
@@ -147,7 +147,7 @@ namespace NewLife.OA
                 switch (name)
                 {
                     case __.ID : _ID = Convert.ToInt32(value); break;
-                    case __.WorkTaskID : _WorkTaskID = Convert.ToInt32(value); break;
+                    case __.TaskID : _TaskID = Convert.ToInt32(value); break;
                     case __.Title : _Title = Convert.ToString(value); break;
                     case __.CreateUserID : _CreateUserID = Convert.ToInt32(value); break;
                     case __.CreateTime : _CreateTime = Convert.ToDateTime(value); break;
@@ -168,7 +168,7 @@ namespace NewLife.OA
             public static readonly Field ID = FindByName(__.ID);
 
             ///<summary>任务</summary>
-            public static readonly Field WorkTaskID = FindByName(__.WorkTaskID);
+            public static readonly Field TaskID = FindByName(__.TaskID);
 
             ///<summary>标题</summary>
             public static readonly Field Title = FindByName(__.Title);
@@ -198,7 +198,7 @@ namespace NewLife.OA
             public const String ID = "ID";
 
             ///<summary>任务</summary>
-            public const String WorkTaskID = "WorkTaskID";
+            public const String TaskID = "TaskID";
 
             ///<summary>标题</summary>
             public const String Title = "Title";
@@ -230,7 +230,7 @@ namespace NewLife.OA
         Int32 ID { get; set; }
 
         /// <summary>任务</summary>
-        Int32 WorkTaskID { get; set; }
+        Int32 TaskID { get; set; }
 
         /// <summary>标题</summary>
         String Title { get; set; }
