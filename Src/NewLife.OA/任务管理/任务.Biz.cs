@@ -324,6 +324,9 @@ namespace NewLife.OA
             if (start > DateTime.MinValue) exp &= _.PlanStartTime >= start;
             if (end > DateTime.MinValue) exp &= _.PlanEndTime < end.Date.AddDays(1);
 
+            // 默认按照最后更新时间排序
+            if (p.Sort.IsNullOrEmpty()) p.Sort = _.UpdateTime.Desc();
+
             return FindAll(exp, p);
         }
 
