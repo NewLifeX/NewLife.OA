@@ -69,6 +69,9 @@ namespace NewLife.OA
 
             // 计算计划工作日，采取进一法
             PlanCost = (Int32)Math.Ceiling((PlanEndTime - PlanStartTime).TotalDays);
+
+            // 计算实际工作日
+            if (EndTime > DateTime.MinValue && StartTime > DateTime.MinValue) Cost = (Int32)Math.Ceiling((EndTime - StartTime).TotalDays);
         }
 
         WorkTask _bak;
