@@ -62,8 +62,12 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             var start = Request["dtStart"].ToDateTime();
             var end = Request["dtEnd"].ToDateTime();
 
+            // 如果不扩展，则显示所有任务
+            if (pid == 0 && !expand) pid = -1;
+
             var list = WorkTask.Search(pid, sts, tps, masterid, start, end, p["Q"], p);
 
+            // 扩展任务树
             if (expand) list = WorkTask.Expand(list);
 
             return View("Index", list);
