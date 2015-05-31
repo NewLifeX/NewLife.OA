@@ -63,9 +63,9 @@
                         <td>@entity.PlanStartTime.ToString("yyyy-MM-dd", "")</td>
                         <td>@entity.PlanEndTime.ToString("yyyy-MM-dd", "")</td>
                         <td class="text-center">@entity.PlanCost</td>
-                        <td>@entity.StartTime.ToString("yyyy-MM-dd", "")</td>
+                        <td>@entity.StartTime.ToFullString("")</td>
                         <td>@entity.UpdateUserName</td>
-                        <td>@entity.UpdateTime.ToString("yyyy-MM-dd", "")</td>
+                        <td>@entity.UpdateTime.ToFullString("")</td>
                         <td class="text-center">
                             @entity.ChildCount 个 @Html.ActionLink("添加", "Add", new { id = entity.ID })
                         </td>
