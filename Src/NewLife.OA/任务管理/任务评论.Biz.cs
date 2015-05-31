@@ -9,11 +9,12 @@ using System.ComponentModel;
 using NewLife.Web;
 using XCode;
 using System.Linq;
+using XCode.Membership;
 
 namespace NewLife.OA
 {
     /// <summary>任务评论</summary>
-    public partial class TaskComment : Entity<TaskComment>
+    public partial class TaskComment : UserTimeEntity<TaskComment>
     {
         #region 对象操作﻿
 
@@ -30,9 +31,6 @@ namespace NewLife.OA
 
             // 在新插入数据或者修改了指定字段时进行唯一性验证，CheckExist内部抛出参数异常
             //if (isNew || Dirtys[__.Name]) CheckExist(__.Name);
-
-            if (isNew && !Dirtys[__.CreateTime]) CreateTime = DateTime.Now;
-            if (!Dirtys[__.UpdateTime]) UpdateTime = DateTime.Now;
         }
 
         public static Int32 FindCountByTaskID(Int32 taskid)

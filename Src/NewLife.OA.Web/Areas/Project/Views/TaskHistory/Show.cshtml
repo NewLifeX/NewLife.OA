@@ -6,20 +6,34 @@
     Layout = "~/Views/Shared/_Ace_Layout.cshtml";
 
     var task = ViewBag.Task as WorkTask;
-    var fact = ViewBag.Factory as IEntityOperate;
-    var page = ViewBag.Page as Pager;
-    var fields = ViewBag.Fields as List<FieldItem>;
 }
 <div class="panel panel-default">
     <div class="panel-body">
         @Html.ActionLink("回到任务 " + task.Name, "Edit", "Task", new { id = task.ID }, null)
     </div>
-    <div class="panel-body">
-        @foreach (var entity in Model)
-        {
-            <div class="row">
-                @entity.Kind 由 @entity.SrcValue 修改为 @entity.NewValue  @entity.CreateUserName @entity.CreateTime.ToFullString()
-            </div>
-        }
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th class="text-center">种类</th>
+                    <th class="text-center">旧值</th>
+                    <th class="text-center">新值</th>
+                    <th class="text-center">创建人</th>
+                    <th class="text-center">创建时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var entity in Model)
+                {
+                    <tr>
+                        <td class="text-center">@entity.Kind</td>
+                        <td>@entity.SrcValue</td>
+                        <td>@entity.NewValue</td>
+                        <td>@entity.CreateUserName</td>
+                        <td>@entity.CreateTime.ToFullString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
