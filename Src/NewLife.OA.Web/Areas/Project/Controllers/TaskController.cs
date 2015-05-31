@@ -63,6 +63,12 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
                 entity.PlanStartTime = DateTime.Now.Date;
                 entity.PlanEndTime = DateTime.Now.Date.AddDays(1);
             }
+            else
+            {
+                // 增加浏览数
+                entity.Views++;
+                entity.Save();
+            }
 
             return base.FormView(entity);
         }
