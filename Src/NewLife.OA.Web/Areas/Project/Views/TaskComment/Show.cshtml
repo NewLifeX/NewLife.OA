@@ -7,26 +7,27 @@
 
     var task = ViewBag.Task as WorkTask;
 }
-<div class="panel panel-default">
+
+<div class="container">
     <div class="panel-body">
-        @Html.ActionLink("回到任务 " + task.Name, "Edit", "Task", new { id = task.ID }, null)
+        @Html.ActionLink("回到任务 " + task.Name, "Edit", "Task", new { id = task.ID }, new { @class = "label label-success arrowed" })
     </div>
-    <div class="container">
-        <div class="row">
-            <form action="@Url.Action("AddComment", new { id = task.ID })" method="post" role="form">
-                @Html.TextArea("content")
-                <span class="input-group-btn">
-                    <button type="submit" class="btn btn-purple btn-sm">
-                        <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
-                        提交
-                    </button>
-                </span>
-            </form>
+    <form action="@Url.Action("AddComment", new {id = task.ID})" method="post" role="form">
+        @Html.TextArea("content", new { @class = "form-control", @rows = "4", @placeholder = "请输入任务评论" })
+        <br />
+        <button type="submit" class="btn btn-yellow btn-xs">
+            <i class="ace-icon fa fa-floppy-o bigger-120 blue"></i>
+
+            提交
+        </button>
+    </form>
+    <p></p>
+    @foreach (var entity in Model)
+    {
+        <div class="well well-sm">
+            <span> @entity.CreateUserName @entity.CreateTime.ToFullString()</span>
+            <br />
+            <span> @Html.Raw(@entity.Content)</span>
         </div>
-        @foreach (var entity in Model)
-        {
-            <div class="row">@entity.CreateUserName @entity.CreateTime.ToFullString()</div>
-            <div class="row">@Html.Raw(@entity.Content)</div>
-        }
-    </div>
+    }
 </div>
