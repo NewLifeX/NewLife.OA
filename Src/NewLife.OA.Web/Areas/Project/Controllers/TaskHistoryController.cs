@@ -22,8 +22,11 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
 
         public ActionResult Show(Int32? id, Pager p)
         {
-            ViewBag.TaskID = id ?? 0;
+            ViewBag.Task = WorkTask.FindByID(id ?? 0);
             var list = TaskHistory.Search(id ?? 0, p);
+
+            ViewBag.HeaderTitle = null;
+            ViewBag.HeaderContent = null;
 
             return View(list);
         }
