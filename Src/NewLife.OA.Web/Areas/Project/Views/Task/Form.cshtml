@@ -17,12 +17,7 @@
         }
         @if (!isNew)
         {
-            <div>
-                <label class="control-label col-xs-2 col-sm-2 col-md-4"></label>
-                @Html.ActionLink("历史 " + Model.Historys.ToString("n0"), "Show", "TaskHistory", new { id = Model.ID }, new { @class = "btn btn-primary" })
-                @Html.ActionLink("评论 " + Model.Comments.ToString("n0"), "Show", "TaskComment", new { id = Model.ID }, new { @class = "btn btn-success" })
-                <input type="button" class="btn btn-info" value="查看 @Model.Views.ToString("n0")" />
-            </div>
+            @Html.Partial("_Form_Nav", Model)
         }
         @using (Html.BeginForm((isNew ? "Add" : "Edit"), null, isNew ? new { id = Model.ParentID } : new { id = Model.ID }))
         {

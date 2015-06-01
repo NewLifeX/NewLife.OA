@@ -9,7 +9,7 @@
 }
 <div class="panel panel-default">
     <div class="panel-body">
-        @Html.ActionLink("回到任务 " + task.Name, "Edit", "Task", new { id = task.ID }, new { @class = "label label-success arrowed" })
+        @Html.Partial("_Form_Nav", task)
     </div>
     <div class="container">
         <form action="@Url.Action("AddComment", new {id = task.ID})" method="post" role="form">

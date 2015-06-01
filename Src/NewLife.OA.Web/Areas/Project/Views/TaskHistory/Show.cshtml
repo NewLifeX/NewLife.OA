@@ -9,7 +9,7 @@
 }
 <div class="panel panel-default">
     <div class="panel-body">
-        @Html.ActionLink("回到任务 " + task.Name, "Edit", "Task", new { id = task.ID }, null)
+        @Html.Partial("_Form_Nav", task)
     </div>
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-striped table-condensed">
