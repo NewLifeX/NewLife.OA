@@ -44,7 +44,7 @@ namespace NewLife.OA
         {
             var entity = base.CreateInstance(forEdit);
             // 新建也有份
-            //if (forEdit)
+            if (!forEdit)
             {
                 entity.MasterID = ManageProvider.User.ID;
 
@@ -66,6 +66,15 @@ namespace NewLife.OA
             if (PlanEndTime <= DateTime.MinValue) throw new ArgumentNullException(_.PlanEndTime, _.PlanEndTime.DisplayName + "不能为空！");
 
             if (PlanStartTime > PlanEndTime) throw new ArgumentOutOfRangeException(_.PlanEndTime, _.PlanEndTime.DisplayName + "不能大于开始时间！");
+
+            // 检查计划时间范围，如果父级锁定，自己不得超过父级
+            if (Parent != null && Parent.LockPlanTime)
+            {
+                if (PlanStartTime < Parent.PlanStartTime)
+                    throw new ArgumentOutOfRangeException(_.PlanStartTime, _.PlanStartTime.DisplayName + "不能超过已锁定的父级开始时间{0}！".F(Parent.PlanStartTime));
+                if (PlanEndTime > Parent.PlanEndTime)
+                    throw new ArgumentOutOfRangeException(_.PlanEndTime, _.PlanEndTime.DisplayName + "不能超过已锁定的父级结束时间{0}！".F(Parent.PlanEndTime));
+            }
 
             // 建议先调用基类方法，基类方法会对唯一索引的数据进行验证
             base.Valid(isNew);
@@ -378,7 +387,7 @@ namespace NewLife.OA
             // 找到旧有数据
             var entity = _bak;
 
-            var names = new Field[] { _.Name, _.ParentID, _.Percent, _.PlanStartTime, _.PlanEndTime, _.Progress };
+            var names = new Field[] { _.Name, _.ParentID, _.Percent, _.PlanStartTime, _.PlanEndTime, _.Progress, _.LockPercent, _.LockPlanTime };
             foreach (var item in names)
             {
                 if (Dirtys[item.Name])
