@@ -120,7 +120,9 @@ namespace NewLife.OA
 
         protected override int OnDelete()
         {
-            var rs = base.OnDelete();
+            //var rs = base.OnDelete();
+            Deleted = true;
+            var rs = base.OnUpdate();
 
             OnSaved(4);
 
@@ -313,7 +315,7 @@ namespace NewLife.OA
         #endregion
 
         #region 高级查询
-        public static EntityList<WorkTask> Search(Int32 pid, TaskStatus[] status, TaskPriorities[] tps, Int32 masterid, DateTime start, DateTime end, String key, Pager p)
+        public static EntityList<WorkTask> Search(Int32 pid, TaskStatus[] status, TaskPriorities[] tps, Int32 masterid, DateTime start, DateTime end, Boolean? deleted, String key, Pager p)
         {
             var exp = SearchWhereByKeys(key);
             if (pid >= 0) exp &= _.ParentID == pid;
@@ -323,6 +325,8 @@ namespace NewLife.OA
 
             if (start > DateTime.MinValue) exp &= _.PlanStartTime >= start;
             if (end > DateTime.MinValue) exp &= _.PlanEndTime < end.Date.AddDays(1);
+
+            exp &= _.Deleted.IsTrue(deleted);
 
             // 默认按照最后更新时间排序
             if (p.Sort.IsNullOrEmpty()) p.Sort = _.UpdateTime.Desc();

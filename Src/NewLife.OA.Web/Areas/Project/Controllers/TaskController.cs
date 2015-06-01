@@ -32,7 +32,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
 
         protected override ActionResult IndexView(Pager p)
         {
-            return ListView(p, 0, true);
+            return ListView(p, 0, false, true);
         }
 
         /// <summary>增加新的独立菜单</summary>
@@ -44,7 +44,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
         {
             ViewBag.Page = p;
 
-            return ListView(p, 0, false);
+            return ListView(p, 0, null, false);
         }
 
         /// <summary>我的任务，增加新的独立菜单</summary>
@@ -58,10 +58,10 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
 
             var masterid = ManageProvider.User.ID;
 
-            return ListView(p, masterid, false);
+            return ListView(p, masterid, false, false);
         }
 
-        private ActionResult ListView(Pager p, Int32 masterid, Boolean expand)
+        private ActionResult ListView(Pager p, Int32 masterid, Boolean? deleted, Boolean expand)
         {
             var pid = RouteData.Values["id"].ToInt();
             var sts = Request["status"].SplitAsInt().Select(e => (TaskStatus)e).ToArray();
@@ -74,7 +74,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             // 如果不扩展，则显示所有任务
             if (pid == 0 && !expand) pid = -1;
 
-            var list = WorkTask.Search(pid, sts, tps, masterid, start, end, p["Q"], p);
+            var list = WorkTask.Search(pid, sts, tps, masterid, start, end, deleted, p["Q"], p);
 
             // 扩展任务树
             if (expand) list = WorkTask.Expand(list);

@@ -288,12 +288,24 @@ namespace NewLife.OA
             set { if (OnPropertyChanging(__.LastComment, value)) { _LastComment = value; OnPropertyChanged(__.LastComment); } }
         }
 
+        private Boolean _Deleted;
+        /// <summary>已删除</summary>
+        [DisplayName("已删除")]
+        [Description("已删除")]
+        [DataObjectField(false, false, true, 1)]
+        [BindColumn(23, "Deleted", "已删除", null, "bit", 0, 0, false)]
+        public virtual Boolean Deleted
+        {
+            get { return _Deleted; }
+            set { if (OnPropertyChanging(__.Deleted, value)) { _Deleted = value; OnPropertyChanged(__.Deleted); } }
+        }
+
         private Int32 _CreateUserID;
         /// <summary>创建者</summary>
         [DisplayName("创建者")]
         [Description("创建者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(23, "CreateUserID", "创建者", null, "int", 10, 0, false)]
+        [BindColumn(24, "CreateUserID", "创建者", null, "int", 10, 0, false)]
         public virtual Int32 CreateUserID
         {
             get { return _CreateUserID; }
@@ -305,7 +317,7 @@ namespace NewLife.OA
         [DisplayName("创建时间")]
         [Description("创建时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(24, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
+        [BindColumn(25, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
         public virtual DateTime CreateTime
         {
             get { return _CreateTime; }
@@ -317,7 +329,7 @@ namespace NewLife.OA
         [DisplayName("更新者")]
         [Description("更新者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(25, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
+        [BindColumn(26, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
         public virtual Int32 UpdateUserID
         {
             get { return _UpdateUserID; }
@@ -329,7 +341,7 @@ namespace NewLife.OA
         [DisplayName("更新时间")]
         [Description("更新时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(26, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
+        [BindColumn(27, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
         public virtual DateTime UpdateTime
         {
             get { return _UpdateTime; }
@@ -341,7 +353,7 @@ namespace NewLife.OA
         [DisplayName("内容")]
         [Description("内容")]
         [DataObjectField(false, false, true, 500)]
-        [BindColumn(27, "Content", "内容", null, "nvarchar(500)", 0, 0, true)]
+        [BindColumn(28, "Content", "内容", null, "nvarchar(500)", 0, 0, true)]
         public virtual String Content
         {
             get { return _Content; }
@@ -385,6 +397,7 @@ namespace NewLife.OA
                     case __.Historys : return _Historys;
                     case __.Comments : return _Comments;
                     case __.LastComment : return _LastComment;
+                    case __.Deleted : return _Deleted;
                     case __.CreateUserID : return _CreateUserID;
                     case __.CreateTime : return _CreateTime;
                     case __.UpdateUserID : return _UpdateUserID;
@@ -419,6 +432,7 @@ namespace NewLife.OA
                     case __.Historys : _Historys = Convert.ToInt32(value); break;
                     case __.Comments : _Comments = Convert.ToInt32(value); break;
                     case __.LastComment : _LastComment = Convert.ToDateTime(value); break;
+                    case __.Deleted : _Deleted = Convert.ToBoolean(value); break;
                     case __.CreateUserID : _CreateUserID = Convert.ToInt32(value); break;
                     case __.CreateTime : _CreateTime = Convert.ToDateTime(value); break;
                     case __.UpdateUserID : _UpdateUserID = Convert.ToInt32(value); break;
@@ -499,6 +513,9 @@ namespace NewLife.OA
 
             ///<summary>最后评论</summary>
             public static readonly Field LastComment = FindByName(__.LastComment);
+
+            ///<summary>已删除</summary>
+            public static readonly Field Deleted = FindByName(__.Deleted);
 
             ///<summary>创建者</summary>
             public static readonly Field CreateUserID = FindByName(__.CreateUserID);
@@ -586,6 +603,9 @@ namespace NewLife.OA
 
             ///<summary>最后评论</summary>
             public const String LastComment = "LastComment";
+
+            ///<summary>已删除</summary>
+            public const String Deleted = "Deleted";
 
             ///<summary>创建者</summary>
             public const String CreateUserID = "CreateUserID";
@@ -675,6 +695,9 @@ namespace NewLife.OA
 
         /// <summary>最后评论</summary>
         DateTime LastComment { get; set; }
+
+        /// <summary>已删除</summary>
+        Boolean Deleted { get; set; }
 
         /// <summary>创建者</summary>
         Int32 CreateUserID { get; set; }
