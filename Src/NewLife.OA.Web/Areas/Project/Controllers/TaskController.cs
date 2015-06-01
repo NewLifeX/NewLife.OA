@@ -39,7 +39,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
         /// <param name="p"></param>
         /// <returns></returns>
         [DisplayName("所有任务")]
-        [EntityAuthorize(PermissionFlags.Detail, ResourceName = "所有任务")]
+        [EntityAuthorize(PermissionFlags.Detail | PermissionFlags.Insert | PermissionFlags.Update | PermissionFlags.Delete, ResourceName = "所有任务")]
         public ActionResult Show(Pager p)
         {
             ViewBag.Page = p;
@@ -51,7 +51,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
         /// <param name="p"></param>
         /// <returns></returns>
         [DisplayName("我的任务")]
-        [EntityAuthorize(PermissionFlags.Detail, ResourceName = "我的任务")]
+        [EntityAuthorize(PermissionFlags.Detail | PermissionFlags.Insert | PermissionFlags.Update | PermissionFlags.Delete, ResourceName = "我的任务")]
         public ActionResult My(Pager p)
         {
             ViewBag.Page = p;
