@@ -100,7 +100,12 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             {
                 // 增加浏览数
                 entity.Views++;
-                entity.Save();
+                // 有些不合格的数据可能保存失败
+                try
+                {
+                    entity.SaveWithoutValid();
+                }
+                catch { }
             }
 
             return base.FormView(entity);
