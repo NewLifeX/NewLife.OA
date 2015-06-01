@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using NewLife.Cube;
 using NewLife.Web;
+using XCode.Membership;
 
 namespace NewLife.OA.Web.Areas.Project.Controllers
 {
@@ -20,6 +21,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
         //    return View("List", list);
         //}
 
+        [EntityAuthorize(PermissionFlags.Detail)]
         public ActionResult Show(Int32? id, Pager p)
         {
             ViewBag.Task = WorkTask.FindByID(id ?? 0);

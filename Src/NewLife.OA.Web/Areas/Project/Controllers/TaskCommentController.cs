@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using NewLife.Cube;
 using NewLife.Web;
+using XCode.Membership;
 
 namespace NewLife.OA.Web.Areas.Project.Controllers
 {
@@ -20,6 +21,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
         //    return View("List", list);
         //}
 
+        [EntityAuthorize(PermissionFlags.Detail)]
         public ActionResult Show(Int32? id, Pager p)
         {
             ViewBag.Task = WorkTask.FindByID(id ?? 0);
@@ -31,8 +33,9 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             return View(list);
         }
 
+        [EntityAuthorize(PermissionFlags.Insert)]
         [ValidateInput(false)]
-        public ActionResult AddComment(Int32 id,String content)
+        public ActionResult AddComment(Int32 id, String content)
         {
             var entity = new TaskComment();
             entity.TaskID = id;
