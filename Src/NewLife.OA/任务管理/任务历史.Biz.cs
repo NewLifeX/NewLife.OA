@@ -120,8 +120,9 @@ namespace NewLife.OA
             var entity = new TaskHistory();
             entity.TaskID = taskid;
             entity.Kind = kind;
-            entity.SrcValue = oldValue + "";
-            entity.NewValue = newValue + "";
+            // 采用F格式化，内部特殊处理时间日期格式化
+            entity.SrcValue = "{0}".F(oldValue);
+            entity.NewValue = "{0}".F(newValue);
             entity.Remark = remark;
 
             entity.Insert();
