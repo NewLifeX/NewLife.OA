@@ -32,7 +32,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
 
         protected override ActionResult IndexView(Pager p)
         {
-            return ListView(p, true);
+            return ListView(p, 0, true);
         }
 
         /// <summary>增加新的独立菜单</summary>
@@ -43,21 +43,30 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
         public ActionResult Show(Pager p)
         {
             ViewBag.Page = p;
-            ViewBag.Factory = WorkTask.Meta.Factory;
 
-            // 用于显示的列
-            var fields = GetFields(false);
-            ViewBag.Fields = fields;
-
-            return ListView(p, false);
+            return ListView(p, 0, false);
         }
 
-        private ActionResult ListView(Pager p, Boolean expand)
+        /// <summary>我的任务，增加新的独立菜单</summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        [DisplayName("我的任务")]
+        [EntityAuthorize(PermissionFlags.Detail, ResourceName = "我的任务")]
+        public ActionResult My(Pager p)
+        {
+            ViewBag.Page = p;
+
+            var masterid = ManageProvider.User.ID;
+
+            return ListView(p, masterid, false);
+        }
+
+        private ActionResult ListView(Pager p, Int32 masterid, Boolean expand)
         {
             var pid = RouteData.Values["id"].ToInt();
             var sts = Request["status"].SplitAsInt().Select(e => (TaskStatus)e).ToArray();
             var tps = Request["Priority"].SplitAsInt().Select(e => (TaskPriorities)e).ToArray();
-            var masterid = Request["masterid"].ToInt();
+            if (masterid == 0) masterid = Request["masterid"].ToInt();
 
             var start = Request["dtStart"].ToDateTime();
             var end = Request["dtEnd"].ToDateTime();
