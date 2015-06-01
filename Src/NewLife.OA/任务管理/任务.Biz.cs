@@ -337,16 +337,28 @@ namespace NewLife.OA
         /// <summary>扩展任务的子孙节点</summary>
         /// <param name="collection"></param>
         /// <returns></returns>
-        public static EntityList<WorkTask> Expand(IEnumerable<WorkTask> collection)
+        public static EntityList<WorkTask> Expand(IEnumerable<WorkTask> collection, TaskStatus[] status, TaskPriorities[] tps, Int32 masterid, DateTime start, DateTime end, Boolean? deleted, String key)
         {
+            if (status == null) status = new TaskStatus[0];
+            if (tps == null) tps = new TaskPriorities[0];
+
             var list = new EntityList<WorkTask>();
             foreach (var item in collection)
             {
+                // 过滤
+                if (status.Length > 0 && !status.Contains(item.TaskStatus)) continue;
+                if (tps.Length > 0 && !tps.Contains(item.TaskPriority)) continue;
+                if (masterid > 0 && item.MasterID != masterid) continue;
+                if (start > DateTime.MinValue && item.PlanStartTime < start) continue;
+                if (end > DateTime.MinValue && item.PlanEndTime >= end.Date.AddDays(1)) continue;
+                if (deleted != null && item.Deleted != deleted.Value) continue;
+                if (!key.IsNullOrEmpty() && !item.Name.Contains(key) && !item.Content.Contains(key)) continue;
+
                 list.Add(item);
                 if (item.ChildCount > 0)
                 {
                     var childs = FindAllByParentID(item.ID);
-                    if (childs.Count > 0) list.AddRange(Expand(childs));
+                    if (childs.Count > 0) list.AddRange(Expand(childs, status, tps, masterid, start, end, deleted, key));
                 }
             }
 

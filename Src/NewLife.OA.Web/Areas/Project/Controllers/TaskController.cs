@@ -77,7 +77,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             var list = WorkTask.Search(pid, sts, tps, masterid, start, end, deleted, p["Q"], p);
 
             // 扩展任务树
-            if (expand) list = WorkTask.Expand(list);
+            if (expand) list = WorkTask.Expand(list, sts, tps, masterid, start, end, deleted, p["Q"]);
 
             return View("Index", list);
         }
