@@ -121,12 +121,13 @@ namespace NewLife.OA
         protected override int OnDelete()
         {
             //var rs = base.OnDelete();
-            Deleted = true;
+            var ori = Deleted;
+            Deleted = !Deleted;
             var rs = base.OnUpdate();
 
             OnSaved(4);
 
-            TaskHistory.Add(ID, "删除", null, Name);
+            TaskHistory.Add(ID, ori ? "恢复" : "删除", null, Name);
 
             return rs;
         }
