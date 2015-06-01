@@ -43,8 +43,11 @@ namespace NewLife.OA
         protected override WorkTask CreateInstance(bool forEdit = false)
         {
             var entity = base.CreateInstance(forEdit);
-            if (forEdit)
+            // 新建也有份
+            //if (forEdit)
             {
+                entity.MasterID = ManageProvider.User.ID;
+
                 entity.CreateUserID = ManageProvider.User.ID;
                 entity.CreateTime = DateTime.Now;
             }
