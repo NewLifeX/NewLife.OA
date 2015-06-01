@@ -6233,7 +6233,12 @@
             <summary>编码</summary>
         </member>
         <member name="T:NewLife.Log.TextFileLog">
-            <summary>文本文件日志类。提供向文本文件写日志的能力</summary>
+            <summary>文本文件日志类。提供向文本文件写日志的能力
+            2015-06-01 为了继承TextFileLog，增加了无参构造函数，修改了异步写日志方法为虚方法，可以进行重载
+            </summary>
+        </member>
+        <member name="M:NewLife.Log.TextFileLog.#ctor">
+            <summary>该构造函数没有作用，为了继承而设置</summary>
         </member>
         <member name="M:NewLife.Log.TextFileLog.Create(System.String)">
             <summary>每个目录的日志实例应该只有一个，所以采用静态创建</summary>

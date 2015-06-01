@@ -79,6 +79,21 @@ namespace NewLife.OA
             // 建议先调用基类方法，基类方法会对唯一索引的数据进行验证
             base.Valid(isNew);
 
+            if (Parent != null)
+            {
+                // 重新计算积分比重
+                // 同级积分比重总和100%。扣除被锁定的积分比重，看还有多少可以分配
+                var max = 100;
+                var fix = 0;
+                foreach (var item in Parent.Childs)
+                {
+                    if (item.LockPercent) fix += item.Percent;
+                }
+
+                // 重新计算积分
+                Score = Parent.Score * Percent / 100;
+            }
+
             // 计算计划工作日，采取进一法
             PlanCost = (Int32)Math.Ceiling((PlanEndTime - PlanStartTime).TotalDays);
 
@@ -170,6 +185,9 @@ namespace NewLife.OA
         /// <summary>父任务名</summary>
         [DisplayName("父任务")]
         public String ParentName { get { return Parent != null ? Parent.Name : null; } }
+
+        /// <summary>子任务集合</summary>
+        public EntityList<WorkTask> Childs { get { return FindAllByParentID(ID); } }
 
         /// <summary>深度</summary>
         public Int32 Deepth { get { return Parent != null ? Parent.Deepth + 1 : 1; } }
