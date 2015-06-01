@@ -72,6 +72,16 @@ namespace NewLife.OA
 
             // 计算实际工作日
             if (EndTime > DateTime.MinValue && StartTime > DateTime.MinValue) Cost = (Int32)Math.Ceiling((EndTime - StartTime).TotalDays);
+
+            // 计算ChildCount
+            if (Parent != null)
+            {
+                Parent.ChildCount = FindCountByParentID(ParentID);
+                Parent.Save();
+            }
+
+            // 不管如何，都修正本级子节点数
+            ChildCount = FindCountByParentID(ID);
         }
 
         WorkTask _bak;
@@ -82,21 +92,9 @@ namespace NewLife.OA
             _bak = this.CloneEntity();
         }
 
-        void OnSaved(Int32 mode)
-        {
-            // 计算ChildCount
-            if (Parent != null)
-            {
-                Parent.ChildCount = FindCountByParentID(ParentID);
-                Parent.Save();
-            }
-        }
-
         protected override int OnInsert()
         {
             var rs = base.OnInsert();
-
-            OnSaved(1);
 
             TaskHistory.Add(ID, "创建", null, Name);
 
@@ -105,6 +103,8 @@ namespace NewLife.OA
 
         protected override int OnUpdate()
         {
+            if (Deleted) throw new Exception("任务已删除，禁止更新操作！");
+
             WriteHistory();
 
             // 更新历史数和评论数
@@ -112,8 +112,6 @@ namespace NewLife.OA
             Comments = TaskComment.FindCountByTaskID(ID);
 
             var rs = base.OnUpdate();
-
-            OnSaved(2);
 
             return rs;
         }
@@ -124,8 +122,6 @@ namespace NewLife.OA
             var ori = Deleted;
             Deleted = !Deleted;
             var rs = base.OnUpdate();
-
-            OnSaved(4);
 
             TaskHistory.Add(ID, ori ? "恢复" : "删除", null, Name);
 
