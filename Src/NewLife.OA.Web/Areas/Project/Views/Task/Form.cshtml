@@ -56,22 +56,21 @@
                 @Html.Partial("_Form_Item", new Pair(Model, WorkTask.Meta.AllFields.FirstOrDefault(e => e.Name == "TaskPriority")))
             </div>
             <div class="form-group">
-                @*顶级任务才能设定积分*@
-                @if (Model.ParentID == 0)
-                {
-                    @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Score))
-                }
-                else
-                {
-                    @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Percent))
-                }
+                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Score))
+                @*子任务才会显示积分百分比*@
             </div>
-            if (Model.ParentID != 0)
+            if (!isNew && Model.ParentID != 0)
             {
                 <div class="form-group">
-                    @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.LockPercent))
+                    <label class="control-label col-xs-2 col-sm-2 col-md-4">同级比重</label>
+                    <div class="col-md-4">
+                        @Model.Percent<text>%</text>
+                    </div>
                 </div>
             }
+            <div class="form-group">
+                @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.LockScore))
+            </div>
             <div class="form-group">
                 <label class="control-label col-xs-2 col-sm-2 col-md-4">负责人</label>
                 <div class="col-xs-10 col-sm-6 col-md-4">

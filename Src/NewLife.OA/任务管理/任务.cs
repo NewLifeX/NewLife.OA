@@ -73,11 +73,11 @@ namespace NewLife.OA
         }
 
         private Int32 _Score;
-        /// <summary>积分。绩效考核权重，顶级任务指定，子任务通过比重来分享</summary>
+        /// <summary>积分。全局权重，可用于绩效考核</summary>
         [DisplayName("积分")]
-        [Description("积分。绩效考核权重，顶级任务指定，子任务通过比重来分享")]
+        [Description("积分。全局权重，可用于绩效考核")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(5, "Score", "积分。绩效考核权重，顶级任务指定，子任务通过比重来分享", null, "int", 10, 0, false)]
+        [BindColumn(5, "Score", "积分。全局权重，可用于绩效考核", null, "int", 10, 0, false)]
         public virtual Int32 Score
         {
             get { return _Score; }
@@ -85,11 +85,11 @@ namespace NewLife.OA
         }
 
         private Boolean _LockScore;
-        /// <summary>积分锁定。锁定后，子任务积分总和不能超过父任务</summary>
+        /// <summary>积分锁定。锁定后，下一级子任务积分总和不能超过当前任务</summary>
         [DisplayName("积分锁定")]
-        [Description("积分锁定。锁定后，子任务积分总和不能超过父任务")]
+        [Description("积分锁定。锁定后，下一级子任务积分总和不能超过当前任务")]
         [DataObjectField(false, false, true, 1)]
-        [BindColumn(6, "LockScore", "积分锁定。锁定后，子任务积分总和不能超过父任务", null, "bit", 0, 0, false)]
+        [BindColumn(6, "LockScore", "积分锁定。锁定后，下一级子任务积分总和不能超过当前任务", null, "bit", 0, 0, false)]
         public virtual Boolean LockScore
         {
             get { return _LockScore; }
@@ -460,10 +460,10 @@ namespace NewLife.OA
             ///<summary>子任务数</summary>
             public static readonly Field ChildCount = FindByName(__.ChildCount);
 
-            ///<summary>积分。绩效考核权重，顶级任务指定，子任务通过比重来分享</summary>
+            ///<summary>积分。全局权重，可用于绩效考核</summary>
             public static readonly Field Score = FindByName(__.Score);
 
-            ///<summary>积分锁定。锁定后，子任务积分总和不能超过父任务</summary>
+            ///<summary>积分锁定。锁定后，下一级子任务积分总和不能超过当前任务</summary>
             public static readonly Field LockScore = FindByName(__.LockScore);
 
             ///<summary>同级比重。0~100在同级任务中的比重百分比</summary>
@@ -550,10 +550,10 @@ namespace NewLife.OA
             ///<summary>子任务数</summary>
             public const String ChildCount = "ChildCount";
 
-            ///<summary>积分。绩效考核权重，顶级任务指定，子任务通过比重来分享</summary>
+            ///<summary>积分。全局权重，可用于绩效考核</summary>
             public const String Score = "Score";
 
-            ///<summary>积分锁定。锁定后，子任务积分总和不能超过父任务</summary>
+            ///<summary>积分锁定。锁定后，下一级子任务积分总和不能超过当前任务</summary>
             public const String LockScore = "LockScore";
 
             ///<summary>同级比重。0~100在同级任务中的比重百分比</summary>
@@ -642,10 +642,10 @@ namespace NewLife.OA
         /// <summary>子任务数</summary>
         Int32 ChildCount { get; set; }
 
-        /// <summary>积分。绩效考核权重，顶级任务指定，子任务通过比重来分享</summary>
+        /// <summary>积分。全局权重，可用于绩效考核</summary>
         Int32 Score { get; set; }
 
-        /// <summary>积分锁定。锁定后，子任务积分总和不能超过父任务</summary>
+        /// <summary>积分锁定。锁定后，下一级子任务积分总和不能超过当前任务</summary>
         Boolean LockScore { get; set; }
 
         /// <summary>同级比重。0~100在同级任务中的比重百分比</summary>

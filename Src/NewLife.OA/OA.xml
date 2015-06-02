@@ -6,8 +6,8 @@
       <Column Name="Name" DataType="String" Master="True" Description="名称" />
       <Column Name="ParentID" DataType="Int32" Description="父任务。顶级任务的父任务为0" />
       <Column Name="ChildCount" DataType="Int32" Description="子任务数" />
-      <Column Name="Score" DataType="Int32" Description="积分。绩效考核权重，顶级任务指定，子任务通过比重来分享" />
-      <Column Name="LockScore" DataType="Boolean" Description="积分锁定。锁定后，子任务积分总和不能超过父任务" />
+      <Column Name="Score" DataType="Int32" Description="积分。全局权重，可用于绩效考核" />
+      <Column Name="LockScore" DataType="Boolean" Description="积分锁定。锁定后，下一级子任务积分总和不能超过当前任务" />
       <Column Name="Percent" DataType="Int32" Description="同级比重。0~100在同级任务中的比重百分比" />
       <Column Name="Priority" DataType="Int32" Description="优先级。数字越大优先级越高" />
       <Column Name="Status" DataType="Int32" Description="状态。准备、进行、暂停、取消、完成" />
