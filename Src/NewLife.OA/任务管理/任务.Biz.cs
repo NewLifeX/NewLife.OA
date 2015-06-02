@@ -419,5 +419,32 @@ namespace NewLife.OA
             if (Dirtys[__.Content]) TaskHistory.Add(ID, _.Content.DisplayName, _bak.Content, this.Content, Name);
         }
         #endregion
+
+        #region 积分设定
+        /// <summary>向下设定积分</summary>
+        public void FixScoreDown()
+        {
+            // 计算新旧积分的百分比
+            var p = (Double)Score / _bak.Score;
+
+            // 子任务的积分全部乘以这个百分比，但是子任务的积分权重不变
+            var total = 0;
+            for (int i = 0; i < Childs.Count; i++)
+            {
+                var item = Childs[i];
+                item.Score = (Int32)(p * item.Score);
+
+                // 递归修正子级任务
+                item.FixScoreDown();
+
+                // 修正最后一个子任务，确保积分总和
+                if (i == Childs.Count - 1) item.Score = this.Score - total;
+
+                item.Save();
+
+                total += item.Score;
+            }
+        }
+        #endregion
     }
 }
