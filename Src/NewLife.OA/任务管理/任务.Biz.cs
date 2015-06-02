@@ -87,7 +87,7 @@ namespace NewLife.OA
                 var fix = 0;
                 foreach (var item in Parent.Childs)
                 {
-                    if (item.LockPercent) fix += item.Percent;
+                    if (item.LockScore) fix += item.Percent;
                 }
 
                 // 重新计算积分
@@ -405,7 +405,7 @@ namespace NewLife.OA
             // 找到旧有数据
             var entity = _bak;
 
-            var names = new Field[] { _.Name, _.ParentID, _.Percent, _.PlanStartTime, _.PlanEndTime, _.Progress, _.LockPercent, _.LockPlanTime };
+            var names = new Field[] { _.Name, _.ParentID, _.Percent, _.PlanStartTime, _.PlanEndTime, _.Progress, _.LockScore, _.LockPlanTime };
             foreach (var item in names)
             {
                 if (Dirtys[item.Name])

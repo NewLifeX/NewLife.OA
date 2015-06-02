@@ -84,28 +84,28 @@ namespace NewLife.OA
             set { if (OnPropertyChanging(__.Score, value)) { _Score = value; OnPropertyChanged(__.Score); } }
         }
 
+        private Boolean _LockScore;
+        /// <summary>积分锁定。锁定后，子任务积分总和不能超过父任务</summary>
+        [DisplayName("积分锁定")]
+        [Description("积分锁定。锁定后，子任务积分总和不能超过父任务")]
+        [DataObjectField(false, false, true, 1)]
+        [BindColumn(6, "LockScore", "积分锁定。锁定后，子任务积分总和不能超过父任务", null, "bit", 0, 0, false)]
+        public virtual Boolean LockScore
+        {
+            get { return _LockScore; }
+            set { if (OnPropertyChanging(__.LockScore, value)) { _LockScore = value; OnPropertyChanged(__.LockScore); } }
+        }
+
         private Int32 _Percent;
         /// <summary>同级比重。0~100在同级任务中的比重百分比</summary>
         [DisplayName("同级比重")]
         [Description("同级比重。0~100在同级任务中的比重百分比")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(6, "Percent", "同级比重。0~100在同级任务中的比重百分比", null, "int", 10, 0, false)]
+        [BindColumn(7, "Percent", "同级比重。0~100在同级任务中的比重百分比", null, "int", 10, 0, false)]
         public virtual Int32 Percent
         {
             get { return _Percent; }
             set { if (OnPropertyChanging(__.Percent, value)) { _Percent = value; OnPropertyChanged(__.Percent); } }
-        }
-
-        private Boolean _LockPercent;
-        /// <summary>比重锁定。锁定后，同级任务增加或调整比重时，不改变当前任务比重</summary>
-        [DisplayName("比重锁定")]
-        [Description("比重锁定。锁定后，同级任务增加或调整比重时，不改变当前任务比重")]
-        [DataObjectField(false, false, true, 1)]
-        [BindColumn(7, "LockPercent", "比重锁定。锁定后，同级任务增加或调整比重时，不改变当前任务比重", null, "bit", 0, 0, false)]
-        public virtual Boolean LockPercent
-        {
-            get { return _LockPercent; }
-            set { if (OnPropertyChanging(__.LockPercent, value)) { _LockPercent = value; OnPropertyChanged(__.LockPercent); } }
         }
 
         private Int32 _Priority;
@@ -380,8 +380,8 @@ namespace NewLife.OA
                     case __.ParentID : return _ParentID;
                     case __.ChildCount : return _ChildCount;
                     case __.Score : return _Score;
+                    case __.LockScore : return _LockScore;
                     case __.Percent : return _Percent;
-                    case __.LockPercent : return _LockPercent;
                     case __.Priority : return _Priority;
                     case __.Status : return _Status;
                     case __.PlanStartTime : return _PlanStartTime;
@@ -415,8 +415,8 @@ namespace NewLife.OA
                     case __.ParentID : _ParentID = Convert.ToInt32(value); break;
                     case __.ChildCount : _ChildCount = Convert.ToInt32(value); break;
                     case __.Score : _Score = Convert.ToInt32(value); break;
+                    case __.LockScore : _LockScore = Convert.ToBoolean(value); break;
                     case __.Percent : _Percent = Convert.ToInt32(value); break;
-                    case __.LockPercent : _LockPercent = Convert.ToBoolean(value); break;
                     case __.Priority : _Priority = Convert.ToInt32(value); break;
                     case __.Status : _Status = Convert.ToInt32(value); break;
                     case __.PlanStartTime : _PlanStartTime = Convert.ToDateTime(value); break;
@@ -463,11 +463,11 @@ namespace NewLife.OA
             ///<summary>积分。绩效考核权重，顶级任务指定，子任务通过比重来分享</summary>
             public static readonly Field Score = FindByName(__.Score);
 
+            ///<summary>积分锁定。锁定后，子任务积分总和不能超过父任务</summary>
+            public static readonly Field LockScore = FindByName(__.LockScore);
+
             ///<summary>同级比重。0~100在同级任务中的比重百分比</summary>
             public static readonly Field Percent = FindByName(__.Percent);
-
-            ///<summary>比重锁定。锁定后，同级任务增加或调整比重时，不改变当前任务比重</summary>
-            public static readonly Field LockPercent = FindByName(__.LockPercent);
 
             ///<summary>优先级。数字越大优先级越高</summary>
             public static readonly Field Priority = FindByName(__.Priority);
@@ -553,11 +553,11 @@ namespace NewLife.OA
             ///<summary>积分。绩效考核权重，顶级任务指定，子任务通过比重来分享</summary>
             public const String Score = "Score";
 
+            ///<summary>积分锁定。锁定后，子任务积分总和不能超过父任务</summary>
+            public const String LockScore = "LockScore";
+
             ///<summary>同级比重。0~100在同级任务中的比重百分比</summary>
             public const String Percent = "Percent";
-
-            ///<summary>比重锁定。锁定后，同级任务增加或调整比重时，不改变当前任务比重</summary>
-            public const String LockPercent = "LockPercent";
 
             ///<summary>优先级。数字越大优先级越高</summary>
             public const String Priority = "Priority";
@@ -645,11 +645,11 @@ namespace NewLife.OA
         /// <summary>积分。绩效考核权重，顶级任务指定，子任务通过比重来分享</summary>
         Int32 Score { get; set; }
 
+        /// <summary>积分锁定。锁定后，子任务积分总和不能超过父任务</summary>
+        Boolean LockScore { get; set; }
+
         /// <summary>同级比重。0~100在同级任务中的比重百分比</summary>
         Int32 Percent { get; set; }
-
-        /// <summary>比重锁定。锁定后，同级任务增加或调整比重时，不改变当前任务比重</summary>
-        Boolean LockPercent { get; set; }
 
         /// <summary>优先级。数字越大优先级越高</summary>
         Int32 Priority { get; set; }
