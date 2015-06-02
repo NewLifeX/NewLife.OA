@@ -103,12 +103,12 @@ namespace NewLife.OA
             // 计算ChildCount
             if (Parent != null)
             {
-                Parent.ChildCount = FindCountByParentID(ParentID);
+                Parent.ChildCount = Parent.Childs.Count;
                 Parent.Save();
             }
 
             // 不管如何，都修正本级子节点数
-            ChildCount = FindCountByParentID(ID);
+            ChildCount = Childs.Count;
         }
 
         WorkTask _bak;
@@ -187,7 +187,7 @@ namespace NewLife.OA
         public String ParentName { get { return Parent != null ? Parent.Name : null; } }
 
         /// <summary>子任务集合</summary>
-        public EntityList<WorkTask> Childs { get { return FindAllByParentID(ID); } }
+        public EntityList<WorkTask> Childs { get { return ID > 0 ? FindAllByParentID(ID) : new EntityList<WorkTask>(); } }
 
         /// <summary>深度</summary>
         public Int32 Deepth { get { return Parent != null ? Parent.Deepth + 1 : 1; } }
@@ -384,7 +384,7 @@ namespace NewLife.OA
                 list.Add(item);
                 if (item.ChildCount > 0)
                 {
-                    var childs = FindAllByParentID(item.ID);
+                    var childs = item.Childs;
                     if (childs.Count > 0) list.AddRange(Expand(childs, status, tps, masterid, start, end, deleted, key));
                 }
             }
