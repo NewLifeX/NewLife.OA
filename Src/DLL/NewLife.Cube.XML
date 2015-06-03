@@ -75,6 +75,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Cube.EntityController`1.DeleteAjax(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:NewLife.Cube.EntityController`1.Add">
             <summary>表单，添加/修改</summary>
             <returns></returns>

@@ -156,6 +156,7 @@
     <Content Include="Content\bootstrap\js\bootstrap-wysiwyg.min.js" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\cube-list.js" />
     <Content Include="Content\DateTimePicker\bootstrap-datetimepicker.css" />
     <Content Include="Content\DateTimePicker\bootstrap-datetimepicker.js" />
     <Content Include="Content\DateTimePicker\bootstrap-datetimepicker.min.css" />
