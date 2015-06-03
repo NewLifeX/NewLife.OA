@@ -13734,7 +13734,7 @@
         <member name="T:NewLife.Web.Js">
             <summary>JavaScript脚本。提供Js的基本操作，同时也支持继承扩展</summary>
             <remarks>
-            提供静态成员<see cref="P:NewLife.Web.Js.Current"/>，以及常用的<see cref="M:NewLife.Web.Js.WriteScript(System.String,System.Boolean)"/>和<see cref="M:NewLife.Web.Js.Alert(System.String,System.Object[])"/>
+            提供静态成员<see cref="P:NewLife.Web.Js.Current"/>，以及常用的<see cref="M:NewLife.Web.Js.WriteScript(System.String,System.Boolean)"/>和<see cref="M:NewLife.Web.Js.Alert(System.String,System.String,System.Int32,System.String)"/>
             </remarks>
         </member>
         <member name="T:NewLife.Web.IJs">
@@ -13746,10 +13746,12 @@
             <param name="addScriptTags"></param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.Web.IJs.Alert(System.String,System.Object[])">
+        <member name="M:NewLife.Web.IJs.Alert(System.String,System.String,System.Int32,System.String)">
             <summary>弹出页面提示</summary>
-            <param name="format">格式化字符串</param>
-            <param name="args">格式化参数</param>
+            <param name="message">消息内容</param>
+            <param name="title">标题</param>
+            <param name="delaySecond">延迟指定秒数以后自动关闭，默认0表示不关闭</param>
+            <param name="kind">种类，info/success/error等</param>
             <returns></returns>
         </member>
         <member name="M:NewLife.Web.IJs.End">
@@ -13779,10 +13781,12 @@
             <param name="addScriptTags"></param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.Web.Js.Alert(System.String,System.Object[])">
+        <member name="M:NewLife.Web.Js.Alert(System.String,System.String,System.Int32,System.String)">
             <summary>弹出页面提示</summary>
-            <param name="format">格式化字符串</param>
-            <param name="args">格式化参数</param>
+            <param name="message">消息内容</param>
+            <param name="title">标题</param>
+            <param name="delaySecond">延迟指定秒数以后自动关闭，默认0表示不关闭</param>
+            <param name="kind">种类，info/success/error等</param>
             <returns></returns>
         </member>
         <member name="M:NewLife.Web.Js.NewLife#Web#IJs#WriteScript(System.String,System.Boolean)">
@@ -13797,15 +13801,20 @@
             <param name="addScriptTags"></param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.Web.Js.NewLife#Web#IJs#Alert(System.String,System.Object[])">
+        <member name="M:NewLife.Web.Js.NewLife#Web#IJs#Alert(System.String,System.String,System.Int32,System.String)">
             <summary>弹出页面提示</summary>
-            <param name="format">格式化字符串</param>
-            <param name="args">格式化参数</param>
+            <param name="message">消息内容</param>
+            <param name="title">标题</param>
+            <param name="delaySecond">延迟指定秒数以后自动关闭，默认0表示不关闭</param>
+            <param name="kind">种类，info/success/error等</param>
             <returns></returns>
         </member>
-        <member name="M:NewLife.Web.Js.OnAlert(System.String)">
+        <member name="M:NewLife.Web.Js.OnAlert(System.String,System.String,System.Int32,System.String)">
             <summary>弹出页面提示</summary>
-            <param name="msg">字符串</param>
+            <param name="message">消息内容</param>
+            <param name="title">标题</param>
+            <param name="delaySecond">延迟指定秒数以后自动关闭，默认0表示不关闭</param>
+            <param name="kind">种类，info/success/error等</param>
             <returns></returns>
         </member>
         <member name="M:NewLife.Web.Js.End">
