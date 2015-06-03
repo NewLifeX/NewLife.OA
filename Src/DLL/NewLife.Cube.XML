@@ -106,6 +106,21 @@
             <param name="entity"></param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Cube.EntityController`1.OnInsert(`0)">
+            <summary>添加实体对象</summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.EntityController`1.OnUpdate(`0)">
+            <summary>更新实体对象</summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.EntityController`1.OnDelete(`0)">
+            <summary>删除实体对象</summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
         <member name="M:NewLife.Cube.EntityController`1.Valid(`0)">
             <summary>验证实体对象</summary>
             <param name="entity"></param>
@@ -163,6 +178,11 @@
             <returns></returns>
         </member>
         <member name="M:NewLife.Cube.Admin.Controllers.LogController.Delete(System.Int32)">
+            <summary>不允许删除日志</summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.Admin.Controllers.LogController.DeleteAjax(System.Int32)">
             <summary>不允许删除日志</summary>
             <param name="id"></param>
             <returns></returns>

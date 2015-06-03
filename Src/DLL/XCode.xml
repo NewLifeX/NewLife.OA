@@ -3320,6 +3320,14 @@
             <summary>已重载。记录当前管理员</summary>
             <param name="isNew"></param>
         </member>
+        <member name="M:XCode.Membership.Log`1.OnUpdate">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.Membership.Log`1.OnDelete">
+            <summary></summary>
+            <returns></returns>
+        </member>
         <member name="M:XCode.Membership.Log`1.Search(System.String,System.Int32,System.String,System.DateTime,System.DateTime,System.String,System.Int32,System.Int32)">
             <summary>查询</summary>
             <param name="key"></param>

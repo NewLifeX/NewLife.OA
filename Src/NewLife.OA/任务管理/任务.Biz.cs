@@ -111,13 +111,10 @@ namespace NewLife.OA
 
         protected override int OnInsert()
         {
-            var rs = base.OnInsert();
-            _bak = this.CloneEntity();
-
             // 统计父任务的子任务数，如果是新增任务，则加一
             if (Parent != null)
             {
-                var count = Parent.Childs.Count;
+                var count = Parent.Childs.Count + 1;
                 XTrace.WriteLine("父任务{0}的子任务数修改为{1}", ParentID, count);
                 Parent.ChildCount = count;
                 Parent.Save();
@@ -128,6 +125,9 @@ namespace NewLife.OA
 
             // 重新计算积分比重
             FixPercent();
+
+            var rs = base.OnInsert();
+            _bak = this.CloneEntity();
 
             TaskHistory.Add(ID, "创建", null, Name);
 
@@ -479,6 +479,10 @@ namespace NewLife.OA
             if (Parent == null) return;
 
             var total = Parent.Childs.ToList().Sum(e => e.Score);
+
+            // 如果当前是新增任务，则累加进去
+            if (ID == 0) total += this.Score;
+
             Parent.Score = total;
             Parent.Save();
         }
@@ -494,6 +498,9 @@ namespace NewLife.OA
             }
 
             var total = 0;
+            // 如果当前是新增任务，则累加进去
+            if (ID == 0) total += this.Score;
+            
             for (int i = 0; i < Childs.Count; i++)
             {
                 var item = Childs[i];
