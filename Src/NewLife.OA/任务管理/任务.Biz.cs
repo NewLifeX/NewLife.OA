@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using NewLife.Log;
 using NewLife.Web;
 using XCode;
 using XCode.Configuration;
@@ -47,9 +48,15 @@ namespace NewLife.OA
             if (!forEdit)
             {
                 entity.Score = 1;
-                entity.MasterID = ManageProvider.User.ID;
 
-                entity.CreateUserID = ManageProvider.User.ID;
+                var user = ManageProvider.User;
+                if (user != null)
+                {
+                    entity.MasterID = ManageProvider.User.ID;
+
+                    entity.CreateUserID = ManageProvider.User.ID;
+                }
+
                 entity.CreateTime = DateTime.Now;
 
                 // 清除脏数据
@@ -90,17 +97,8 @@ namespace NewLife.OA
             // 计算实际工作日
             if (EndTime > DateTime.MinValue && StartTime > DateTime.MinValue) Cost = (Int32)Math.Ceiling((EndTime - StartTime).TotalDays);
 
-            // 计算ChildCount
-            if (Parent != null)
-            {
-                var count = Parent.Childs.Count;
-                if (isNew) count++;
-                Parent.ChildCount = count;
-                Parent.Save();
-            }
-
             // 不管如何，都修正本级子节点数
-            ChildCount = Childs.Count;
+            if (!isNew) ChildCount = Childs.Count;
         }
 
         WorkTask _bak;
@@ -114,6 +112,16 @@ namespace NewLife.OA
         protected override int OnInsert()
         {
             var rs = base.OnInsert();
+            _bak = this.CloneEntity();
+
+            // 统计父任务的子任务数，如果是新增任务，则加一
+            if (Parent != null)
+            {
+                var count = Parent.Childs.Count;
+                XTrace.WriteLine("父任务{0}的子任务数修改为{1}", ParentID, count);
+                Parent.ChildCount = count;
+                Parent.Save();
+            }
 
             // 修正父任务积分
             FixParentScore();
@@ -123,12 +131,23 @@ namespace NewLife.OA
 
             TaskHistory.Add(ID, "创建", null, Name);
 
+            rs += OnUpdate();
+
             return rs;
         }
 
         protected override int OnUpdate()
         {
             if (Deleted) throw new Exception("任务已删除，禁止更新操作！");
+
+            // 统计父任务的子任务数，如果是新增任务，则加一
+            if (Parent != null)
+            {
+                var count = Parent.Childs.Count;
+                XTrace.WriteLine("父任务{0}的子任务数修改为{1}", ParentID, count);
+                Parent.ChildCount = count;
+                Parent.Save();
+            }
 
             WriteHistory();
 
@@ -137,6 +156,7 @@ namespace NewLife.OA
             Comments = TaskComment.FindCountByTaskID(ID);
 
             var rs = base.OnUpdate();
+            _bak = this.CloneEntity();
 
             // 修正父任务积分
             if (Dirtys[__.Score]) FixParentScore();
@@ -158,19 +178,20 @@ namespace NewLife.OA
 
             return rs;
         }
+
+        protected override void OnPropertyChanged(string fieldName)
+        {
+            if (fieldName.EqualIgnoreCase(__.ParentID))
+            {
+                _Parent = null;
+                Dirtys.Remove("Parent");
+            }
+
+            base.OnPropertyChanged(fieldName);
+        }
         #endregion
 
         #region 扩展属性﻿
-        //public IManageUser Creater { get { return ManageProvider.Provider.FindByID(CreateUserID); } }
-
-        //[DisplayName("创建人")]
-        //public String CreateName { get { return Creater == null ? "" : Creater.ToString(); } }
-
-        //public IManageUser Updater { get { return ManageProvider.Provider.FindByID(UpdateUserID); } }
-
-        //[DisplayName("更新人")]
-        //public String UpdateName { get { return Updater == null ? "" : Updater.ToString(); } }
-
         private WorkTask _Parent;
         /// <summary>父任务</summary>
         public WorkTask Parent
@@ -404,7 +425,7 @@ namespace NewLife.OA
         /// <summary>写任务历史</summary>
         void WriteHistory()
         {
-            if (_bak == null) throw new Exception("非法更新任务！");
+            if (_bak == null) throw new XException("非法更新任务{0}！", ID);
 
             // 找到旧有数据
             var entity = _bak;
