@@ -46,6 +46,7 @@ namespace NewLife.OA
             // 新建也有份
             if (!forEdit)
             {
+                entity.Score = 1;
                 entity.MasterID = ManageProvider.User.ID;
 
                 entity.CreateUserID = ManageProvider.User.ID;
@@ -61,6 +62,7 @@ namespace NewLife.OA
             if (!HasDirty) return;
 
             if (String.IsNullOrEmpty(Name)) throw new ArgumentNullException(_.Name, _.Name.DisplayName + "不能为空！");
+            if (Score <= 0) throw new ArgumentNullException(_.Score, _.Score.DisplayName + "最小为1！");
             if (MasterID <= 0) throw new ArgumentNullException(_.MasterID, _.MasterID.DisplayName + "不能为空！");
             if (PlanStartTime <= DateTime.MinValue) throw new ArgumentNullException(_.PlanStartTime, _.PlanStartTime.DisplayName + "不能为空！");
             if (PlanEndTime <= DateTime.MinValue) throw new ArgumentNullException(_.PlanEndTime, _.PlanEndTime.DisplayName + "不能为空！");
@@ -79,21 +81,6 @@ namespace NewLife.OA
             // 建议先调用基类方法，基类方法会对唯一索引的数据进行验证
             base.Valid(isNew);
 
-            if (Parent != null)
-            {
-                // 重新计算积分比重
-                // 同级积分比重总和100%。扣除被锁定的积分比重，看还有多少可以分配
-                var max = 100;
-                var fix = 0;
-                foreach (var item in Parent.Childs)
-                {
-                    if (item.LockScore) fix += item.Percent;
-                }
-
-                // 重新计算积分
-                Score = Parent.Score * Percent / 100;
-            }
-
             // 计算计划工作日，采取进一法
             PlanCost = (Int32)Math.Ceiling((PlanEndTime - PlanStartTime).TotalDays);
 
@@ -103,7 +90,9 @@ namespace NewLife.OA
             // 计算ChildCount
             if (Parent != null)
             {
-                Parent.ChildCount = Parent.Childs.Count;
+                var count = Parent.Childs.Count;
+                if (isNew) count++;
+                Parent.ChildCount = count;
                 Parent.Save();
             }
 
@@ -123,6 +112,12 @@ namespace NewLife.OA
         {
             var rs = base.OnInsert();
 
+            // 修正父任务积分
+            FixParentScore();
+
+            // 重新计算积分比重
+            FixPercent();
+
             TaskHistory.Add(ID, "创建", null, Name);
 
             return rs;
@@ -139,6 +134,12 @@ namespace NewLife.OA
             Comments = TaskComment.FindCountByTaskID(ID);
 
             var rs = base.OnUpdate();
+
+            // 修正父任务积分
+            if (Dirtys[__.Score]) FixParentScore();
+
+            // 重新计算积分比重
+            FixPercent();
 
             return rs;
         }
@@ -432,17 +433,60 @@ namespace NewLife.OA
             for (int i = 0; i < Childs.Count; i++)
             {
                 var item = Childs[i];
-                item.Score = (Int32)(p * item.Score);
+
+                // 修正最后一个子任务，确保积分总和
+                if (i == Childs.Count - 1)
+                    item.Score = this.Score - total;
+                else
+                    item.Score = (Int32)(p * item.Score);
 
                 // 递归修正子级任务
                 item.FixScoreDown();
 
-                // 修正最后一个子任务，确保积分总和
-                if (i == Childs.Count - 1) item.Score = this.Score - total;
-
                 item.Save();
 
                 total += item.Score;
+            }
+        }
+
+        /// <summary>修正父任务积分</summary>
+        public void FixParentScore()
+        {
+            if (Parent == null) return;
+
+            var total = Parent.Childs.ToList().Sum(e => e.Score);
+            Parent.Score = total;
+            Parent.Save();
+        }
+
+        /// <summary>修正百分比。根据积分进行计算，确保同级任务百分比总和为100</summary>
+        public void FixPercent()
+        {
+            // 顶级任务100%
+            if (Parent == null)
+            {
+                Percent = 100;
+                return;
+            }
+
+            var total = 0;
+            for (int i = 0; i < Childs.Count; i++)
+            {
+                var item = Childs[i];
+
+                // 注意0积分
+                var p = Parent.Score <= 0 ? 0 : (Int32)(item.Score / Parent.Score);
+
+                // 修正最后一个子任务，确保积分总和
+                if (i == Childs.Count - 1)
+                    item.Percent = 100 - total;
+                else if (total < 100)
+                {
+                    item.Percent = p;
+                    total += item.Percent;
+                }
+                else // 不够分配了
+                    item.Percent = 0;
             }
         }
         #endregion

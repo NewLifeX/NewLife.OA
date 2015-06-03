@@ -278,6 +278,13 @@
             <param name="menu"></param>
             <returns></returns>
         </member>
+        <member name="T:NewLife.Bootstrap.BootstrapJs">
+            <summary>Bootstrap脚本提供者</summary>
+        </member>
+        <member name="M:NewLife.Bootstrap.BootstrapJs.OnAlert(System.String)">
+            <summary>重载Alert实现</summary>
+            <param name="msg"></param>
+        </member>
         <member name="T:NewLife.Cube.DbRunTimeModule">
             <summary>页面查询执行时间模块</summary>
         </member>
