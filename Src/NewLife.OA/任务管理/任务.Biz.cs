@@ -51,6 +51,9 @@ namespace NewLife.OA
 
                 entity.CreateUserID = ManageProvider.User.ID;
                 entity.CreateTime = DateTime.Now;
+
+                // 清除脏数据
+                entity.Dirtys.Clear();
             }
             return entity;
         }
