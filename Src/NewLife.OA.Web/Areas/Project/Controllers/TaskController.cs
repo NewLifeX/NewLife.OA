@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
 using NewLife.Cube;
+using NewLife.Log;
 using NewLife.Web;
 using XCode.Membership;
 
@@ -105,7 +106,10 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
                 {
                     entity.SaveWithoutValid();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    XTrace.WriteException(ex);
+                }
             }
 
             return base.FormView(entity);
