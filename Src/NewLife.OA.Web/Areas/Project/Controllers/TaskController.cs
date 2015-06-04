@@ -154,8 +154,11 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             {
                 var rs = base.OnDelete(entity);
 
-                // 上下修正积分
-                entity.FixScore(true, true);
+                if (entity.Deleted)
+                    // 向上修正积分，因为子孙任务会一起删除，所以
+                    entity.FixScore(true, false);
+                else
+                    entity.FixScore(true, true);
 
                 trans.Commit();
 

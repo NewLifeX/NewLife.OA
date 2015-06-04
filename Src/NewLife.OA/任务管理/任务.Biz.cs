@@ -164,6 +164,14 @@ namespace NewLife.OA
 
             TaskHistory.Add(ID, ori ? "恢复" : "删除", null, Name);
 
+            // 子孙任务集体删除
+            foreach (var item in Childs)
+            {
+                // 有些子任务已经被删除，这里先把它改为跟当前任务的原状态，方便一体化操作
+                item[__.Deleted] = ori;
+                item.Delete();
+            }
+
             return rs;
         }
 
