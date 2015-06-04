@@ -10,6 +10,7 @@ using NewLife.Web;
 using XCode;
 using System.Linq;
 using XCode.Membership;
+using System.Net;
 
 namespace NewLife.OA
 {
@@ -29,8 +30,7 @@ namespace NewLife.OA
             // 建议先调用基类方法，基类方法会对唯一索引的数据进行验证
             base.Valid(isNew);
 
-            // 在新插入数据或者修改了指定字段时进行唯一性验证，CheckExist内部抛出参数异常
-            //if (isNew || Dirtys[__.Name]) CheckExist(__.Name);
+            if (!Dirtys[__.IP]) IP = WebHelper.UserHost;
         }
 
         public static Int32 FindCountByTaskID(Int32 taskid)
@@ -50,6 +50,21 @@ namespace NewLife.OA
         /// <summary>任务名称</summary>
         [DisplayName("任务名称")]
         public String TaskName { get { var task = Task; return task != null ? task.Name : null; } }
+
+        /// <summary>物理地址</summary>
+        [DisplayName("物理地址")]
+        public String Address
+        {
+            get
+            {
+                if (IP.IsNullOrEmpty()) return null;
+
+                IPAddress ip = null;
+                if (!IPAddress.TryParse(IP, out ip)) return null;
+
+                return ip.GetAddress();
+            }
+        }
         #endregion
 
         #region 扩展查询﻿

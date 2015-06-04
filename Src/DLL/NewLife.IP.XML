@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NewLife.IP</name>
+    </assembly>
+    <members>
+        <member name="T:NewLife.IP.Ip">
+            <summary>IP搜索</summary>
+        </member>
+        <member name="M:NewLife.IP.Ip.GetAddress(System.String)">
+            <summary>获取IP地址</summary>
+            <param name="ip"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.IP.Ip.GetAddress(System.Net.IPAddress)">
+            <summary>获取IP地址</summary>
+            <param name="addr"></param>
+            <returns></returns>
+        </member>
+        <member name="P:NewLife.IP.Ip.DbFile">
+            <summary>数据文件</summary>
+        </member>
+        <member name="M:NewLife.IP.Zip.Finalize">
+            <summary>析构</summary>
+        </member>
+        <member name="M:NewLife.IP.Zip.Dispose">
+            <summary>销毁</summary>
+        </member>
+        <member name="P:NewLife.IP.Zip.Stream">
+            <summary>数据流</summary>
+        </member>
+        <member name="T:NewLife.IP.Zip.IndexInfo">
+            <summary>索引结构</summary>
+        </member>
+    </members>
+</doc>

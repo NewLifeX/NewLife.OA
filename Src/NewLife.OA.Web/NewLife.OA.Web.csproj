@@ -47,6 +47,9 @@
     <Reference Include="NewLife.Cube">
       <HintPath>..\DLL\NewLife.Cube.dll</HintPath>
     </Reference>
+    <Reference Include="NewLife.IP">
+      <HintPath>..\DLL\NewLife.IP.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.ComponentModel.DataAnnotations" />

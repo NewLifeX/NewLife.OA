@@ -140,6 +140,9 @@
             <summary>动作执行前</summary>
             <param name="filterContext"></param>
         </member>
+        <member name="P:NewLife.Cube.EntityController`1.Factory">
+            <summary>实体工厂</summary>
+        </member>
         <member name="P:NewLife.Cube.EntityController`1.ListFields">
             <summary>列表字段过滤</summary>
         </member>

@@ -3435,6 +3435,9 @@
             <param name="name">字段名</param>
             <returns></returns>
         </member>
+        <member name="P:XCode.Membership.Log`1.Address">
+            <summary>物理地址</summary>
+        </member>
         <member name="P:XCode.Membership.Log`1.CategoryCache">
             <summary>类别名实体缓存，异步，缓存10分钟</summary>
         </member>

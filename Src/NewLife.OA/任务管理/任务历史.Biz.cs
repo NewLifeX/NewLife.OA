@@ -10,6 +10,7 @@ using System.ComponentModel;
 using NewLife.Web;
 using XCode;
 using XCode.Membership;
+using System.Net;
 
 namespace NewLife.OA
 {
@@ -17,13 +18,15 @@ namespace NewLife.OA
     public partial class TaskHistory : UserTimeEntity<TaskHistory>
     {
         #region 对象操作﻿
-        ///// <summary>验证数据，通过抛出异常的方式提示验证失败。</summary>
-        ///// <param name="isNew"></param>
-        //public override void Valid(Boolean isNew)
-        //{
-        //    // 建议先调用基类方法，基类方法会对唯一索引的数据进行验证
-        //    base.Valid(isNew);
-        //}
+        /// <summary>验证数据，通过抛出异常的方式提示验证失败。</summary>
+        /// <param name="isNew"></param>
+        public override void Valid(Boolean isNew)
+        {
+            // 建议先调用基类方法，基类方法会对唯一索引的数据进行验证
+            base.Valid(isNew);
+
+            if (!Dirtys[__.IP]) IP = WebHelper.UserHost;
+        }
 
         public override int Update()
         {
@@ -44,6 +47,21 @@ namespace NewLife.OA
         /// <summary>任务名称</summary>
         [DisplayName("任务名称")]
         public String TaskName { get { var task = Task; return task != null ? task.Name : null; } }
+
+        /// <summary>物理地址</summary>
+        [DisplayName("物理地址")]
+        public String Address
+        {
+            get
+            {
+                if (IP.IsNullOrEmpty()) return null;
+
+                IPAddress ip = null;
+                if (!IPAddress.TryParse(IP, out ip)) return null;
+
+                return ip.GetAddress();
+            }
+        }
         #endregion
 
         #region 扩展查询﻿

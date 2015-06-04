@@ -56,12 +56,24 @@ namespace NewLife.OA
             set { if (OnPropertyChanging(__.Title, value)) { _Title = value; OnPropertyChanged(__.Title); } }
         }
 
+        private String _IP;
+        /// <summary>地址</summary>
+        [DisplayName("地址")]
+        [Description("地址")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn(4, "IP", "地址", null, "nvarchar(50)", 0, 0, true)]
+        public virtual String IP
+        {
+            get { return _IP; }
+            set { if (OnPropertyChanging(__.IP, value)) { _IP = value; OnPropertyChanged(__.IP); } }
+        }
+
         private Int32 _CreateUserID;
         /// <summary>创建者</summary>
         [DisplayName("创建者")]
         [Description("创建者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(4, "CreateUserID", "创建者", null, "int", 10, 0, false)]
+        [BindColumn(5, "CreateUserID", "创建者", null, "int", 10, 0, false)]
         public virtual Int32 CreateUserID
         {
             get { return _CreateUserID; }
@@ -73,7 +85,7 @@ namespace NewLife.OA
         [DisplayName("创建时间")]
         [Description("创建时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(5, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
+        [BindColumn(6, "CreateTime", "创建时间", null, "datetime", 3, 0, false)]
         public virtual DateTime CreateTime
         {
             get { return _CreateTime; }
@@ -85,7 +97,7 @@ namespace NewLife.OA
         [DisplayName("更新者")]
         [Description("更新者")]
         [DataObjectField(false, false, true, 10)]
-        [BindColumn(6, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
+        [BindColumn(7, "UpdateUserID", "更新者", null, "int", 10, 0, false)]
         public virtual Int32 UpdateUserID
         {
             get { return _UpdateUserID; }
@@ -97,7 +109,7 @@ namespace NewLife.OA
         [DisplayName("更新时间")]
         [Description("更新时间")]
         [DataObjectField(false, false, true, 3)]
-        [BindColumn(7, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
+        [BindColumn(8, "UpdateTime", "更新时间", null, "datetime", 3, 0, false)]
         public virtual DateTime UpdateTime
         {
             get { return _UpdateTime; }
@@ -109,7 +121,7 @@ namespace NewLife.OA
         [DisplayName("内容")]
         [Description("内容")]
         [DataObjectField(false, false, true, -1)]
-        [BindColumn(8, "Content", "内容", null, "ntext", 0, 0, true)]
+        [BindColumn(9, "Content", "内容", null, "ntext", 0, 0, true)]
         public virtual String Content
         {
             get { return _Content; }
@@ -134,6 +146,7 @@ namespace NewLife.OA
                     case __.ID : return _ID;
                     case __.TaskID : return _TaskID;
                     case __.Title : return _Title;
+                    case __.IP : return _IP;
                     case __.CreateUserID : return _CreateUserID;
                     case __.CreateTime : return _CreateTime;
                     case __.UpdateUserID : return _UpdateUserID;
@@ -149,6 +162,7 @@ namespace NewLife.OA
                     case __.ID : _ID = Convert.ToInt32(value); break;
                     case __.TaskID : _TaskID = Convert.ToInt32(value); break;
                     case __.Title : _Title = Convert.ToString(value); break;
+                    case __.IP : _IP = Convert.ToString(value); break;
                     case __.CreateUserID : _CreateUserID = Convert.ToInt32(value); break;
                     case __.CreateTime : _CreateTime = Convert.ToDateTime(value); break;
                     case __.UpdateUserID : _UpdateUserID = Convert.ToInt32(value); break;
@@ -172,6 +186,9 @@ namespace NewLife.OA
 
             ///<summary>标题</summary>
             public static readonly Field Title = FindByName(__.Title);
+
+            ///<summary>地址</summary>
+            public static readonly Field IP = FindByName(__.IP);
 
             ///<summary>创建者</summary>
             public static readonly Field CreateUserID = FindByName(__.CreateUserID);
@@ -202,6 +219,9 @@ namespace NewLife.OA
 
             ///<summary>标题</summary>
             public const String Title = "Title";
+
+            ///<summary>地址</summary>
+            public const String IP = "IP";
 
             ///<summary>创建者</summary>
             public const String CreateUserID = "CreateUserID";
@@ -234,6 +254,9 @@ namespace NewLife.OA
 
         /// <summary>标题</summary>
         String Title { get; set; }
+
+        /// <summary>地址</summary>
+        String IP { get; set; }
 
         /// <summary>创建者</summary>
         Int32 CreateUserID { get; set; }
