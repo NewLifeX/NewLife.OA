@@ -169,7 +169,7 @@ namespace NewLife.OA
 
         protected override void OnPropertyChanged(string fieldName)
         {
-            if (fieldName.EqualIgnoreCase(__.ParentID))
+            if (fieldName.EqualIgnoreCase(__.ParentID, __.Deleted))
             {
                 _Parent = null;
                 Dirtys.Remove("Parent");
@@ -324,9 +324,9 @@ namespace NewLife.OA
         public static EntityList<WorkTask> FindAllByParentID(Int32 parentid)
         {
             if (Meta.Count >= 1000)
-                return FindAll(_.ParentID, parentid);
+                return FindAll(_.ParentID == parentid & _.Deleted.IsTrue(false), null, null, 0, 0);
             else // 实体缓存
-                return Meta.Cache.Entities.FindAll(__.ParentID, parentid);
+                return Meta.Cache.Entities.FindAll(e => e.ParentID == parentid && e.Deleted == false);
         }
 
         /// <summary>根据负责人查找</summary>
@@ -418,7 +418,7 @@ namespace NewLife.OA
             // 找到旧有数据
             var entity = _bak;
 
-            var names = new Field[] { _.Name, _.ParentID, _.Percent, _.PlanStartTime, _.PlanEndTime, _.Progress, _.Score, _.LockScore, _.LockPlanTime };
+            var names = new Field[] { _.Name, _.ParentID, _.ChildCount, _.Percent, _.PlanStartTime, _.PlanEndTime, _.Progress, _.Score, _.LockScore, _.LockPlanTime };
             foreach (var item in names)
             {
                 if (Dirtys[item.Name])
@@ -479,7 +479,7 @@ namespace NewLife.OA
                 if (_bak != null) ori = _bak.Score;
 
                 // 首先保存当前级别，上下级统计需要用到
-                rs += this.Save();
+                if (!Deleted) rs += this.Save();
 
                 // 积分的改变，首先会影响上一级
                 var parent = Parent;

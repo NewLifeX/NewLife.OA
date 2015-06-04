@@ -147,5 +147,20 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
 
             return base.OnUpdate(entity);
         }
+
+        protected override int OnDelete(WorkTask entity)
+        {
+            using (var trans = WorkTask.Meta.CreateTrans())
+            {
+                var rs = base.OnDelete(entity);
+
+                // 上下修正积分
+                entity.FixScore(true, true);
+
+                trans.Commit();
+
+                return rs;
+            }
+        }
     }
 }
