@@ -120,8 +120,8 @@ namespace NewLife.OA
                 Parent.Save();
             }
 
-            // 修正父任务积分
-            FixParentScore();
+            //// 修正父任务积分
+            //FixParentScore();
 
             // 重新计算积分比重
             FixPercent();
@@ -158,8 +158,8 @@ namespace NewLife.OA
             var rs = base.OnUpdate();
             _bak = this.CloneEntity();
 
-            // 修正父任务积分
-            if (Dirtys[__.Score]) FixParentScore();
+            //// 修正父任务积分
+            //if (Dirtys[__.Score]) FixParentScore();
 
             // 重新计算积分比重
             FixPercent();
@@ -473,18 +473,74 @@ namespace NewLife.OA
             }
         }
 
-        /// <summary>修正父任务积分</summary>
-        public void FixParentScore()
+        /// <summary>修正积分</summary>
+        /// <remarks>
+        /// 采取向上向下两个参数的设计，完全避免可能出现死循环的问题。
+        /// 第一层调用可以使用两个true，然后内部递归只用一个true
+        /// </remarks>
+        /// <param name="up">向上修正</param>
+        /// <param name="down">向下修正</param>
+        public Int32 FixScore(Boolean up, Boolean down)
         {
-            if (Parent == null) return;
+            var rs = 0;
 
-            var total = Parent.Childs.ToList().Sum(e => e.Score);
+            // 需要使用事务保护
+            using (var trans = Meta.CreateTrans())
+            {
+                var ori = 0;
+                if (_bak != null) ori = _bak.Score;
 
-            // 如果当前是新增任务，则累加进去
-            if (ID == 0) total += this.Score;
+                // 首先保存当前级别，上下级统计需要用到
+                rs += this.Save();
 
-            Parent.Score = total;
-            Parent.Save();
+                // 积分的改变，首先会影响上一级
+                var parent = Parent;
+                if (parent != null)
+                {
+                    // 累加同级子任务的积分
+                    var total = parent.Childs.ToList().Sum(e => e.Score);
+
+                    // 子任务积分总和超过父任务积分，才保存更新
+                    if (total > parent.Score)
+                    {
+                        // 如果超过父任务积分且锁定了积分，则报错
+                        if (parent.LockScore)
+                            throw new XException("任务[{0}]{1}的积分锁定为{2:n0}，但子任务积分总和为{3:n0}", parent.ID, parent.Name, parent.Score, total);
+
+                        parent.Score = total;
+                        //rs += parent.Save();
+
+                        // 上一级递归
+                        rs += parent.FixScore(true, false);
+                    }
+                }
+
+                // 积分的缩小，会等比例缩小子任务积分，扩大则不影响子任务
+                if (ori > Score)
+                {
+                    // 计算缩减的比例
+                    var p = (Double)Score / ori;
+                    // 累加，因为比例系数的原因，可能导致子任务积分总和略小于父任务积分，这里把剩余量加在最后一个子任务上
+                    //var total = 0;
+                    // 不行，不能这样子把剩余量加在最后一个子任务，因为父任务积分本来就很有可能超过子任务积分总和
+                    for (int i = 0; i < Childs.Count; i++)
+                    {
+                        var item = Childs[i];
+
+                        // 等比例缩小积分
+                        //if (i == Childs.Count - 1)
+                        //    item.Score = Score - total;
+                        //else
+                        item.Score = (Int32)(item.Score * p);
+
+                        rs += item.FixScore(false, true);
+                    }
+                }
+
+                trans.Commit();
+            }
+
+            return rs;
         }
 
         /// <summary>修正百分比。根据积分进行计算，确保同级任务百分比总和为100</summary>
@@ -500,7 +556,7 @@ namespace NewLife.OA
             var total = 0;
             // 如果当前是新增任务，则累加进去
             if (ID == 0) total += this.Score;
-            
+
             for (int i = 0; i < Childs.Count; i++)
             {
                 var item = Childs[i];

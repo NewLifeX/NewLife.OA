@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using NewLife.Cube;
 using NewLife.Log;
 using NewLife.Web;
+using XCode;
 using XCode.Membership;
 
 namespace NewLife.OA.Web.Areas.Project.Controllers
@@ -122,6 +123,29 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             entity.ID = 0;
 
             return base.Add(entity);
+        }
+
+        protected override int OnInsert(WorkTask entity)
+        {
+            using (var trans = WorkTask.Meta.CreateTrans())
+            {
+                var rs = base.OnInsert(entity);
+
+                // 上下修正积分
+                entity.FixScore(true, true);
+
+                trans.Commit();
+
+                return rs;
+            }
+        }
+
+        protected override int OnUpdate(WorkTask entity)
+        {
+            // 如果改变了积分，则上下一起修正
+            if ((entity as IEntity).Dirtys[WorkTask._.Score]) entity.FixScore(true, true);
+
+            return base.OnUpdate(entity);
         }
     }
 }
