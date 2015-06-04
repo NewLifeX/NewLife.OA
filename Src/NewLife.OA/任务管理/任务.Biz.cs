@@ -98,6 +98,9 @@ namespace NewLife.OA
             if (EndTime > DateTime.MinValue && StartTime > DateTime.MinValue) Cost = (Int32)Math.Ceiling((EndTime - StartTime).TotalDays);
 
             FixChildCount();
+
+            // 外部没有修改时，修正本级子任务数
+            if (!isNew && !Dirtys[__.ChildCount]) ChildCount = Childs.Count;
         }
 
         WorkTask _bak;
