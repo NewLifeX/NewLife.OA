@@ -19,7 +19,18 @@
         {
             @Html.Partial("_Form_Nav", Model)
         }
-        @using (Html.BeginForm((isNew ? "Add" : "Edit"), null, isNew ? new { id = Model.ParentID } : new { id = Model.ID }))
+        @{
+            var rv = new RouteValueDictionary();
+            if (isNew)
+            {
+                rv.Add("ParentID", Model.ParentID);
+            }
+            else
+            {
+                rv.Add("id", Model.ID);
+            }
+        }
+        @using (Html.BeginForm((isNew ? "Add" : "Edit"), null, rv))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary()

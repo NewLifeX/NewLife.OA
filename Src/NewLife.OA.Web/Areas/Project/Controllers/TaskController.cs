@@ -92,7 +92,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             if (entity.ID == 0)
             {
                 // 如果是新增任务，那么路由的id就是父任务ID，这里处理一下
-                entity.ParentID = RouteData.Values["id"].ToInt();
+                entity.ParentID = Request["ParentID"].ToInt();
 
                 // 默认今天开始，一天结束
                 entity.PlanStartTime = DateTime.Now.Date;
@@ -119,8 +119,8 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
         public override ActionResult Add(WorkTask entity)
         {
             // 如果是新增任务，那么路由的id就是父任务ID，这里处理一下
-            entity.ParentID = RouteData.Values["id"].ToInt();
-            entity.ID = 0;
+            entity.ParentID = Request["ParentID"].ToInt();
+            //entity.ID = 0;
 
             return base.Add(entity);
         }
