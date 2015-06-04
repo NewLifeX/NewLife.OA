@@ -97,18 +97,7 @@ namespace NewLife.OA
             // 计算实际工作日
             if (EndTime > DateTime.MinValue && StartTime > DateTime.MinValue) Cost = (Int32)Math.Ceiling((EndTime - StartTime).TotalDays);
 
-            // 统计父任务的子任务数，如果是新增任务，则加一
-            if (Parent != null)
-            {
-                var count = Parent.Childs.Count;
-                if (isNew) count++;
-                if (Parent.ChildCount != count)
-                {
-                    //XTrace.WriteLine("父任务{0}的子任务数修改为{1}", ParentID, count);
-                    Parent.ChildCount = count;
-                    Parent.Save();
-                }
-            }
+            FixChildCount();
         }
 
         WorkTask _bak;
@@ -163,6 +152,8 @@ namespace NewLife.OA
             var rs = base.OnUpdate();
 
             TaskHistory.Add(ID, ori ? "恢复" : "删除", null, Name);
+
+            FixChildCount();
 
             // 子孙任务集体删除
             if (!ori)
@@ -450,6 +441,23 @@ namespace NewLife.OA
             if (Dirtys[__.Status]) TaskHistory.Add(ID, _.Status.DisplayName, _bak.TaskStatus, this.TaskStatus, Name);
             if (Dirtys[__.MasterID]) TaskHistory.Add(ID, _.MasterID.DisplayName, _bak.MasterName, this.MasterName, Name);
             if (Dirtys[__.Content]) TaskHistory.Add(ID, _.Content.DisplayName, _bak.Content, this.Content, Name);
+        }
+
+        /// <summary>修正父任务的子任务数</summary>
+        void FixChildCount()
+        {            
+            // 统计父任务的子任务数，如果是新增任务，则加一
+            if (Parent != null)
+            {
+                var count = Parent.Childs.Count;
+                if (ID == 0) count++;
+                if (Parent.ChildCount != count)
+                {
+                    //XTrace.WriteLine("父任务{0}的子任务数修改为{1}", ParentID, count);
+                    Parent.ChildCount = count;
+                    Parent.Save();
+                }
+            }
         }
         #endregion
 
