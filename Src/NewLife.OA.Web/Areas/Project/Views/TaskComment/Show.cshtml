@@ -25,7 +25,7 @@
         @foreach (var entity in Model)
         {
             <div class="well well-sm">
-                <span> @entity.CreateUserName @entity.CreateTime.ToFullString()</span>
+                <span> @entity.CreateUserName @entity.CreateTime.ToFullString() @entity.IP @entity.Address</span>
                 <br />
                 <span> @Html.Raw(@entity.Content)</span>
             </div>

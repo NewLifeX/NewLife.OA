@@ -18,6 +18,8 @@
                     <th class="text-center">种类</th>
                     <th class="text-center">旧值</th>
                     <th class="text-center">新值</th>
+                    <th class="text-center">IP地址</th>
+                    <th class="text-center">物理地址</th>
                     <th class="text-center">创建人</th>
                     <th class="text-center">创建时间</th>
                 </tr>
@@ -29,6 +31,8 @@
                         <td class="text-center">@entity.Kind</td>
                         <td>@entity.SrcValue</td>
                         <td>@entity.NewValue</td>
+                        <td>@entity.IP</td>
+                        <td>@entity.Address</td>
                         <td>@entity.CreateUserName</td>
                         <td>@entity.CreateTime.ToFullString()</td>
                     </tr>
