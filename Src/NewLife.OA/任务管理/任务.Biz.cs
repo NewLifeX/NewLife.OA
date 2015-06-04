@@ -97,8 +97,18 @@ namespace NewLife.OA
             // 计算实际工作日
             if (EndTime > DateTime.MinValue && StartTime > DateTime.MinValue) Cost = (Int32)Math.Ceiling((EndTime - StartTime).TotalDays);
 
-            // 不管如何，都修正本级子节点数
-            if (!isNew) ChildCount = Childs.Count;
+            // 统计父任务的子任务数，如果是新增任务，则加一
+            if (Parent != null)
+            {
+                var count = Parent.Childs.Count;
+                if (isNew) count++;
+                if (Parent.ChildCount != count)
+                {
+                    //XTrace.WriteLine("父任务{0}的子任务数修改为{1}", ParentID, count);
+                    Parent.ChildCount = count;
+                    Parent.Save();
+                }
+            }
         }
 
         WorkTask _bak;
@@ -111,22 +121,11 @@ namespace NewLife.OA
 
         protected override int OnInsert()
         {
-            // 统计父任务的子任务数，如果是新增任务，则加一
-            if (Parent != null)
-            {
-                var count = Parent.Childs.Count + 1;
-                XTrace.WriteLine("父任务{0}的子任务数修改为{1}", ParentID, count);
-                Parent.ChildCount = count;
-                Parent.Save();
-            }
-
-            //// 修正父任务积分
-            //FixParentScore();
+            var rs = base.OnInsert();
 
             // 重新计算积分比重
             FixPercent();
 
-            var rs = base.OnInsert();
             _bak = this.CloneEntity();
 
             TaskHistory.Add(ID, "创建", null, Name);
@@ -140,14 +139,6 @@ namespace NewLife.OA
         {
             if (Deleted) throw new Exception("任务已删除，禁止更新操作！");
 
-            // 统计父任务的子任务数，如果是新增任务，则加一
-            if (Parent != null)
-            {
-                var count = Parent.Childs.Count;
-                XTrace.WriteLine("父任务{0}的子任务数修改为{1}", ParentID, count);
-                Parent.ChildCount = count;
-                Parent.Save();
-            }
 
             WriteHistory();
 
@@ -157,9 +148,6 @@ namespace NewLife.OA
 
             var rs = base.OnUpdate();
             _bak = this.CloneEntity();
-
-            //// 修正父任务积分
-            //if (Dirtys[__.Score]) FixParentScore();
 
             // 重新计算积分比重
             FixPercent();
@@ -564,13 +552,16 @@ namespace NewLife.OA
                 // 注意0积分
                 var p = Parent.Score <= 0 ? 0 : (Int32)(item.Score / Parent.Score);
 
-                // 修正最后一个子任务，确保积分总和
-                if (i == Childs.Count - 1)
-                    item.Percent = 100 - total;
-                else if (total < 100)
+                if (total < 100)
                 {
-                    item.Percent = p;
-                    total += item.Percent;
+                    // 修正最后一个子任务，确保积分总和
+                    if (i == Childs.Count - 1)
+                        item.Percent = 100 - total;
+                    else
+                    {
+                        item.Percent = p;
+                        total += item.Percent;
+                    }
                 }
                 else // 不够分配了
                     item.Percent = 0;
