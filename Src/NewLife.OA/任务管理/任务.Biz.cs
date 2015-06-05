@@ -572,6 +572,9 @@ namespace NewLife.OA
             // 如果当前是新增任务，则累加进去
             if (ID == 0) list.Add(this);
 
+            // 必须固定排序，否则计算百分比剩余量的时候，会变来变去
+            list.Sort((x, y) => x.ID.CompareTo(y.ID));
+
             // 首先算一算总分
             foreach (var item in list)
             {
