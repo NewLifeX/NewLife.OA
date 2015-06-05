@@ -56,7 +56,15 @@
                 <div class="form-group">
                     <label class="control-label col-xs-2 col-sm-2 col-md-4">状态</label>
                     <div class="col-xs-10 col-sm-6 col-md-4">
-                        @Model.TaskStatus
+                        @Model.TaskStatus &nbsp;
+                        @if (Model.TaskStatus == TaskStatus.进行)
+                        {
+                            @Html.ActionLink("准备", "SetStatus", "Task", new { id = Model.ID }, new { @class = "btn btn-info" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("进行", "SetStatus", "Task", new { id = Model.ID }, new { @class = "btn btn-info" })
+                        }
                     </div>
                 </div>
                 <div class="form-group">

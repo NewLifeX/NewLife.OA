@@ -18,6 +18,13 @@ using XCode.Membership;
 namespace NewLife.OA
 {
     /// <summary>任务状态</summary>
+    /// <remarks>
+    /// 准备 => 进行
+    /// 进行 => 准备、暂停、取消、完成
+    /// 暂停 => 进行
+    /// 取消 => 进行
+    /// 完成 => 进行
+    /// </remarks>
     public enum TaskStatus
     {
         准备 = 0,
