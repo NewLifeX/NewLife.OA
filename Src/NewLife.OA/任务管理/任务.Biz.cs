@@ -115,9 +115,6 @@ namespace NewLife.OA
         {
             var rs = base.OnInsert();
 
-            // 重新计算积分比重
-            FixPercent();
-
             _bak = this.CloneEntity();
 
             TaskHistory.Add(ID, "创建", null, Name);
@@ -140,9 +137,6 @@ namespace NewLife.OA
 
             var rs = base.OnUpdate();
             _bak = this.CloneEntity();
-
-            // 重新计算积分比重
-            FixPercent();
 
             return rs;
         }
@@ -448,7 +442,7 @@ namespace NewLife.OA
 
         /// <summary>修正父任务的子任务数</summary>
         void FixChildCount()
-        {            
+        {
             // 统计父任务的子任务数，如果是新增任务，则加一
             if (Parent != null)
             {
@@ -562,40 +556,53 @@ namespace NewLife.OA
             return rs;
         }
 
-        /// <summary>修正百分比。根据积分进行计算，确保同级任务百分比总和为100</summary>
+        /// <summary>修正百分比。紧跟在积分之后，根据积分进行计算，确保同级任务百分比总和为100</summary>
         public void FixPercent()
         {
+            var parent = Parent;
             // 顶级任务100%
-            if (Parent == null)
+            if (parent == null)
             {
                 Percent = 100;
                 return;
             }
 
+            var list = parent.Childs.Clone();
             var total = 0;
             // 如果当前是新增任务，则累加进去
-            if (ID == 0) total += this.Score;
+            if (ID == 0) list.Add(this);
 
-            for (int i = 0; i < Childs.Count; i++)
+            // 首先算一算总分
+            foreach (var item in list)
             {
-                var item = Childs[i];
+                total += item.Score;
+            }
 
-                // 注意0积分
-                var p = Parent.Score <= 0 ? 0 : (Int32)(item.Score / Parent.Score);
+            // 其次开始计算百分比
+            var tp = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                var item = list[i];
 
-                if (total < 100)
+                var p = (Int32)((Double)item.Score / total * 100);
+
+                if (tp < 100)
                 {
                     // 修正最后一个子任务，确保积分总和
-                    if (i == Childs.Count - 1)
-                        item.Percent = 100 - total;
+                    if (i == list.Count - 1)
+                        item.Percent = 100 - tp;
                     else
                     {
                         item.Percent = p;
-                        total += item.Percent;
+                        tp += p;
                     }
                 }
                 else // 不够分配了
                     item.Percent = 0;
+
+                // 不用保存自己，留给外部吧
+                //if (item.ID > 0) item.Update();
+                if (item != this) item.OnUpdate();
             }
         }
         #endregion

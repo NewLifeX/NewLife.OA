@@ -131,6 +131,9 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             {
                 var rs = base.OnInsert(entity);
 
+                // 重新计算积分比重
+                entity.FixPercent();
+
                 // 上下修正积分
                 entity.FixScore(true, true);
 
@@ -142,10 +145,20 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
 
         protected override int OnUpdate(WorkTask entity)
         {
-            // 如果改变了积分，则上下一起修正
-            if ((entity as IEntity).Dirtys[WorkTask._.Score]) entity.FixScore(true, true);
+            using (var trans = WorkTask.Meta.CreateTrans())
+            {
+                // 如果改变了积分，则上下一起修正
+                if ((entity as IEntity).Dirtys[WorkTask._.Score]) entity.FixScore(true, true);
 
-            return base.OnUpdate(entity);
+                // 重新计算积分比重
+                entity.FixPercent();
+
+                var rs = base.OnUpdate(entity);
+
+                trans.Commit();
+
+                return rs;
+            }
         }
 
         protected override int OnDelete(WorkTask entity)
@@ -153,6 +166,9 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             using (var trans = WorkTask.Meta.CreateTrans())
             {
                 var rs = base.OnDelete(entity);
+
+                // 重新计算积分比重
+                entity.FixPercent();
 
                 if (entity.Deleted)
                     // 向上修正积分，因为子孙任务会一起删除，所以
