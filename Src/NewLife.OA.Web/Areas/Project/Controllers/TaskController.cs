@@ -199,7 +199,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             var entity = WorkTask.FindByID(id ?? 0);
             if (entity == null)
             {
-                Js.Alert("非法参数", null, 2, "error");
+                Js.Alert("非法参数").Redirect(url);
                 return new EmptyResult();
             }
 
@@ -218,7 +218,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
                 trans.Commit();
             }
 
-            Js.Alert("成功修改状态为[{0}]".F(status), null, 1, "info");
+            Js.Alert("成功修改状态为[{0}]".F(status)).Redirect(url);
 
             return new EmptyResult();
         }
