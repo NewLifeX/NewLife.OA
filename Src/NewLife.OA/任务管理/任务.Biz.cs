@@ -605,6 +605,21 @@ namespace NewLife.OA
                 if (item != this) item.OnUpdate();
             }
         }
+
+        /// <summary>修正父任务进度。</summary>
+        public void FixParentProgress()
+        {
+            var parent = Parent;
+            // 顶级任务
+            if (parent == null) return;
+
+            // 进度
+            var progress = parent.Childs.ToList().Sum(e => e.Percent * e.Progress);
+            parent.Progress = progress / 100;
+            parent.Save();
+
+            parent.FixParentProgress();
+        }
         #endregion
     }
 }

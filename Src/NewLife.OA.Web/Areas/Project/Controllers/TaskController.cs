@@ -134,6 +134,9 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
                 // 重新计算积分比重
                 entity.FixPercent();
 
+                // 修正父任务进度
+                entity.FixParentProgress();
+
                 // 上下修正积分
                 entity.FixScore(true, true);
 
@@ -153,6 +156,9 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
                 // 重新计算积分比重
                 entity.FixPercent();
 
+                // 修正父任务进度
+                entity.FixParentProgress();
+
                 var rs = base.OnUpdate(entity);
 
                 trans.Commit();
@@ -169,6 +175,9 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
 
                 // 重新计算积分比重
                 entity.FixPercent();
+
+                // 修正父任务进度
+                entity.FixParentProgress();
 
                 if (entity.Deleted)
                     // 向上修正积分，因为子孙任务会一起删除，所以
