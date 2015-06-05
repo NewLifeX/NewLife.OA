@@ -105,6 +105,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Project\Controllers\IndexController.cs" />
     <Compile Include="Areas\Project\Controllers\TaskCommentController.cs" />
     <Compile Include="Areas\Project\Controllers\TaskController.cs" />
     <Compile Include="Areas\Project\Controllers\TaskHistoryController.cs" />
