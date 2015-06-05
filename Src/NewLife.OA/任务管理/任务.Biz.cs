@@ -474,6 +474,34 @@ namespace NewLife.OA
                 }
             }
         }
+
+        /// <summary>设定任务状态</summary>
+        /// <param name="status"></param>
+        public void SetStatus(TaskStatus status)
+        {
+            // 如果任务状态相同，则跳出
+            if (TaskStatus == status) return;
+
+            // 状态切换有效性检查
+            if (TaskStatus == TaskStatus.进行)
+            {
+                // 进行中状态可以切换到任何其它状态
+
+                EndTime = DateTime.Now;
+            }
+            else
+            {
+                // 其它状态只能切换到进行中状态
+                if (status != TaskStatus.进行) throw new XException("当前状态[{0}]不能切换到[{1}]状态", TaskStatus, status);
+
+                //if (TaskStatus == TaskStatus.取消) Deleted = false;
+
+                // 重新计算时间
+                StartTime = DateTime.Now;
+            }
+
+            TaskStatus = status;
+        }
         #endregion
 
         #region 积分设定

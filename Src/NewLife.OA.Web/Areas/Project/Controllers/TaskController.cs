@@ -196,15 +196,27 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             var url = Request.UrlReferrer + "";
             //if (id == null) return Redirect(url);
 
-            var task = WorkTask.FindByID(id ?? 0);
-            if (task == null)
+            var entity = WorkTask.FindByID(id ?? 0);
+            if (entity == null)
             {
                 Js.Alert("非法参数", null, 2, "error");
                 return new EmptyResult();
             }
 
-            task.TaskStatus = status;
-            task.Update();
+            using (var trans = WorkTask.Meta.CreateTrans())
+            {
+                var ori = entity.TaskStatus;
+
+                entity.SetStatus(status);
+
+                // 取消时删除任务，重新计算积分
+                if (status == TaskStatus.取消 || ori == TaskStatus.取消)
+                    OnDelete(entity);
+                else
+                    entity.Update();
+
+                trans.Commit();
+            }
 
             Js.Alert("成功修改状态为[{0}]".F(status), null, 1, "info");
 
