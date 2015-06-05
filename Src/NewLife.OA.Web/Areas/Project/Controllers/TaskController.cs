@@ -190,5 +190,25 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
                 return rs;
             }
         }
+
+        public ActionResult SetStatus(Int32? id, TaskStatus status)
+        {
+            var url = Request.UrlReferrer + "";
+            //if (id == null) return Redirect(url);
+
+            var task = WorkTask.FindByID(id ?? 0);
+            if (task == null)
+            {
+                Js.Alert("非法参数", null, 2, "error");
+                return new EmptyResult();
+            }
+
+            task.TaskStatus = status;
+            task.Update();
+
+            Js.Alert("成功修改状态为[{0}]".F(status), null, 1, "info");
+
+            return new EmptyResult();
+        }
     }
 }

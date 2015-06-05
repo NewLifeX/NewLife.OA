@@ -307,6 +307,8 @@ namespace NewLife.OA
         #region 扩展查询﻿
         public static WorkTask FindByID(Int32 id)
         {
+            if (id <= 0) return null;
+
             if (Meta.Count < 1000) return Meta.Cache.Entities.Find(__.ID, id);
 
             return Meta.SingleCache[id];
