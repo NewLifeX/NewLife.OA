@@ -199,26 +199,34 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             var entity = WorkTask.FindByID(id ?? 0);
             if (entity == null)
             {
-                Js.Alert("非法参数").Redirect(url);
+                Js.Alert("非法参数", null, 5000).Redirect(url);
                 return new EmptyResult();
             }
 
+            var msg = "";
             using (var trans = WorkTask.Meta.CreateTrans())
             {
                 var ori = entity.TaskStatus;
 
-                entity.SetStatus(status);
+                try
+                {
+                    msg = entity.SetStatus(status) ?? "成功";
 
-                // 取消时删除任务，重新计算积分
-                if (status == TaskStatus.取消 || ori == TaskStatus.取消)
-                    OnDelete(entity);
-                else
-                    entity.Update();
+                    // 取消时删除任务，重新计算积分
+                    if (status == TaskStatus.取消 || ori == TaskStatus.取消)
+                        OnDelete(entity);
+                    else
+                        entity.Update();
 
-                trans.Commit();
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    msg = ex.Message;
+                }
             }
 
-            Js.Alert("成功修改状态为[{0}]".F(status)).Redirect(url);
+            Js.Alert(msg, null, 2000).Redirect(url);
 
             return new EmptyResult();
         }

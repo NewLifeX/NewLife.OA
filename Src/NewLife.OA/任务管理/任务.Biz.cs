@@ -95,6 +95,17 @@ namespace NewLife.OA
                     throw new ArgumentOutOfRangeException(_.PlanEndTime, _.PlanEndTime.DisplayName + "不能超过已锁定的父级结束时间{0}！".F(Parent.PlanEndTime));
             }
 
+            // 准备、进行中 两种状态以外的状态，不得修改状态和已删除以外的字段
+            if (!Dirtys[__.Status] && _bak != null && _bak.TaskStatus != TaskStatus.准备 && _bak.TaskStatus != TaskStatus.进行)
+            {
+                foreach (var item in Meta.FieldNames)
+                {
+                    if (item.EqualIgnoreCase(__.Status, __.Deleted)) continue;
+
+                    if (Dirtys[item]) throw new XException("处于[{0}]状态时禁止修改[{1}]", _bak.TaskStatus, item);
+                }
+            }
+
             // 建议先调用基类方法，基类方法会对唯一索引的数据进行验证
             base.Valid(isNew);
 
@@ -477,10 +488,10 @@ namespace NewLife.OA
 
         /// <summary>设定任务状态</summary>
         /// <param name="status"></param>
-        public void SetStatus(TaskStatus status)
+        public String SetStatus(TaskStatus status)
         {
             // 如果任务状态相同，则跳出
-            if (TaskStatus == status) return;
+            if (TaskStatus == status) return null;
 
             // 状态切换有效性检查
             if (TaskStatus == TaskStatus.进行)
@@ -488,6 +499,9 @@ namespace NewLife.OA
                 // 进行中状态可以切换到任何其它状态
 
                 EndTime = DateTime.Now;
+
+                // 如果任务已完成，则100%完成度
+                if (status == TaskStatus.完成) Progress = 100;
             }
             else
             {
@@ -501,6 +515,22 @@ namespace NewLife.OA
             }
 
             TaskStatus = status;
+
+            switch (status)
+            {
+                case TaskStatus.准备:
+                    return "还原到草稿状态";
+                case TaskStatus.进行:
+                    return "成功开启任务";
+                case TaskStatus.暂停:
+                    return "成功暂停任务";
+                case TaskStatus.取消:
+                    return "取消成功，任务已删除";
+                case TaskStatus.完成:
+                    return "任务已完成，进度100%";
+                default:
+                    return null;
+            }
         }
         #endregion
 
