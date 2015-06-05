@@ -406,7 +406,16 @@ namespace NewLife.OA
                 if (item.ChildCount > 0)
                 {
                     var childs = item.Childs;
-                    if (childs.Count > 0) list.AddRange(Expand(childs, status, tps, masterid, start, end, deleted, key));
+                    if (childs.Count > 0)
+                    {
+                        // 同级子任务按照最后更新时间降序
+                        var childs2 = childs.Clone();
+                        childs2.Sort((x, y) => y.UpdateTime.CompareTo(x.UpdateTime));
+
+                        var list2 = Expand(childs2, status, tps, masterid, start, end, deleted, key);
+
+                        list.AddRange(list2);
+                    }
                 }
             }
 
