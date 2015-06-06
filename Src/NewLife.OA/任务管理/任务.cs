@@ -12,6 +12,7 @@ namespace NewLife.OA
     [Serializable]
     [DataObject]
     [Description("任务")]
+    [BindIndex("IU_WorkTask_Name_ParentID", true, "Name,ParentID")]
     [BindIndex("IX_WorkTask_Name", false, "Name")]
     [BindIndex("IX_WorkTask_ParentID", false, "ParentID")]
     [BindIndex("IX_WorkTask_MasterID", false, "MasterID")]

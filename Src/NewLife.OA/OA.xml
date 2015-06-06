@@ -32,6 +32,7 @@
       <Column Name="Content" DataType="String" Length="500" Description="内容" />
     </Columns>
     <Indexes>
+      <Index Columns="Name,ParentID" Unique="True" />
       <Index Columns="Name" />
       <Index Columns="ParentID" />
       <Index Columns="MasterID" />
