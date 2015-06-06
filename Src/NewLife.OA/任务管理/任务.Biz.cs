@@ -95,6 +95,8 @@ namespace NewLife.OA
                     throw new ArgumentOutOfRangeException(_.PlanEndTime, _.PlanEndTime.DisplayName + "不能超过已锁定的父级结束时间{0}！".F(Parent.PlanEndTime));
             }
 
+            if (TaskStatus != TaskStatus.进行 && Dirtys[__.Progress]) throw new ArgumentException(__.Status, "只有[{0}]的任务才允许修改进度".F(TaskStatus.进行));
+
             // 准备、进行中 两种状态以外的状态，不得修改状态和已删除以外的字段
             if (!Dirtys[__.Status] && _bak != null && _bak.TaskStatus != TaskStatus.准备 && _bak.TaskStatus != TaskStatus.进行)
             {
