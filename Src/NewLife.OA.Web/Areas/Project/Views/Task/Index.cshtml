@@ -38,19 +38,26 @@
                     <tr>
                         <td class="text-center">@entity.ID</td>
                         <td>
-                            @if (entity.ChildCount == 0)
+                            @if (ViewContext.RouteData.Values["action"].ToString().EqualIgnoreCase("My", "Show"))
                             {
-                            @Html.Raw(entity.TreeNodeText)
+                                @Html.Raw(entity.Name)
                             }
                             else
                             {
-                            <a href="@Url.Action("Index",new { id = entity.ID })">@Html.Raw(entity.TreeNodeText)</a>
+                                if (entity.ChildCount == 0)
+                                {
+                                    @Html.Raw(entity.TreeNodeText)
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Index",new { id = entity.ID })">@Html.Raw(entity.TreeNodeText)</a>
+                                }
                             }
                         </td>
                         <td class="text-center">
                             @if (entity.ParentID != 0 && entity.Percent > 0)
                             {
-                            <text></text>@entity.Percent<text>%, </text>
+                                <text></text>@entity.Percent<text>%, </text>
                             }
                             @entity.Score
                         </td>

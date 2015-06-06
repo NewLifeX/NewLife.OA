@@ -21,17 +21,6 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             base.OnActionExecuting(filterContext);
         }
 
-        //static TaskController()
-        //{
-        //    // 过滤要显示的字段
-        //    var names = "MasterName,PlanStartTime,PlanEndTime,PlanCost,StartTime,UpdateUserName,UpdateTime".Split(",");
-        //    var fs = WorkTask.Meta.AllFields;
-        //    var list = names.Select(e => fs.FirstOrDefault(f => f.Name.EqualIgnoreCase(e))).Where(e => e != null);
-        //    //list.RemoveAll(e => !names.Contains(e.Name));
-        //    ListFields.Clear();
-        //    ListFields.AddRange(list);
-        //}
-
         protected override ActionResult IndexView(Pager p)
         {
             return ListView(p, 0, false, true);
