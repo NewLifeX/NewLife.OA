@@ -75,7 +75,16 @@
                 </div>
             }
             <div class="form-group">
-                @Html.Partial("_Form_Item", new Pair(Model, WorkTask.Meta.AllFields.FirstOrDefault(e => e.Name == "TaskPriority")))
+                @{
+                    var fi = WorkTask.Meta.AllFields.FirstOrDefault(e => e.Name == "TaskPriority");
+                }
+                <label class="control-label col-xs-2 col-sm-2 col-md-4">优先级</label>
+                <div class="col-xs-10 col-sm-6 col-md-4">
+                    @(Html.ForEnum(fi.Name, Model.TaskPriority))
+                    <span class="alert-danger">
+                        @Html.ValidationMessage(WorkTask._.Priority.Name)
+                    </span>
+                </div>
             </div>
             <div class="form-group">
                 @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Score))
