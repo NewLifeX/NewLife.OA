@@ -7,7 +7,7 @@
 }
 <div class="tableTools-container">
     <div class="form-inline">
-        <form action="@Url.Action("index")@Html.Raw("?" + page.GetBaseUrl(false, true, true)) " method="post" role="form">
+        <form action="@Url.Action(ViewContext.RouteData.Values["Action"] + "")@Html.Raw("?" + page.GetBaseUrl(false, true, true)) " method="post" role="form">
             <div class="form-group">
                 @if (ManageProvider.User.Has(PermissionFlags.Insert))
                 {
