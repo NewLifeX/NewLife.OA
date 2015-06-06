@@ -40,7 +40,15 @@
                         <td>
                             @if (ViewContext.RouteData.Values["action"].ToString().EqualIgnoreCase("My", "Show"))
                             {
-                                @Html.Raw(entity.Name)
+                                var title = entity.Parent == null ? "" : ("父任务：" + entity.Parent.Name);
+                                if (entity.ChildCount == 0)
+                                {
+                                    <span title="@title">@Html.Raw(entity.Name)</span>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Index",new { id = entity.ID })" title="@title">@Html.Raw(entity.Name)</a>
+                                }
                             }
                             else
                             {
