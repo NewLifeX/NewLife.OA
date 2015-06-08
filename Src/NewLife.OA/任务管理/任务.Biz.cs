@@ -422,7 +422,9 @@ namespace NewLife.OA
                 if (start > DateTime.MinValue && item.PlanStartTime < start) continue;
                 if (end > DateTime.MinValue && item.PlanEndTime >= end.Date.AddDays(1)) continue;
                 if (deleted != null && item.Deleted != deleted.Value) continue;
-                if (!key.IsNullOrEmpty() && !item.Name.Contains(key) && !item.Content.Contains(key)) continue;
+                if (!key.IsNullOrEmpty() &&
+                    (item.Name.IsNullOrEmpty() || !item.Name.Contains(key)) &&
+                    (item.Content.IsNullOrEmpty() || !item.Content.Contains(key))) continue;
 
                 list.Add(item);
                 if (item.ChildCount > 0)
