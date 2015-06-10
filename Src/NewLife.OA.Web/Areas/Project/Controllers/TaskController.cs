@@ -23,6 +23,9 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
 
         protected override ActionResult IndexView(Pager p)
         {
+            var ps = WebHelper.Params;
+            if (!ps.ContainsKey("Status")) ps["Status"] = new TaskStatus[] { TaskStatus.进行 }.Cast<Int32>().Join();
+
             var list = GetList(p, 0, false, 1);
 
             return View("Index", list);
@@ -36,6 +39,9 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
         public ActionResult Show(Pager p)
         {
             ViewBag.Page = p;
+
+            var ps = WebHelper.Params;
+            if (!ps.ContainsKey("Status")) ps["Status"] = new TaskStatus[] { TaskStatus.准备, TaskStatus.进行, TaskStatus.暂停 }.Cast<Int32>().Join();
 
             var list = GetList(p, 0, null, 2);
 
@@ -51,9 +57,16 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
         {
             ViewBag.Page = p;
 
+            var ps = WebHelper.Params;
+
             // 我的任务支持查看他人视图
-            var masterid = Request["masterid"].ToInt();
-            if (masterid <= 0) masterid = ManageProvider.User.ID;
+            var masterid = ps["masterid"].ToInt();
+            if (masterid <= 0)
+            {
+                masterid = ManageProvider.User.ID;
+                ps["masterid"] = masterid.ToString();
+            }
+            if (!ps.ContainsKey("Status")) ps["Status"] = new TaskStatus[] { TaskStatus.准备, TaskStatus.进行, TaskStatus.暂停 }.Cast<Int32>().Join();
 
             var list = GetList(p, masterid, false, 3);
 
@@ -63,12 +76,14 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
         private EntityList<WorkTask> GetList(Pager p, Int32 masterid, Boolean? deleted, Int32 expand)
         {
             var pid = RouteData.Values["id"].ToInt();
-            var sts = Request["status"].SplitAsInt().Select(e => (TaskStatus)e).ToArray();
-            var tps = Request["Priority"].SplitAsInt().Select(e => (TaskPriorities)e).ToArray();
-            if (masterid == 0) masterid = Request["masterid"].ToInt();
 
-            var start = Request["dtStart"].ToDateTime();
-            var end = Request["dtEnd"].ToDateTime();
+            var ps = WebHelper.Params;
+            var sts = ps["status"].SplitAsInt().Select(e => (TaskStatus)e).ToArray();
+            var tps = ps["Priority"].SplitAsInt().Select(e => (TaskPriorities)e).ToArray();
+            if (masterid == 0) masterid = ps["masterid"].ToInt();
+
+            var start = ps["dtStart"].ToDateTime();
+            var end = ps["dtEnd"].ToDateTime();
 
             // 如果不扩展，则显示所有任务
             if (pid == 0 && expand > 1) pid = -1;
