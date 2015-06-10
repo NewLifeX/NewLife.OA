@@ -464,7 +464,57 @@ namespace NewLife.OA
 
             list.Reverse();
 
-            return list;
+            // 有可能多个任务共有相同的父亲，需要重新构造一棵树
+            var rs = new EntityList<WorkTask>();
+            // 首先过滤掉重复项
+            var src = list.ToList().Distinct(e => e.ID).ToList();
+
+            // 准备好顶级节点，最后剩下的无根节点排在后面
+            //for (int i = 0; i < src.Count; i++)
+            //{
+            //    var item = src[i];
+
+            //    if (item.ParentID == 0)
+            //    {
+            //        rs.Add(item);
+
+            //        src.RemoveAt(i);
+            //        i--;
+            //    }
+            //}
+
+            // 找它的孩子
+            var childs = FindChilds(0, src);
+            rs.AddRange(childs);
+
+            // 最后剩下的无根节点排在后面
+            foreach (var item in src)
+            {
+                rs.Add(item);
+            }
+
+            return rs;
+        }
+
+        static List<WorkTask> FindChilds(Int32 id, List<WorkTask> list)
+        {
+            var rs = new List<WorkTask>();
+            for (int i = 0; i < list.Count; i++)
+            {
+                var item = list[i];
+                if (item.ParentID == id)
+                {
+                    rs.Add(item);
+                    list.RemoveAt(i);
+
+                    var childs = FindChilds(item.ID, list);
+                    if (childs.Count > 0) rs.AddRange(childs);
+
+                    // 从头开始来，因为谁也说不准递归的时候挖走了哪一个
+                    i = -1;
+                }
+            }
+            return rs;
         }
         #endregion
 
