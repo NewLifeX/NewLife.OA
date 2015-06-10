@@ -51,7 +51,9 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
         {
             ViewBag.Page = p;
 
-            var masterid = ManageProvider.User.ID;
+            // 我的任务支持查看他人视图
+            var masterid = Request["masterid"].ToInt();
+            if (masterid <= 0) masterid = ManageProvider.User.ID;
 
             var list = GetList(p, masterid, false, 3);
 
