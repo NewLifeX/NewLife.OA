@@ -41,7 +41,23 @@
                         case TaskStatus.准备:
                             break;
                         case TaskStatus.进行:
-                            cls = "alert-info";
+                            switch (entity.TaskPriority)
+                            {
+                                case TaskPriorities.空闲:
+                                    break;
+                                case TaskPriorities.低级:
+                                    break;
+                                case TaskPriorities.普通:
+                                    break;
+                                case TaskPriorities.高级:
+                                    cls = "alert-warning";
+                                    break;
+                                case TaskPriorities.实时:
+                                    cls = "alert-danger";
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         case TaskStatus.暂停:
                             cls = "alert-warning";
@@ -51,24 +67,6 @@
                             break;
                         case TaskStatus.完成:
                             cls = "alert-success";
-                            break;
-                        default:
-                            break;
-                    }
-                    var cls2 = "";
-                    switch (entity.TaskPriority)
-                    {
-                        case TaskPriorities.空闲:
-                            break;
-                        case TaskPriorities.低级:
-                            break;
-                        case TaskPriorities.普通:
-                            break;
-                        case TaskPriorities.高级:
-                            cls2 = "alert-danger";
-                            break;
-                        case TaskPriorities.实时:
-                            cls2 = "alert-success";
                             break;
                         default:
                             break;
@@ -107,7 +105,7 @@
                             }
                             @entity.Score
                         </td>
-                        <td class="text-center alert @cls2" role="alert">@entity.TaskPriority</td>
+                        <td class="text-center">@entity.TaskPriority</td>
                         <td class="text-center">@entity.TaskStatus</td>
                         <td class="text-center">@entity.Progress<text>%</text></td>
                         <td>@entity.MasterName</td>
