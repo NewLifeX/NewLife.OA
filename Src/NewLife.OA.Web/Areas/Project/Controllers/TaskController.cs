@@ -23,7 +23,9 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
 
         protected override ActionResult IndexView(Pager p)
         {
-            return ListView(p, 0, false, true);
+            var list = GetList(p, 0, false, 1);
+
+            return View("Index", list);
         }
 
         /// <summary>增加新的独立菜单</summary>
@@ -35,7 +37,9 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
         {
             ViewBag.Page = p;
 
-            return ListView(p, 0, null, false);
+            var list = GetList(p, 0, null, 2);
+
+            return View("Index", list);
         }
 
         /// <summary>我的任务，增加新的独立菜单</summary>
@@ -49,10 +53,12 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
 
             var masterid = ManageProvider.User.ID;
 
-            return ListView(p, masterid, false, false);
+            var list = GetList(p, masterid, false, 3);
+
+            return View("Index", list);
         }
 
-        private ActionResult ListView(Pager p, Int32 masterid, Boolean? deleted, Boolean expand)
+        private EntityList<WorkTask> GetList(Pager p, Int32 masterid, Boolean? deleted, Int32 expand)
         {
             var pid = RouteData.Values["id"].ToInt();
             var sts = Request["status"].SplitAsInt().Select(e => (TaskStatus)e).ToArray();
@@ -63,14 +69,17 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             var end = Request["dtEnd"].ToDateTime();
 
             // 如果不扩展，则显示所有任务
-            if (pid == 0 && !expand) pid = -1;
+            if (pid == 0 && expand > 1) pid = -1;
 
             var list = WorkTask.Search(pid, sts, tps, masterid, start, end, deleted, p["Q"], p);
 
             // 扩展任务树
-            if (expand) list = WorkTask.Expand(list, sts, tps, masterid, start, end, deleted, p["Q"]);
+            if (expand == 1)
+                list = WorkTask.Expand(list, sts, tps, masterid, start, end, deleted, p["Q"]);
+            else if (expand == 3)
+                list = WorkTask.ExpandParent(list);
 
-            return View("Index", list);
+            return list;
         }
 
         /// <summary>表单页视图。子控制器可以重载，以传递更多信息给视图，比如修改要显示的列</summary>

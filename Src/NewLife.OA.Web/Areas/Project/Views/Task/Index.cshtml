@@ -74,7 +74,7 @@
                     <tr class="alert @cls" role="alert">
                         <td class="text-center hidden-md">@entity.ID</td>
                         <td>
-                            @if (ViewContext.RouteData.Values["action"].ToString().EqualIgnoreCase("My", "Show"))
+                            @if (ViewContext.RouteData.Values["action"].ToString().EqualIgnoreCase("Show"))
                             {
                                 var title = entity.Parent == null ? "" : ("父任务：" + entity.Parent.Name);
                                 if (entity.ChildCount == 0)

@@ -445,6 +445,27 @@ namespace NewLife.OA
 
             return list;
         }
+
+        public static EntityList<WorkTask> ExpandParent(EntityList<WorkTask> list)
+        {
+            // 先倒序，然后从后面插入父任务，再倒序
+            list.Reverse();
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                // 如果下一个任务不是当前任务的父任务，则插入
+                if (i < list.Count - 1 && list[i + 1].ID != list[i].ParentID || i == list.Count - 1)
+                {
+                    if (list[i].Parent != null)
+                        // 插入父任务，下一个会处理到父任务，形成向上递归
+                        list.Insert(i + 1, list[i].Parent);
+                }
+            }
+
+            list.Reverse();
+
+            return list;
+        }
         #endregion
 
         #region 扩展操作
