@@ -3264,6 +3264,263 @@
         <member name="F:XCode.Membership.UserTimeEntity`1.__Name.UpdateTime">
             <summary>更新时间</summary>
         </member>
+        <member name="T:XCode.Membership.UserTimeEntityTree`1">
+            <summary>用户时间实体基类</summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="T:XCode.EntityTree`1">
+            <summary>主键为整型的实体树基类</summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="T:XCode.EntityTree`2">
+            <summary>实体树基类，具有树形结构的实体继承该类即可得到各种树操作功能</summary>
+            <remarks>
+            实体树很神奇，子类可以通过KeyName、ParentKeyName、SortingKeyName、NameKeyName等设置型属性，
+            指定关联键、关联父键、排序键、名称键，其中前两个是必须的，它们是构造一棵树的根基！
+            
+            整个表会形成一颗实体树，同时也是一个实体列表，子级紧靠父级，同级排序，<see cref="P:XCode.EntityTree`2.Root"/>就是这棵树的根。
+            所以，Root.Childs可以得到顶级节点集合，Root.AllChilds得到整棵树。
+            </remarks>
+            <typeparam name="TKey">主键类型</typeparam>
+            <typeparam name="TEntity">实体类型</typeparam>
+        </member>
+        <member name="T:XCode.IEntityTree">
+            <summary>实体树接口</summary>
+        </member>
+        <member name="M:XCode.IEntityTree.FindAllChildsExcept(XCode.IEntityTree)">
+            <summary>获取完整树，包含根节点，排除指定分支。多用于树节点父级选择</summary>
+            <param name="exclude"></param>
+            <returns></returns>
+        </member>
+        <member name="P:XCode.IEntityTree.Parent">
+            <summary>父实体</summary>
+        </member>
+        <member name="P:XCode.IEntityTree.Childs">
+            <summary>子实体集合</summary>
+        </member>
+        <member name="P:XCode.IEntityTree.AllChilds">
+            <summary>子孙实体集合。以深度层次树结构输出</summary>
+        </member>
+        <member name="P:XCode.IEntityTree.AllParents">
+            <summary>父亲实体集合。以深度层次树结构输出</summary>
+        </member>
+        <member name="P:XCode.IEntityTree.Deepth">
+            <summary>深度</summary>
+        </member>
+        <member name="P:XCode.IEntityTree.TreeNodeText">
+            <summary>树形节点名，根据深度带全角空格前缀</summary>
+        </member>
+        <member name="F:XCode.EntityTree`2.Setting">
+            <summary>实体树操作者</summary>
+        </member>
+        <member name="M:XCode.EntityTree`2.FindChilds">
+            <summary>子节点</summary>
+        </member>
+        <member name="M:XCode.EntityTree`2.FindParent">
+            <summary>父节点</summary>
+        </member>
+        <member name="M:XCode.EntityTree`2.FindByKeyWithCache(`0)">
+            <summary>在缓存中查找节点</summary>
+        </member>
+        <member name="M:XCode.EntityTree`2.FindAllByParent(`0)">
+            <summary>根据父级查找所有子级，带排序功能，先排序字段再主键</summary>
+            <remarks>如果是顶级，那么包含所有无头节点，无头节点由错误数据造成</remarks>
+            <param name="parentKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.EntityTree`2.FindAllNoParent">
+            <summary>查找所有无头节点（没有父节点的节点）集合（其实就是父节点已经被删掉了的非法节点）</summary>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.EntityTree`2.FindAllChildsByParent(`0)">
+            <summary>查找指定键的所有子节点，以深度层次树结构输出，包括当前节点作为根节点。空父节点返回顶级列表，无效父节点返回空列表</summary>
+            <param name="parentKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.EntityTree`2.FindAllChildsNoParent(`0)">
+            <summary>查找指定键的所有子节点，以深度层次树结构输出。空父节点返回顶级列表，无效父节点返回空列表</summary>
+            <param name="parentKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.EntityTree`2.FindAllChildsExcept(XCode.IEntityTree)">
+            <summary>获取完整树，包含根节点，排除指定分支。多用于树节点父级选择</summary>
+            <param name="exclude"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.EntityTree`2.FindAllParentsByKey(`0)">
+            <summary>查找指定键的所有父节点，从高到底以深度层次树结构输出</summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.EntityTree`2.FindAllChilds(XCode.IEntityTree,System.Boolean,XCode.IEntityTree)">
+            <summary>查找指定节点的所有子节点，以深度层次树结构输出</summary>
+            <param name="entity">根节点</param>
+            <param name="includeSelf">返回列表是否包含根节点，默认false</param>
+            <param name="exclude">要排除的节点</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.EntityTree`2.FindAllParents(XCode.IEntityTree,System.Boolean)">
+            <summary>查找指定节点的所有父节点，从高到底以深度层次树结构输出</summary>
+            <param name="entity"></param>
+            <param name="includeSelf">返回列表是否包含根节点，默认false</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.EntityTree`2.FindByPath(System.String,System.String[])">
+            <summary>根据层次路径查找</summary>
+            <param name="path">层次路径</param>
+            <param name="keys">用于在每一层匹配实体的键值，默认是NameKeyName</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.EntityTree`2.Contains(`0)">
+            <summary>是否包含子节点</summary>
+            <param name="key">子节点键值</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.EntityTree`2.MakeTree(System.Web.UI.WebControls.TreeNodeCollection,XCode.EntityList{`1},System.String,System.Func{`1,System.Web.UI.WebControls.TreeNode})">
+            <summary>创建菜单树</summary>
+            <param name="nodes">父集合</param>
+            <param name="list">菜单列表</param>
+            <param name="url">格式化地址，可以使用{ID}和{Name}</param>
+            <param name="func">由菜单项创建树节点的委托</param>
+        </member>
+        <member name="M:XCode.EntityTree`2.GetFullPath(System.Boolean,System.String,System.Func{`1,System.String})">
+            <summary>取得全路径的实体，由上向下排序</summary>
+            <param name="includeSelf">是否包含自己</param>
+            <param name="separator">分隔符</param>
+            <param name="func">回调</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.EntityTree`2.ClearRelation">
+            <summary>删除子级到本级的关系。导出数据前可以先删除关系，以减少导出的大小</summary>
+        </member>
+        <member name="M:XCode.EntityTree`2.BatchSave(System.Boolean)">
+            <summary>批量保存，保存整棵树</summary>
+            <param name="saveSelf">是否保存自己</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCode.EntityTree`2.Up">
+            <summary>排序上升</summary>
+        </member>
+        <member name="M:XCode.EntityTree`2.Down">
+            <summary>排序下降</summary>
+        </member>
+        <member name="M:XCode.EntityTree`2.Valid(System.Boolean)">
+            <summary>验证树形数据是否有效</summary>
+            <param name="isNew">是否新数据</param>
+        </member>
+        <member name="M:XCode.EntityTree`2.XCode#IEntityTree#FindAllChildsExcept(XCode.IEntityTree)">
+            <summary>获取完整树，包含根节点，排除指定分支。多用于树节点父级选择</summary>
+            <param name="exclude"></param>
+            <returns></returns>
+        </member>
+        <member name="P:XCode.EntityTree`2.Sort">
+            <summary>排序值</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.Childs">
+            <summary>子节点</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.Parent">
+            <summary>父节点</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.AllChilds">
+            <summary>子孙节点</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.AllParents">
+            <summary>父节点集合</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.Deepth">
+            <summary>深度</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.Root">
+            <summary>根</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.NodeName">
+            <summary>节点名</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.ParentNodeName">
+            <summary>父级节点名</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.TreeNodeName">
+            <summary>树形节点名，根据深度带全角空格前缀</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.TreeNodeName2">
+            <summary>树形节点名，根据深度带全角空格前缀</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.TreeNodeText">
+            <summary>树形节点名，根据深度带全角空格前缀</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.FullPath">
+            <summary>斜杠分隔的全路径</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.FullParentPath">
+            <summary>斜杠分隔的全父路径</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.ChildKeys">
+            <summary>子级键值集合</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.ChildKeyString">
+            <summary>逗号分隔的子级键值字符串，一般可用于SQL语句中</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.AllChildKeys">
+            <summary>子孙键值集合</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.AllChildKeyString">
+            <summary>逗号分隔的子孙键值字符串，一般可用于SQL语句中</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.XCode#IEntityTree#Parent">
+            <summary>父实体</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.XCode#IEntityTree#Childs">
+            <summary>子实体集合</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.XCode#IEntityTree#AllChilds">
+            <summary>子孙实体集合。以深度层次树结构输出</summary>
+        </member>
+        <member name="P:XCode.EntityTree`2.XCode#IEntityTree#AllParents">
+            <summary>父亲实体集合。以深度层次树结构输出</summary>
+        </member>
+        <member name="M:XCode.Membership.UserTimeEntityTree`1.Valid(System.Boolean)">
+            <summary>验证数据，自动加上创建和更新的信息</summary>
+            <param name="isNew"></param>
+        </member>
+        <member name="M:XCode.Membership.UserTimeEntityTree`1.SetDirtyItem(System.String,System.Object)">
+            <summary>设置脏数据项。如果某个键存在并且数据没有脏，则设置</summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="P:XCode.Membership.UserTimeEntityTree`1.CreateUser">
+            <summary>创建人</summary>
+        </member>
+        <member name="P:XCode.Membership.UserTimeEntityTree`1.CreateUserName">
+            <summary>创建人名称</summary>
+        </member>
+        <member name="P:XCode.Membership.UserTimeEntityTree`1.UpdateUser">
+            <summary>更新人</summary>
+        </member>
+        <member name="P:XCode.Membership.UserTimeEntityTree`1.UpdateUserName">
+            <summary>更新人名称</summary>
+        </member>
+        <member name="T:XCode.Membership.UserTimeEntityTree`1.__Name">
+            <summary>字段名</summary>
+        </member>
+        <member name="F:XCode.Membership.UserTimeEntityTree`1.__Name.CreateUserID">
+            <summary>创建人</summary>
+        </member>
+        <member name="F:XCode.Membership.UserTimeEntityTree`1.__Name.UpdateUserID">
+            <summary>更新人</summary>
+        </member>
+        <member name="F:XCode.Membership.UserTimeEntityTree`1.__Name.CreateUserName">
+            <summary>创建人</summary>
+        </member>
+        <member name="F:XCode.Membership.UserTimeEntityTree`1.__Name.UpdateUserName">
+            <summary>更新人</summary>
+        </member>
+        <member name="F:XCode.Membership.UserTimeEntityTree`1.__Name.CreateTime">
+            <summary>创建时间</summary>
+        </member>
+        <member name="F:XCode.Membership.UserTimeEntityTree`1.__Name.UpdateTime">
+            <summary>更新时间</summary>
+        </member>
         <member name="T:XCode.Membership.Log`1">
             <summary>日志</summary>
             <summary>日志</summary>
@@ -3847,217 +4104,6 @@
             <summary>菜单</summary>
             <summary>菜单</summary>
         </member>
-        <member name="T:XCode.EntityTree`1">
-            <summary>主键为整型的实体树基类</summary>
-            <typeparam name="TEntity"></typeparam>
-        </member>
-        <member name="T:XCode.EntityTree`2">
-            <summary>实体树基类，具有树形结构的实体继承该类即可得到各种树操作功能</summary>
-            <remarks>
-            实体树很神奇，子类可以通过KeyName、ParentKeyName、SortingKeyName、NameKeyName等设置型属性，
-            指定关联键、关联父键、排序键、名称键，其中前两个是必须的，它们是构造一棵树的根基！
-            
-            整个表会形成一颗实体树，同时也是一个实体列表，子级紧靠父级，同级排序，<see cref="P:XCode.EntityTree`2.Root"/>就是这棵树的根。
-            所以，Root.Childs可以得到顶级节点集合，Root.AllChilds得到整棵树。
-            </remarks>
-            <typeparam name="TKey">主键类型</typeparam>
-            <typeparam name="TEntity">实体类型</typeparam>
-        </member>
-        <member name="T:XCode.IEntityTree">
-            <summary>实体树接口</summary>
-        </member>
-        <member name="M:XCode.IEntityTree.FindAllChildsExcept(XCode.IEntityTree)">
-            <summary>获取完整树，包含根节点，排除指定分支。多用于树节点父级选择</summary>
-            <param name="exclude"></param>
-            <returns></returns>
-        </member>
-        <member name="P:XCode.IEntityTree.Parent">
-            <summary>父实体</summary>
-        </member>
-        <member name="P:XCode.IEntityTree.Childs">
-            <summary>子实体集合</summary>
-        </member>
-        <member name="P:XCode.IEntityTree.AllChilds">
-            <summary>子孙实体集合。以深度层次树结构输出</summary>
-        </member>
-        <member name="P:XCode.IEntityTree.AllParents">
-            <summary>父亲实体集合。以深度层次树结构输出</summary>
-        </member>
-        <member name="P:XCode.IEntityTree.Deepth">
-            <summary>深度</summary>
-        </member>
-        <member name="P:XCode.IEntityTree.TreeNodeText">
-            <summary>树形节点名，根据深度带全角空格前缀</summary>
-        </member>
-        <member name="F:XCode.EntityTree`2.Setting">
-            <summary>实体树操作者</summary>
-        </member>
-        <member name="M:XCode.EntityTree`2.FindChilds">
-            <summary>子节点</summary>
-        </member>
-        <member name="M:XCode.EntityTree`2.FindParent">
-            <summary>父节点</summary>
-        </member>
-        <member name="M:XCode.EntityTree`2.FindByKeyWithCache(`0)">
-            <summary>在缓存中查找节点</summary>
-        </member>
-        <member name="M:XCode.EntityTree`2.FindAllByParent(`0)">
-            <summary>根据父级查找所有子级，带排序功能，先排序字段再主键</summary>
-            <remarks>如果是顶级，那么包含所有无头节点，无头节点由错误数据造成</remarks>
-            <param name="parentKey"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.EntityTree`2.FindAllNoParent">
-            <summary>查找所有无头节点（没有父节点的节点）集合（其实就是父节点已经被删掉了的非法节点）</summary>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.EntityTree`2.FindAllChildsByParent(`0)">
-            <summary>查找指定键的所有子节点，以深度层次树结构输出，包括当前节点作为根节点。空父节点返回顶级列表，无效父节点返回空列表</summary>
-            <param name="parentKey"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.EntityTree`2.FindAllChildsNoParent(`0)">
-            <summary>查找指定键的所有子节点，以深度层次树结构输出。空父节点返回顶级列表，无效父节点返回空列表</summary>
-            <param name="parentKey"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.EntityTree`2.FindAllChildsExcept(XCode.IEntityTree)">
-            <summary>获取完整树，包含根节点，排除指定分支。多用于树节点父级选择</summary>
-            <param name="exclude"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.EntityTree`2.FindAllParentsByKey(`0)">
-            <summary>查找指定键的所有父节点，从高到底以深度层次树结构输出</summary>
-            <param name="key"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.EntityTree`2.FindAllChilds(XCode.IEntityTree,System.Boolean,XCode.IEntityTree)">
-            <summary>查找指定节点的所有子节点，以深度层次树结构输出</summary>
-            <param name="entity">根节点</param>
-            <param name="includeSelf">返回列表是否包含根节点，默认false</param>
-            <param name="exclude">要排除的节点</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.EntityTree`2.FindAllParents(XCode.IEntityTree,System.Boolean)">
-            <summary>查找指定节点的所有父节点，从高到底以深度层次树结构输出</summary>
-            <param name="entity"></param>
-            <param name="includeSelf">返回列表是否包含根节点，默认false</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.EntityTree`2.FindByPath(System.String,System.String[])">
-            <summary>根据层次路径查找</summary>
-            <param name="path">层次路径</param>
-            <param name="keys">用于在每一层匹配实体的键值，默认是NameKeyName</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.EntityTree`2.Contains(`0)">
-            <summary>是否包含子节点</summary>
-            <param name="key">子节点键值</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.EntityTree`2.MakeTree(System.Web.UI.WebControls.TreeNodeCollection,XCode.EntityList{`1},System.String,System.Func{`1,System.Web.UI.WebControls.TreeNode})">
-            <summary>创建菜单树</summary>
-            <param name="nodes">父集合</param>
-            <param name="list">菜单列表</param>
-            <param name="url">格式化地址，可以使用{ID}和{Name}</param>
-            <param name="func">由菜单项创建树节点的委托</param>
-        </member>
-        <member name="M:XCode.EntityTree`2.GetFullPath(System.Boolean,System.String,System.Func{`1,System.String})">
-            <summary>取得全路径的实体，由上向下排序</summary>
-            <param name="includeSelf">是否包含自己</param>
-            <param name="separator">分隔符</param>
-            <param name="func">回调</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.EntityTree`2.ClearRelation">
-            <summary>删除子级到本级的关系。导出数据前可以先删除关系，以减少导出的大小</summary>
-        </member>
-        <member name="M:XCode.EntityTree`2.BatchSave(System.Boolean)">
-            <summary>批量保存，保存整棵树</summary>
-            <param name="saveSelf">是否保存自己</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCode.EntityTree`2.Up">
-            <summary>排序上升</summary>
-        </member>
-        <member name="M:XCode.EntityTree`2.Down">
-            <summary>排序下降</summary>
-        </member>
-        <member name="M:XCode.EntityTree`2.Valid(System.Boolean)">
-            <summary>验证树形数据是否有效</summary>
-            <param name="isNew">是否新数据</param>
-        </member>
-        <member name="M:XCode.EntityTree`2.XCode#IEntityTree#FindAllChildsExcept(XCode.IEntityTree)">
-            <summary>获取完整树，包含根节点，排除指定分支。多用于树节点父级选择</summary>
-            <param name="exclude"></param>
-            <returns></returns>
-        </member>
-        <member name="P:XCode.EntityTree`2.Sort">
-            <summary>排序值</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.Childs">
-            <summary>子节点</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.Parent">
-            <summary>父节点</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.AllChilds">
-            <summary>子孙节点</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.AllParents">
-            <summary>父节点集合</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.Deepth">
-            <summary>深度</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.Root">
-            <summary>根</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.NodeName">
-            <summary>节点名</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.ParentNodeName">
-            <summary>父级节点名</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.TreeNodeName">
-            <summary>树形节点名，根据深度带全角空格前缀</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.TreeNodeName2">
-            <summary>树形节点名，根据深度带全角空格前缀</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.TreeNodeText">
-            <summary>树形节点名，根据深度带全角空格前缀</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.FullPath">
-            <summary>斜杠分隔的全路径</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.FullParentPath">
-            <summary>斜杠分隔的全父路径</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.ChildKeys">
-            <summary>子级键值集合</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.ChildKeyString">
-            <summary>逗号分隔的子级键值字符串，一般可用于SQL语句中</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.AllChildKeys">
-            <summary>子孙键值集合</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.AllChildKeyString">
-            <summary>逗号分隔的子孙键值字符串，一般可用于SQL语句中</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.XCode#IEntityTree#Parent">
-            <summary>父实体</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.XCode#IEntityTree#Childs">
-            <summary>子实体集合</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.XCode#IEntityTree#AllChilds">
-            <summary>子孙实体集合。以深度层次树结构输出</summary>
-        </member>
-        <member name="P:XCode.EntityTree`2.XCode#IEntityTree#AllParents">
-            <summary>父亲实体集合。以深度层次树结构输出</summary>
-        </member>
         <member name="T:XCode.Membership.IMenu">
             <summary>菜单接口</summary>
         </member>
@@ -4445,6 +4491,15 @@
         </member>
         <member name="F:XCode.Membership.PermissionFlags.Delete">
             <summary>删除权限</summary>
+        </member>
+        <member name="F:XCode.Membership.PermissionFlags.Import">
+            <summary>导入权限</summary>
+        </member>
+        <member name="F:XCode.Membership.PermissionFlags.Export">
+            <summary>删除权限</summary>
+        </member>
+        <member name="F:XCode.Membership.PermissionFlags.Clear">
+            <summary>清空权限</summary>
         </member>
         <member name="F:XCode.Membership.PermissionFlags.All">
             <summary>所有权限</summary>
@@ -5207,9 +5262,6 @@
         </member>
         <member name="M:XCode.Cache.IEntityCache.Clear(System.String)">
             <summary>清除缓存</summary>
-        </member>
-        <member name="P:XCode.Cache.IEntityCache.HoldCache">
-            <summary>在数据修改时保持缓存，不再过期，独占数据库时默认打开，否则默认关闭</summary>
         </member>
         <member name="P:XCode.Cache.IEntityCache.Entities">
             <summary>实体集合。因为涉及一个转换，数据量大时很耗性能，建议不要使用。</summary>
@@ -9860,9 +9912,6 @@
         </member>
         <member name="P:XCode.Cache.EntityCache`1.Expriod">
             <summary>过期时间。单位是秒，默认60秒</summary>
-        </member>
-        <member name="P:XCode.Cache.EntityCache`1.HoldCache">
-            <summary>在数据修改时保持缓存，不再过期，独占数据库时默认打开，否则默认关闭</summary>
         </member>
         <member name="P:XCode.Cache.EntityCache`1.Asynchronous">
             <summary>异步更新，默认打开</summary>

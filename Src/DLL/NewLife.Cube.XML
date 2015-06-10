@@ -106,6 +106,30 @@
             <param name="entity"></param>
             <returns></returns>
         </member>
+        <member name="M:NewLife.Cube.EntityController`1.ExportXml">
+            <summary>导出Xml</summary>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.EntityController`1.ImportXml">
+            <summary>导入Xml</summary>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.EntityController`1.ExportJson">
+            <summary>导出Json</summary>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.EntityController`1.ImportJson">
+            <summary>导入Json</summary>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.EntityController`1.ExportExcel">
+            <summary>导出Excel</summary>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.EntityController`1.Clear">
+            <summary>清空全表数据</summary>
+            <returns></returns>
+        </member>
         <member name="M:NewLife.Cube.EntityController`1.OnInsert(`0)">
             <summary>添加实体对象</summary>
             <param name="entity"></param>
