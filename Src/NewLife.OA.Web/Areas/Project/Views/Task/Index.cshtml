@@ -15,19 +15,19 @@
         <table class="table table-bordered table-hover table-striped table-condensed">
             <thead>
                 <tr>
-                    <th class="text-center hidden-md"><a href="@Html.Raw(page.GetSortUrl("ID"))">编号</a></th>
+                    <th class="text-center hidden-md hidden-sm hidden-xs"><a href="@Html.Raw(page.GetSortUrl("ID"))">编号</a></th>
                     <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("Name"))">任务名称</a></th>
                     <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("Score"))">积分</a></th>
                     <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("Priority"))">优先级</a></th>
                     <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("Status"))">状态</a></th>
                     <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("Progress"))">进度</a></th>
                     <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("MasterID"))">负责人</a></th>
-                    <th class="text-center hidden-md"><a href="@Html.Raw(page.GetSortUrl("PlanStartTime"))">计划开始</a></th>
-                    <th class="text-center hidden-md"><a href="@Html.Raw(page.GetSortUrl("PlanEndTime"))">计划结束</a></th>
-                    <th class="text-center hidden-md"><a href="@Html.Raw(page.GetSortUrl("PlanCost"))">工作日</a></th>
-                    <th class="text-center hidden-md"><a href="@Html.Raw(page.GetSortUrl("StartTime"))">开始时间</a></th>
-                    <th class="text-center hidden-md"><a href="@Html.Raw(page.GetSortUrl("UpdateUserName"))">更新人</a></th>
-                    <th class="text-center hidden-md"><a href="@Html.Raw(page.GetSortUrl("UpdateTime"))">更新时间</a></th>
+                    <th class="text-center hidden-md hidden-sm hidden-xs"><a href="@Html.Raw(page.GetSortUrl("PlanStartTime"))">计划开始</a></th>
+                    <th class="text-center hidden-md hidden-sm hidden-xs"><a href="@Html.Raw(page.GetSortUrl("PlanEndTime"))">计划结束</a></th>
+                    <th class="text-center hidden-md hidden-sm hidden-xs"><a href="@Html.Raw(page.GetSortUrl("PlanCost"))">工作日</a></th>
+                    <th class="text-center hidden-md hidden-sm hidden-xs"><a href="@Html.Raw(page.GetSortUrl("StartTime"))">开始时间</a></th>
+                    <th class="text-center hidden-md hidden-sm hidden-xs"><a href="@Html.Raw(page.GetSortUrl("UpdateUserName"))">更新人</a></th>
+                    <th class="text-center hidden-md hidden-sm hidden-xs"><a href="@Html.Raw(page.GetSortUrl("UpdateTime"))">更新时间</a></th>
                     <th class="text-center">子任务</th>
                     <th class="text-center">操作</th>
                 </tr>
@@ -71,7 +71,7 @@
                             break;
                     }
                     <tr class="alert @cls" role="alert">
-                        <td class="text-center hidden-md">@entity.ID</td>
+                        <td class="text-center hidden-md hidden-sm hidden-xs">@entity.ID</td>
                         <td>
                             @if (ViewContext.RouteData.Values["action"].ToString().EqualIgnoreCase("Show"))
                             {
@@ -108,12 +108,12 @@
                         <td class="text-center">@entity.TaskStatus</td>
                         <td class="text-center">@entity.Progress<text>%</text></td>
                         <td>@entity.MasterName</td>
-                        <td class="hidden-md">@entity.PlanStartTime.ToString("yyyy-MM-dd", "")</td>
-                        <td class="hidden-md">@entity.PlanEndTime.ToString("yyyy-MM-dd", "")</td>
-                        <td class="text-center hidden-md">@entity.PlanCost</td>
-                        <td class="hidden-md">@entity.StartTime.ToFullString("")</td>
-                        <td class="hidden-md">@entity.UpdateUserName</td>
-                        <td class="hidden-md">@entity.UpdateTime.ToFullString("")</td>
+                        <td class="hidden-md hidden-sm hidden-xs">@entity.PlanStartTime.ToString("yyyy-MM-dd", "")</td>
+                        <td class="hidden-md hidden-sm hidden-xs">@entity.PlanEndTime.ToString("yyyy-MM-dd", "")</td>
+                        <td class="text-center hidden-md hidden-sm hidden-xs">@entity.PlanCost</td>
+                        <td class="hidden-md hidden-sm hidden-xs">@entity.StartTime.ToFullString("")</td>
+                        <td class="hidden-md hidden-sm hidden-xs">@entity.UpdateUserName</td>
+                        <td class="hidden-md hidden-sm hidden-xs">@entity.UpdateTime.ToFullString("")</td>
                         <td class="text-center">
                             @entity.ChildCount 个 @Html.ActionLink("添加", "Add", new { ParentID = entity.ID })
                         </td>
