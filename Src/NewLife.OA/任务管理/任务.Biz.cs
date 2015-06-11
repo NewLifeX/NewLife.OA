@@ -19,16 +19,16 @@ namespace NewLife.OA
 {
     /// <summary>任务状态</summary>
     /// <remarks>
-    /// 准备 => 进行
-    /// 进行 => 准备、暂停、取消、完成
-    /// 暂停 => 进行
-    /// 取消 => 进行
-    /// 完成 => 进行
+    /// 计划 => 进行中
+    /// 进行中 => 计划、暂停、取消、完成
+    /// 暂停 => 进行中
+    /// 取消 => 进行中
+    /// 完成 => 进行中
     /// </remarks>
     public enum TaskStatus
     {
-        准备 = 0,
-        进行 = 1,
+        计划 = 0,
+        进行中 = 1,
         暂停 = 2,
         取消 = 3,
         完成 = 4
@@ -95,10 +95,10 @@ namespace NewLife.OA
                     throw new ArgumentOutOfRangeException(_.PlanEndTime, _.PlanEndTime.DisplayName + "不能超过已锁定的父级结束时间{0}！".F(Parent.PlanEndTime));
             }
 
-            if (_bak != null && _bak.TaskStatus != TaskStatus.进行 && Dirtys[__.Progress]) throw new ArgumentException(__.Status, "只有[{0}]的任务才允许修改进度".F(TaskStatus.进行));
+            if (_bak != null && _bak.TaskStatus != TaskStatus.进行中 && Dirtys[__.Progress]) throw new ArgumentException(__.Status, "只有[{0}]的任务才允许修改进度".F(TaskStatus.进行中));
 
-            // 准备、进行中 两种状态以外的状态，不得修改状态和已删除以外的字段
-            if (!Dirtys[__.Status] && _bak != null && _bak.TaskStatus != TaskStatus.准备 && _bak.TaskStatus != TaskStatus.进行)
+            // 计划、进行中 两种状态以外的状态，不得修改状态和已删除以外的字段
+            if (!Dirtys[__.Status] && _bak != null && _bak.TaskStatus != TaskStatus.计划 && _bak.TaskStatus != TaskStatus.进行中)
             {
                 foreach (var item in Meta.FieldNames)
                 {
@@ -371,8 +371,8 @@ namespace NewLife.OA
                 return Meta.Cache.Entities.FindAll(__.MasterID, masterid);
         }
 
-        /// <summary>根据状态。准备、进行、暂停、取消、完成查找</summary>
-        /// <param name="status">状态。准备、进行、暂停、取消、完成</param>
+        /// <summary>根据状态。计划、进行、暂停、取消、完成查找</summary>
+        /// <param name="status">状态。计划、进行、暂停、取消、完成</param>
         /// <returns></returns>
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public static EntityList<WorkTask> FindAllByStatus(Int32 status)
@@ -569,7 +569,7 @@ namespace NewLife.OA
             if (TaskStatus == status) return null;
 
             // 状态切换有效性检查
-            if (TaskStatus == TaskStatus.进行)
+            if (TaskStatus == TaskStatus.进行中)
             {
                 // 进行中状态可以切换到任何其它状态
 
@@ -581,7 +581,7 @@ namespace NewLife.OA
             else
             {
                 // 其它状态只能切换到进行中状态
-                if (status != TaskStatus.进行) throw new XException("当前状态[{0}]不能切换到[{1}]状态", TaskStatus, status);
+                if (status != TaskStatus.进行中) throw new XException("当前状态[{0}]不能切换到[{1}]状态", TaskStatus, status);
 
                 //if (TaskStatus == TaskStatus.取消) Deleted = false;
 
@@ -593,9 +593,9 @@ namespace NewLife.OA
 
             switch (status)
             {
-                case TaskStatus.准备:
+                case TaskStatus.计划:
                     return "还原到草稿状态";
-                case TaskStatus.进行:
+                case TaskStatus.进行中:
                     return "成功开启任务";
                 case TaskStatus.暂停:
                     return "成功暂停任务";

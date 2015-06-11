@@ -57,16 +57,16 @@
                     <label class="control-label col-xs-2 col-sm-2 col-md-4">状态</label>
                     <div class="col-xs-10 col-sm-6 col-md-4">
                         @Model.TaskStatus &nbsp;
-                        @if (Model.TaskStatus == TaskStatus.进行)
+                        @if (Model.TaskStatus == TaskStatus.进行中)
                         {
-                            @Html.ActionLink("准备", "SetStatus", "Task", new { id = Model.ID, status = TaskStatus.准备 }, new { @class = "btn btn-info" })
+                            @Html.ActionLink("计划", "SetStatus", "Task", new { id = Model.ID, status = TaskStatus.计划 }, new { @class = "btn btn-info" })
                             @Html.ActionLink("暂停", "SetStatus", "Task", new { id = Model.ID, status = TaskStatus.暂停 }, new { @class = "btn btn-alert" })
                             @Html.ActionLink("取消", "SetStatus", "Task", new { id = Model.ID, status = TaskStatus.取消 }, new { @class = "btn btn-danger" })
                             @Html.ActionLink("完成", "SetStatus", "Task", new { id = Model.ID, status = TaskStatus.完成 }, new { @class = "btn btn-success" })
                         }
                         else
                         {
-                            @Html.ActionLink("进行", "SetStatus", "Task", new { id = Model.ID, status = TaskStatus.进行 }, new { @class = "btn btn-info" })
+                            @Html.ActionLink("进行", "SetStatus", "Task", new { id = Model.ID, status = TaskStatus.进行中 }, new { @class = "btn btn-info" })
                         }
                     </div>
                 </div>
