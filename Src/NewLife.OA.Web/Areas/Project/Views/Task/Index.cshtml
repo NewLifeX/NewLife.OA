@@ -39,7 +39,6 @@
                     switch (entity.TaskStatus)
                     {
                         case TaskStatus.准备:
-                            break;
                         case TaskStatus.进行:
                             switch (entity.TaskPriority)
                             {
@@ -50,7 +49,7 @@
                                 case TaskPriorities.普通:
                                     break;
                                 case TaskPriorities.高级:
-                                    cls = "alert-warning";
+                                    cls = "alert-success";
                                     break;
                                 case TaskPriorities.实时:
                                     cls = "alert-danger";
