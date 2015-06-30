@@ -253,10 +253,38 @@
         <member name="T:NewLife.Cube.Admin.Controllers.SysController">
             <summary>系统设置控制器</summary>
         </member>
-        <member name="M:NewLife.Cube.Admin.Controllers.SysController.Index(NewLife.Common.SysConfig)">
-            <summary>系统设置</summary>
-            <param name="config"></param>
+        <member name="T:NewLife.Cube.ConfigController`1">
+            <summary>设置控制器</summary>
+        </member>
+        <member name="T:NewLife.Cube.ObjectController`1">
+            <summary>对象控制器</summary>
+        </member>
+        <member name="M:NewLife.Cube.ObjectController`1.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
+            <summary>动作执行前</summary>
+            <param name="filterContext"></param>
+        </member>
+        <member name="M:NewLife.Cube.ObjectController`1.Index">
+            <summary>显示对象</summary>
             <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.ObjectController`1.Index(`0)">
+            <summary>保存对象</summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Cube.ObjectController`1.WriteLog(`0)">
+            <summary>写日志</summary>
+            <param name="obj"></param>
+        </member>
+        <member name="P:NewLife.Cube.ObjectController`1.Value">
+            <summary>要展现和修改的对象</summary>
+        </member>
+        <member name="M:NewLife.Cube.ConfigController`1.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
+            <summary>重载。过滤掉标识为XmlIgnore的属性</summary>
+            <param name="filterContext"></param>
+        </member>
+        <member name="P:NewLife.Cube.ConfigController`1.Value">
+            <summary>要展现和修改的对象</summary>
         </member>
         <member name="T:NewLife.Cube.Admin.Controllers.UserController">
             <summary>用户控制器</summary>

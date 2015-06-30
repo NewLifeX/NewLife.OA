@@ -3463,9 +3463,28 @@
             <summary>把消息写入到数据流中</summary>
             <param name="stream"></param>
         </member>
+        <member name="M:NewLife.Messaging.MessageBase.ToArray">
+            <summary>消息转为字节数组</summary>
+            <returns></returns>
+        </member>
         <member name="M:NewLife.Messaging.MessageBase.GetFormatter(System.Boolean)">
             <summary>获取序列化器</summary>
             <param name="isRead"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Messaging.MessageBase.ToString">
+            <summary>输出消息实体</summary>
+            <returns></returns>
+        </member>
+        <member name="M:NewLife.Messaging.MessageBase.GetMember(System.Reflection.PropertyInfo,System.Int32,System.Text.StringBuilder)">
+            <summary>获取成员输出</summary>
+            <param name="pi"></param>
+            <param name="len"></param>
+            <param name="sb"></param>
+        </member>
+        <member name="M:NewLife.Messaging.MessageBase.GetMemberValue(System.Reflection.PropertyInfo)">
+            <summary>获取用于输出的成员值</summary>
+            <param name="pi"></param>
             <returns></returns>
         </member>
         <member name="T:NewLife.Messaging.MessageKind">
@@ -5382,6 +5401,10 @@
             <returns></returns>
         </member>
         <member name="M:System.StringHelper.Speak(System.String)">
+            <summary>调用语音引擎说出指定话</summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:System.StringHelper.SpeakAsync(System.String)">
             <summary>调用语音引擎说出指定话</summary>
             <param name="value"></param>
         </member>
@@ -7543,8 +7566,8 @@
         </member>
         <member name="M:NewLife.Security.RC4.Encrypt(System.Byte[],System.Byte[])">
             <summary>加密</summary>
-            <param name="data"></param>
-            <param name="pass"></param>
+            <param name="data">数据</param>
+            <param name="pass">密码</param>
             <returns></returns>
         </member>
         <member name="M:NewLife.Security.RC4.GetKey(System.Byte[],System.Int32)">
@@ -7648,9 +7671,8 @@
             <returns></returns>
         </member>
         <member name="M:System.SecurityHelper.Encrypt(System.Security.Cryptography.SymmetricAlgorithm,System.IO.Stream,System.IO.Stream)">
-            <summary>对称加密算法扩展
-            <para>注意：CryptoStream会把 outstream 数据流关闭</para>
-            </summary>
+            <summary>对称加密算法扩展</summary>
+            <remarks>注意：CryptoStream会把 outstream 数据流关闭</remarks>
             <param name="sa"></param>
             <param name="instream"></param>
             <param name="outstream"></param>
@@ -11853,6 +11875,12 @@
             <param name="inherit"></param>
             <returns></returns>
         </member>
+        <member name="M:System.AttributeX.GetDescription(System.Reflection.MemberInfo,System.Boolean)">
+            <summary>获取成员绑定的显示名，优先DisplayName，然后Description</summary>
+            <param name="member"></param>
+            <param name="inherit"></param>
+            <returns></returns>
+        </member>
         <member name="M:System.AttributeX.GetCustomAttributeValue``2(System.Reflection.Assembly)">
             <summary>获取自定义属性的值。可用于ReflectionOnly加载的程序集</summary>
             <typeparam name="TAttribute"></typeparam>
@@ -13129,75 +13157,6 @@
         <member name="P:NewLife.Security.Crc32.Value">
             <summary>校验值</summary>
         </member>
-        <member name="T:NewLife.Security.DataHelper">
-            <summary>数据助手</summary>
-        </member>
-        <member name="M:NewLife.Security.DataHelper.Hash(System.String)">
-            <summary>MD5散列</summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Security.DataHelper.HashFile(System.String)">
-            <summary>文件散列</summary>
-            <param name="filename"></param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Security.DataHelper.Encrypt(System.String,System.String)">
-            <summary>TripleDES加密</summary>
-            <param name="content">UTD8编码的明文</param>
-            <param name="key">密码字符串经MD5散列后作为DES密码</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Security.DataHelper.Encrypt(System.Byte[],System.String)">
-            <summary>TripleDES加密</summary>
-            <param name="data"></param>
-            <param name="key">密码字符串经MD5散列后作为DES密码</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Security.DataHelper.Descrypt(System.String,System.String)">
-            <summary>TripleDES解密</summary>
-            <param name="content">UTD8编码的密文</param>
-            <param name="key">密码字符串经MD5散列后作为DES密码</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Security.DataHelper.Descrypt(System.Byte[],System.String)">
-            <summary>TripleDES解密</summary>
-            <param name="data"></param>
-            <param name="key">密码字符串经MD5散列后作为DES密码</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Security.DataHelper.RC4(System.Byte[],System.String)">
-            <summary>RC4加密解密</summary>
-            <param name="data">数据</param>
-            <param name="pass">UTF8编码的密码</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Security.DataHelper.GetKey(System.Byte[],System.Int32)">
-            <summary>打乱密码</summary>
-            <param name="pass">密码</param>
-            <param name="kLen">密码箱长度</param>
-            <returns>打乱后的密码</returns>
-        </member>
-        <member name="M:NewLife.Security.DataHelper.Sign(System.Byte[],System.String)">
-            <summary>签名</summary>
-            <param name="data"></param>
-            <param name="priKey"></param>
-            <returns>Base64编码的签名</returns>
-        </member>
-        <member name="M:NewLife.Security.DataHelper.Verify(System.Byte[],System.String,System.String)">
-            <summary>验证签名</summary>
-            <param name="data">待验证的数据</param>
-            <param name="signdata">Base64编码的签名</param>
-            <param name="pubKey">公钥</param>
-            <returns></returns>
-        </member>
-        <member name="M:NewLife.Security.DataHelper.FromHex(System.String,System.Int32,System.Int32)">
-            <summary>把十六进制字符串解码字节数组</summary>
-            <param name="data"></param>
-            <param name="startIndex">起始位置</param>
-            <param name="length">长度</param>
-            <returns></returns>
-        </member>
         <member name="T:NewLife.Common.HardInfo">
             <summary>硬件信息</summary>
         </member>
@@ -13995,12 +13954,9 @@
             <param name="exception">异常</param>
             <param name="isNewLine">是否换行</param>
         </member>
-        <member name="M:NewLife.Log.WriteLogEventArgs.Set(NewLife.Log.LogLevel,System.String,System.Exception,System.Boolean)">
+        <member name="M:NewLife.Log.WriteLogEventArgs.Set(NewLife.Log.LogLevel)">
             <summary>初始化为新日志</summary>
             <param name="level">日志等级</param>
-            <param name="message">日志</param>
-            <param name="exception">异常</param>
-            <param name="isNewLine">是否换行</param>
             <returns>返回自身，链式写法</returns>
         </member>
         <member name="M:NewLife.Log.WriteLogEventArgs.Set(System.String,System.Exception,System.Boolean)">
@@ -14012,6 +13968,10 @@
         </member>
         <member name="M:NewLife.Log.WriteLogEventArgs.Clear">
             <summary>清空日志特别是异常对象，避免因线程静态而导致内存泄漏</summary>
+        </member>
+        <member name="M:NewLife.Log.WriteLogEventArgs.ToShortString">
+            <summary>已重载。</summary>
+            <returns></returns>
         </member>
         <member name="M:NewLife.Log.WriteLogEventArgs.ToString">
             <summary>已重载。</summary>

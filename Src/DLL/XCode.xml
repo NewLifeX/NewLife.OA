@@ -3192,11 +3192,11 @@
             <summary>用户时间实体基类</summary>
             <typeparam name="TEntity"></typeparam>
         </member>
-        <member name="T:XCode.Membership.IUserInfo">
+        <member name="T:XCode.Membership.IUserInfo2">
             <summary>用户信息接口。包含创建用户和更新用户</summary>
         </member>
-        <member name="P:XCode.Membership.IUserInfo.CreateUserID">
-            <summary>创建用户ID</summary>
+        <member name="T:XCode.Membership.IUserInfo">
+            <summary>用户信息接口。包含创建用户和更新用户</summary>
         </member>
         <member name="P:XCode.Membership.IUserInfo.CreateUser">
             <summary>创建用户</summary>
@@ -3204,14 +3204,17 @@
         <member name="P:XCode.Membership.IUserInfo.CreateUserName">
             <summary>创建用户名</summary>
         </member>
-        <member name="P:XCode.Membership.IUserInfo.UpdateUserID">
-            <summary>更新用户ID</summary>
-        </member>
         <member name="P:XCode.Membership.IUserInfo.UpdateUser">
             <summary>更新用户</summary>
         </member>
         <member name="P:XCode.Membership.IUserInfo.UpdateUserName">
             <summary>更新用户名</summary>
+        </member>
+        <member name="P:XCode.Membership.IUserInfo2.CreateUserID">
+            <summary>创建用户ID</summary>
+        </member>
+        <member name="P:XCode.Membership.IUserInfo2.UpdateUserID">
+            <summary>更新用户ID</summary>
         </member>
         <member name="T:XCode.Membership.ITimeInfo">
             <summary>时间信息接口。包含创建时间和更新时间</summary>
@@ -3644,11 +3647,6 @@
             <param name="action"></param>
             <returns></returns>
         </member>
-        <member name="M:XCode.Membership.Log`1.GetDescription(System.Type)">
-            <summary>获取实体类的描述名</summary>
-            <param name="type">类型</param>
-            <returns></returns>
-        </member>
         <member name="M:XCode.Membership.Log`1.WriteLog(System.Type,System.String,System.String)">
             <summary>写日志</summary>
             <param name="type">类型</param>
@@ -3797,6 +3795,9 @@
         <member name="P:XCode.Membership.IUser.DisplayName">
             <summary>显示名。昵称、中文名等</summary>
         </member>
+        <member name="P:XCode.Membership.IUser.Sex">
+            <summary>性别。未知、男、女</summary>
+        </member>
         <member name="P:XCode.Membership.IUser.Mail">
             <summary>邮件</summary>
         </member>
@@ -3809,6 +3810,18 @@
         <member name="P:XCode.Membership.IUser.RoleID">
             <summary>角色</summary>
         </member>
+        <member name="P:XCode.Membership.IUser.Enable">
+            <summary>是否启用</summary>
+        </member>
+        <member name="P:XCode.Membership.IUser.StartTime">
+            <summary>开始时间</summary>
+        </member>
+        <member name="P:XCode.Membership.IUser.EndTime">
+            <summary>结束时间</summary>
+        </member>
+        <member name="P:XCode.Membership.IUser.RegisterTime">
+            <summary>注册时间</summary>
+        </member>
         <member name="P:XCode.Membership.IUser.Logins">
             <summary>登录次数</summary>
         </member>
@@ -3818,8 +3831,11 @@
         <member name="P:XCode.Membership.IUser.LastLoginIP">
             <summary>最后登录IP</summary>
         </member>
-        <member name="P:XCode.Membership.IUser.Enable">
-            <summary>是否启用</summary>
+        <member name="P:XCode.Membership.IUser.Quertion">
+            <summary>问题</summary>
+        </member>
+        <member name="P:XCode.Membership.IUser.Answer">
+            <summary>答案</summary>
         </member>
         <member name="P:XCode.Membership.IUser.Profile">
             <summary>配置信息</summary>
@@ -3977,6 +3993,9 @@
         <member name="P:XCode.Membership.User`1.DisplayName">
             <summary>显示名。昵称、中文名等</summary>
         </member>
+        <member name="P:XCode.Membership.User`1.Sex">
+            <summary>性别。未知、男、女</summary>
+        </member>
         <member name="P:XCode.Membership.User`1.Mail">
             <summary>邮件</summary>
         </member>
@@ -3989,6 +4008,18 @@
         <member name="P:XCode.Membership.User`1.RoleID">
             <summary>角色</summary>
         </member>
+        <member name="P:XCode.Membership.User`1.Enable">
+            <summary>是否启用</summary>
+        </member>
+        <member name="P:XCode.Membership.User`1.StartTime">
+            <summary>开始时间</summary>
+        </member>
+        <member name="P:XCode.Membership.User`1.EndTime">
+            <summary>结束时间</summary>
+        </member>
+        <member name="P:XCode.Membership.User`1.RegisterTime">
+            <summary>注册时间</summary>
+        </member>
         <member name="P:XCode.Membership.User`1.Logins">
             <summary>登录次数</summary>
         </member>
@@ -3998,8 +4029,11 @@
         <member name="P:XCode.Membership.User`1.LastLoginIP">
             <summary>最后登录IP</summary>
         </member>
-        <member name="P:XCode.Membership.User`1.Enable">
-            <summary>是否启用</summary>
+        <member name="P:XCode.Membership.User`1.Quertion">
+            <summary>问题</summary>
+        </member>
+        <member name="P:XCode.Membership.User`1.Answer">
+            <summary>答案</summary>
         </member>
         <member name="P:XCode.Membership.User`1.Profile">
             <summary>配置信息</summary>
@@ -4028,6 +4062,9 @@
         <member name="F:XCode.Membership.User`1._.DisplayName">
             <summary>显示名。昵称、中文名等</summary>
         </member>
+        <member name="F:XCode.Membership.User`1._.Sex">
+            <summary>性别。未知、男、女</summary>
+        </member>
         <member name="F:XCode.Membership.User`1._.Mail">
             <summary>邮件</summary>
         </member>
@@ -4040,6 +4077,18 @@
         <member name="F:XCode.Membership.User`1._.RoleID">
             <summary>角色</summary>
         </member>
+        <member name="F:XCode.Membership.User`1._.Enable">
+            <summary>是否启用</summary>
+        </member>
+        <member name="F:XCode.Membership.User`1._.StartTime">
+            <summary>开始时间</summary>
+        </member>
+        <member name="F:XCode.Membership.User`1._.EndTime">
+            <summary>结束时间</summary>
+        </member>
+        <member name="F:XCode.Membership.User`1._.RegisterTime">
+            <summary>注册时间</summary>
+        </member>
         <member name="F:XCode.Membership.User`1._.Logins">
             <summary>登录次数</summary>
         </member>
@@ -4049,8 +4098,11 @@
         <member name="F:XCode.Membership.User`1._.LastLoginIP">
             <summary>最后登录IP</summary>
         </member>
-        <member name="F:XCode.Membership.User`1._.Enable">
-            <summary>是否启用</summary>
+        <member name="F:XCode.Membership.User`1._.Quertion">
+            <summary>问题</summary>
+        </member>
+        <member name="F:XCode.Membership.User`1._.Answer">
+            <summary>答案</summary>
         </member>
         <member name="F:XCode.Membership.User`1._.Profile">
             <summary>配置信息</summary>
@@ -4070,6 +4122,9 @@
         <member name="F:XCode.Membership.User`1.__.DisplayName">
             <summary>显示名。昵称、中文名等</summary>
         </member>
+        <member name="F:XCode.Membership.User`1.__.Sex">
+            <summary>性别。未知、男、女</summary>
+        </member>
         <member name="F:XCode.Membership.User`1.__.Mail">
             <summary>邮件</summary>
         </member>
@@ -4082,6 +4137,18 @@
         <member name="F:XCode.Membership.User`1.__.RoleID">
             <summary>角色</summary>
         </member>
+        <member name="F:XCode.Membership.User`1.__.Enable">
+            <summary>是否启用</summary>
+        </member>
+        <member name="F:XCode.Membership.User`1.__.StartTime">
+            <summary>开始时间</summary>
+        </member>
+        <member name="F:XCode.Membership.User`1.__.EndTime">
+            <summary>结束时间</summary>
+        </member>
+        <member name="F:XCode.Membership.User`1.__.RegisterTime">
+            <summary>注册时间</summary>
+        </member>
         <member name="F:XCode.Membership.User`1.__.Logins">
             <summary>登录次数</summary>
         </member>
@@ -4091,8 +4158,11 @@
         <member name="F:XCode.Membership.User`1.__.LastLoginIP">
             <summary>最后登录IP</summary>
         </member>
-        <member name="F:XCode.Membership.User`1.__.Enable">
-            <summary>是否启用</summary>
+        <member name="F:XCode.Membership.User`1.__.Quertion">
+            <summary>问题</summary>
+        </member>
+        <member name="F:XCode.Membership.User`1.__.Answer">
+            <summary>答案</summary>
         </member>
         <member name="F:XCode.Membership.User`1.__.Profile">
             <summary>配置信息</summary>
@@ -4491,15 +4561,6 @@
         </member>
         <member name="F:XCode.Membership.PermissionFlags.Delete">
             <summary>删除权限</summary>
-        </member>
-        <member name="F:XCode.Membership.PermissionFlags.Import">
-            <summary>导入权限</summary>
-        </member>
-        <member name="F:XCode.Membership.PermissionFlags.Export">
-            <summary>删除权限</summary>
-        </member>
-        <member name="F:XCode.Membership.PermissionFlags.Clear">
-            <summary>清空权限</summary>
         </member>
         <member name="F:XCode.Membership.PermissionFlags.All">
             <summary>所有权限</summary>
