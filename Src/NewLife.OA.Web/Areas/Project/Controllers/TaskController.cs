@@ -23,6 +23,8 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
 
         protected override ActionResult IndexView(Pager p)
         {
+            ViewBag.Page = p;
+
             var ps = WebHelper.Params;
             if (!ps.ContainsKey("Status")) ps["Status"] = new TaskStatus[] { TaskStatus.进行中 }.Cast<Int32>().Join();
 
@@ -69,6 +71,23 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             if (!ps.ContainsKey("Status")) ps["Status"] = new TaskStatus[] { TaskStatus.计划, TaskStatus.进行中, TaskStatus.暂停 }.Cast<Int32>().Join();
 
             var list = GetList(p, masterid, false, 3);
+
+            return View("Index", list);
+        }
+
+        /// <summary>增加新的独立菜单</summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        [DisplayName("全部任务")]
+        [EntityAuthorize(PermissionFlags.Detail | PermissionFlags.Insert | PermissionFlags.Update | PermissionFlags.Delete, ResourceName = "全部任务")]
+        public ActionResult All(Pager p)
+        {
+            ViewBag.Page = p;
+
+            var ps = WebHelper.Params;
+            if (!ps.ContainsKey("Status")) ps["Status"] = new TaskStatus[] { TaskStatus.计划, TaskStatus.进行中, TaskStatus.暂停 }.Cast<Int32>().Join();
+
+            var list = GetList(p, 0, false, 1);
 
             return View("Index", list);
         }
