@@ -2,7 +2,7 @@
     var task = Model as WorkTask;
 }
 <div>
-    <label class="control-label col-xs-2 col-sm-2 col-md-4"></label>
+    <label class="control-label col-xs-2 col-sm-2"></label>
     @Html.ActionLink("查看 " + task.Views.ToString("n0"), "Edit", "Task", new { id = task.ID }, new { @class = "btn btn-info" })
     @Html.ActionLink("历史 " + task.Historys.ToString("n0"), "Show", "TaskHistory", new { id = task.ID }, new { @class = "btn btn-primary" })
     @Html.ActionLink("评论 " + task.Comments.ToString("n0"), "Show", "TaskComment", new { id = task.ID }, new { @class = "btn btn-success" })

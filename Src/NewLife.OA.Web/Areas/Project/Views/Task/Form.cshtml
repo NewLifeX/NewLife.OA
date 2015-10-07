@@ -38,8 +38,9 @@
             if (Model.Parent != null)
             {
                 <div class="form-group">
-                    <label class="control-label col-xs-2 col-sm-2 col-md-4">父任务</label>
+                    <label class="control-label col-xs-2 col-sm-2">父任务</label>
                     <div class="col-xs-10 col-sm-6 col-md-4">
+                        @Html.ForInt("ParentID", Model.ParentID)
                         @Html.ActionLink(Model.ParentName, "Edit", new { ID = Model.ParentID })
                     </div>
                 </div>
@@ -54,7 +55,7 @@
             if (!isNew)
             {
                 <div class="form-group">
-                    <label class="control-label col-xs-2 col-sm-2 col-md-4">状态</label>
+                    <label class="control-label col-xs-2 col-sm-2">状态</label>
                     <div class="col-xs-10 col-sm-6 col-md-4">
                         @Model.TaskStatus &nbsp;
                         @if (Model.TaskStatus == TaskStatus.进行中)
@@ -75,7 +76,7 @@
                 </div>
             }
             <div class="form-group">
-                <label class="control-label col-xs-2 col-sm-2 col-md-4">优先级</label>
+                <label class="control-label col-xs-2 col-sm-2">优先级</label>
                 <div class="col-xs-10 col-sm-6 col-md-4">
                     @(Html.ForEnum(WorkTask._.Priority.Name, Model.TaskPriority))
                     <span class="alert-danger">
@@ -90,7 +91,7 @@
             if (!isNew && Model.ParentID != 0)
             {
                 <div class="form-group">
-                    <label class="control-label col-xs-2 col-sm-2 col-md-4">同级比重</label>
+                    <label class="control-label col-xs-2 col-sm-2">同级比重</label>
                     <div class="col-md-4">
                         @Model.Percent<text>%</text>
                     </div>
@@ -100,7 +101,7 @@
                 @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.LockScore))
             </div>
             <div class="form-group">
-                <label class="control-label col-xs-2 col-sm-2 col-md-4">负责人</label>
+                <label class="control-label col-xs-2 col-sm-2">负责人</label>
                 <div class="col-xs-10 col-sm-6 col-md-4">
                     @Html.ForDropDownList(WorkTask._.MasterID, UserX.FindAllWithCache())
                     <span class="alert-danger">
@@ -126,7 +127,7 @@
             if (!isNew)
             {
                 <div class="form-group">
-                    <label class="control-label col-xs-2 col-sm-2 col-md-4">实际时间</label>
+                    <label class="control-label col-xs-2 col-sm-2">实际时间</label>
                     <div class="col-xs-12 col-sm-4 col-md-4">
                         <span class="middle">
                             @Model.StartTime.ToFullString("") 到 @Model.EndTime.ToFullString("") 共 @Model.Cost.ToString("n0") 工作日
@@ -134,7 +135,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-xs-2 col-sm-2 col-md-4">浏览/修改/评论</label>
+                    <label class="control-label col-xs-2 col-sm-2">浏览/修改/评论</label>
                     <div class="col-md-4">
                         <span class="middle">
                             @Model.Views.ToString("n0") /
@@ -144,7 +145,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-xs-2 col-sm-2 col-md-4">创建</label>
+                    <label class="control-label col-xs-2 col-sm-2">创建</label>
                     <div class="col-md-4">
                         <span class="middle">
                             @Model.CreateUserName @Model.CreateTime.ToFullString("")
@@ -152,7 +153,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-xs-2 col-sm-2 col-md-4">更新</label>
+                    <label class="control-label col-xs-2 col-sm-2">更新</label>
                     <div class="col-md-4">
                         <span class="middle">
                             @Model.UpdateUserName @Model.UpdateTime.ToFullString("")
@@ -161,7 +162,7 @@
                 </div>
             }
             <div class="form-actions">
-                <label class="control-label col-xs-2 col-sm-2 col-md-4"></label>
+                <label class="control-label col-xs-2 col-sm-2"></label>
                 <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-@(isNew ? "plus" : "save")"></i><strong>@(isNew ? "新增" : "保存")</strong></button>
                 <button type="button" class="btn btn-danger" onclick="history.go(-1);"><i class="glyphicon glyphicon-remove"></i><strong>取消</strong></button>
             </div>

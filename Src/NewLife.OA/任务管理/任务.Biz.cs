@@ -4,7 +4,7 @@
  * 时间：2015-01-20 20:08:12
  * 版权：版权所有 (C) 新生命开发团队 2002~2015
 */
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -95,7 +95,8 @@ namespace NewLife.OA
                     throw new ArgumentOutOfRangeException(_.PlanEndTime, this + " " + _.PlanEndTime.DisplayName + "不能超过已锁定的父级结束时间{0}！".F(Parent.PlanEndTime));
             }
 
-            if (_bak != null && _bak.TaskStatus != TaskStatus.进行中 && Dirtys[__.Progress]) throw new ArgumentException(__.Status, this + " " + "只有[{0}]的任务才允许修改进度".F(TaskStatus.进行中));
+            if (_bak != null && _bak.TaskStatus != TaskStatus.计划 && _bak.TaskStatus != TaskStatus.进行中 && Dirtys[__.Progress])
+                throw new ArgumentException(__.Status, this + " " + "只有[{0}]的任务才允许修改进度".F(TaskStatus.进行中));
 
             // 计划、进行中 两种状态以外的状态，不得修改状态和已删除以外的字段
             if (!Dirtys[__.Status] && _bak != null && _bak.TaskStatus != TaskStatus.计划 && _bak.TaskStatus != TaskStatus.进行中)
@@ -104,7 +105,7 @@ namespace NewLife.OA
                 {
                     if (item.EqualIgnoreCase(__.Status, __.Deleted)) continue;
 
-                    if (Dirtys[item]) throw new XException(this + " " + "处于[{0}]状态时禁止修改[{1}]", _bak.TaskStatus, item);
+                    if (Dirtys[item]) throw new ArgumentOutOfRangeException(item, "{0} 处于[{1}]状态时禁止修改[{2}]".F(this, _bak.TaskStatus, item));
                 }
             }
 
@@ -424,7 +425,8 @@ namespace NewLife.OA
                 if (deleted != null && item.Deleted != deleted.Value) continue;
                 if (!key.IsNullOrEmpty() &&
                     (item.Name.IsNullOrEmpty() || !item.Name.Contains(key)) &&
-                    (item.Content.IsNullOrEmpty() || !item.Content.Contains(key))) continue;
+                    (item.Content.IsNullOrEmpty() || !item.Content.Contains(key)))
+                    continue;
 
                 list.Add(item);
                 if (item.ChildCount > 0)
