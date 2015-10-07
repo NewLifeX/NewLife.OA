@@ -45,6 +45,15 @@
                     </div>
                 </div>
             }
+            else
+            {
+                <div class="form-group">
+                    <label class="control-label col-xs-2 col-sm-2">父任务</label>
+                    <div class="col-xs-10 col-sm-6 col-md-4">
+                        @Html.ForInt("ParentID", Model.ParentID)
+                    </div>
+                </div>
+            }
             <div class="form-group">
                 @Html.Partial("_Form_Item", new Pair(Model, WorkTask._.Name))
             </div>
