@@ -88,10 +88,10 @@ namespace NewLife.OA
             // 检查计划时间范围，如果父级锁定，自己不得超过父级
             CheckPlanTime();
 
-            if (_bak != null && _bak.TaskStatus != TaskStatus.计划 && _bak.TaskStatus != TaskStatus.进行中 && Dirtys[__.Progress])
-                throw new ArgumentException(__.Status, this + " " + "只有[{0}]的任务才允许修改进度".F(TaskStatus.进行中));
-
             CheckProgress();
+
+            if (!Dirtys[__.Status] && _bak != null && _bak.TaskStatus != TaskStatus.计划 && _bak.TaskStatus != TaskStatus.进行中 && Dirtys[__.Progress])
+                throw new ArgumentException(__.Status, this + " " + "只有[{0}]的任务才允许修改进度".F(TaskStatus.进行中));
 
             // 计划、进行中 两种状态以外的状态，不得修改状态和已删除以外的字段
             if (!Dirtys[__.Status] && _bak != null && _bak.TaskStatus != TaskStatus.计划 && _bak.TaskStatus != TaskStatus.进行中)
@@ -573,7 +573,7 @@ namespace NewLife.OA
                 EndTime = DateTime.Now;
 
                 // 如果任务已完成，则100%完成度
-                if (status == TaskStatus.完成) Progress = 100;
+                if (status == TaskStatus.完成 || status == TaskStatus.取消) Progress = 100;
             }
             else
             {
@@ -584,6 +584,12 @@ namespace NewLife.OA
 
                 // 重新计算时间
                 StartTime = DateTime.Now;
+
+                // 重新设定进度
+                if (TaskStatus == TaskStatus.完成 || TaskStatus == TaskStatus.取消)
+                {
+                    if (Progress >= 100) Progress = 0;
+                }
             }
 
             TaskStatus = status;
@@ -605,7 +611,10 @@ namespace NewLife.OA
             }
         }
 
-        void CheckPlanTime()
+        /// <summary>
+        /// 检查计划时间范围
+        /// </summary>
+        public void CheckPlanTime()
         {
             var p = Parent;
             if (p == null) return;
@@ -631,9 +640,18 @@ namespace NewLife.OA
         /// <summary>
         /// 检查进度。进度100表示完成，递增上级
         /// </summary>
-        void CheckProgress()
+        public void CheckProgress()
         {
+            // 任务完成、取消或者进度100%，都等价
+            if (TaskStatus == TaskStatus.完成 || TaskStatus == TaskStatus.取消)
+                Progress = 100;
+            else if (Progress >= 100)
+            {
+                Progress = 100;
+                TaskStatus = TaskStatus.完成;
+            }
 
+            FixParentProgress();
         }
         #endregion
 
@@ -798,6 +816,13 @@ namespace NewLife.OA
             // 进度
             var progress = parent.Childs.ToList().Sum(e => e.Percent * e.Progress);
             parent.Progress = progress / 100;
+
+            // 如果进度不到100，而任务又已经完成或者取消，则回到进行中状态
+            if (parent.Progress < 100 && (parent.TaskStatus == TaskStatus.完成 || parent.TaskStatus == TaskStatus.取消))
+            {
+                parent.TaskStatus = TaskStatus.进行中;
+            }
+
             parent.Save();
 
             parent.FixParentProgress();

@@ -260,13 +260,15 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
                 }
                 catch (Exception ex)
                 {
-                    msg = ex.Message;
+                    //msg = ex.Message;
+                    ModelState.AddModelError("", ex.Message);
                 }
             }
 
-            Js.Alert(msg, null, 2000).Redirect(url);
+            //Js.Alert(msg, null, 2000).Redirect(url);
 
-            return new EmptyResult();
+            //return new EmptyResult();
+            return FormView(entity);
         }
     }
 }
