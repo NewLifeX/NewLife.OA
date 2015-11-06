@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
+using NewLife.Collections;
 using NewLife.Cube;
 using NewLife.Log;
 using NewLife.Web;
@@ -118,6 +119,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             return list;
         }
 
+        static DictionaryCache<Int32, Int32> _cacheView = new DictionaryCache<int, int>() { Expriod = 600, ClearExpriod = 30 };
         /// <summary>表单页视图。子控制器可以重载，以传递更多信息给视图，比如修改要显示的列</summary>
         /// <param name="entity"></param>
         /// <returns></returns>
@@ -134,8 +136,10 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             }
             else
             {
-                // 增加浏览数
-                entity.Views++;
+                // 增加浏览数。借助缓存，避免重复更新
+                _cacheView.GetItem<WorkTask>(entity.ID, entity, (k, w) => w.Views++);
+                //entity.Views++;
+
                 // 有些不合格的数据可能保存失败
                 try
                 {
