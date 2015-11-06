@@ -1161,6 +1161,20 @@
             <param name="uri"></param>
             <returns></returns>
         </member>
+        <member name="M:System.NetHelper.IntToIp(System.Int64)">
+            <summary>
+            longIP地址转为字符
+            </summary>
+            <param name="ipInt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.NetHelper.IpToInt(System.String)">
+            <summary>
+            字符IP地址转为long
+            </summary>
+            <param name="ip"></param>
+            <returns></returns>
+        </member>
         <member name="M:System.NetHelper.GetActiveInterfaces">
             <summary>获取活动的接口信息</summary>
             <returns></returns>
@@ -3614,6 +3628,11 @@
             <summary>把Zip格式数据写入到文件中</summary>
             <param name="fileName"></param>
         </member>
+        <member name="M:NewLife.Compression.ZipFile.Extract(System.String,System.Boolean)">
+            <summary>解压缩[兼容旧版本]</summary>
+            <param name="outputPath">目标路径</param>
+            <param name="overrideExisting">是否覆盖已有文件</param>
+        </member>
         <member name="M:NewLife.Compression.ZipFile.Extract(System.String,System.Boolean,System.Boolean)">
             <summary>解压缩</summary>
             <param name="outputPath">目标路径</param>
@@ -4828,6 +4847,9 @@
             <param name="maxNum">最大层数</param>
             <param name="split">分割符号，默认左箭头加上换行</param>
             <returns></returns>
+        </member>
+        <member name="M:NewLife.Log.XTrace.WriteVersion">
+            <summary>输出核心库和启动程序的版本号</summary>
         </member>
         <member name="M:NewLife.Log.XTrace.WriteVersion(System.Reflection.Assembly)">
             <summary>输出程序集版本</summary>

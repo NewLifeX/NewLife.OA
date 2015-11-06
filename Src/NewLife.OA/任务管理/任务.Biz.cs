@@ -60,7 +60,6 @@ namespace NewLife.OA
                 if (user != null)
                 {
                     entity.MasterID = ManageProvider.User.ID;
-
                     entity.CreateUserID = ManageProvider.User.ID;
                 }
 
@@ -87,16 +86,12 @@ namespace NewLife.OA
             if (PlanStartTime > PlanEndTime) throw new ArgumentOutOfRangeException(_.PlanEndTime, _.PlanEndTime.DisplayName + "不能大于开始时间！");
 
             // 检查计划时间范围，如果父级锁定，自己不得超过父级
-            if (Parent != null && Parent.LockPlanTime)
-            {
-                if (PlanStartTime < Parent.PlanStartTime)
-                    throw new ArgumentOutOfRangeException(_.PlanStartTime, this + " " + _.PlanStartTime.DisplayName + "不能超过已锁定的父级开始时间{0}！".F(Parent.PlanStartTime));
-                if (PlanEndTime > Parent.PlanEndTime)
-                    throw new ArgumentOutOfRangeException(_.PlanEndTime, this + " " + _.PlanEndTime.DisplayName + "不能超过已锁定的父级结束时间{0}！".F(Parent.PlanEndTime));
-            }
+            CheckPlanTime();
 
             if (_bak != null && _bak.TaskStatus != TaskStatus.计划 && _bak.TaskStatus != TaskStatus.进行中 && Dirtys[__.Progress])
                 throw new ArgumentException(__.Status, this + " " + "只有[{0}]的任务才允许修改进度".F(TaskStatus.进行中));
+
+            CheckProgress();
 
             // 计划、进行中 两种状态以外的状态，不得修改状态和已删除以外的字段
             if (!Dirtys[__.Status] && _bak != null && _bak.TaskStatus != TaskStatus.计划 && _bak.TaskStatus != TaskStatus.进行中)
@@ -609,6 +604,37 @@ namespace NewLife.OA
                     return null;
             }
         }
+
+        void CheckPlanTime()
+        {
+            var p = Parent;
+            if (p == null) return;
+
+            // 检查计划时间范围，如果父级锁定，自己不得超过父级
+            if (PlanStartTime < p.PlanStartTime)
+            {
+                if (p.LockPlanTime)
+                    throw new ArgumentOutOfRangeException(_.PlanStartTime, this + " " + _.PlanStartTime.DisplayName + "不能超过已锁定的父级开始时间{0}！".F(p.PlanStartTime));
+                else
+                    p.PlanStartTime = PlanStartTime;
+            }
+            if (PlanEndTime > p.PlanEndTime)
+            {
+                if (p.LockPlanTime)
+                    throw new ArgumentOutOfRangeException(_.PlanEndTime, this + " " + _.PlanEndTime.DisplayName + "不能超过已锁定的父级结束时间{0}！".F(p.PlanEndTime));
+                else
+                    p.PlanEndTime = PlanEndTime;
+            }
+            p.Save();
+        }
+
+        /// <summary>
+        /// 检查进度。进度100表示完成，递增上级
+        /// </summary>
+        void CheckProgress()
+        {
+
+        }
         #endregion
 
         #region 积分设定
@@ -721,7 +747,6 @@ namespace NewLife.OA
             }
 
             var list = parent.Childs.Clone();
-            var total = 0;
             // 如果当前是新增任务，则累加进去
             if (ID == 0) list.Add(this);
 
@@ -729,6 +754,7 @@ namespace NewLife.OA
             list.Sort((x, y) => x.ID.CompareTo(y.ID));
 
             // 首先算一算总分
+            var total = 0;
             foreach (var item in list)
             {
                 total += item.Score;
