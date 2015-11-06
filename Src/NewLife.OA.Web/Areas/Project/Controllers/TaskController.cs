@@ -165,6 +165,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
 
         protected override int OnInsert(WorkTask entity)
         {
+            WebHelper.Params["SrcTaskID"] = entity.ID + "";
             using (var trans = WorkTask.Meta.CreateTrans())
             {
                 var rs = base.OnInsert(entity);
@@ -186,6 +187,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
 
         protected override int OnUpdate(WorkTask entity)
         {
+            WebHelper.Params["SrcTaskID"] = entity.ID + "";
             using (var trans = WorkTask.Meta.CreateTrans())
             {
                 // 如果改变了积分，则上下一起修正
@@ -207,6 +209,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
 
         protected override int OnDelete(WorkTask entity)
         {
+            WebHelper.Params["SrcTaskID"] = entity.ID + "";
             using (var trans = WorkTask.Meta.CreateTrans())
             {
                 var rs = base.OnDelete(entity);
@@ -240,6 +243,8 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
                 Js.Alert("非法参数", null, 5000).Redirect(url);
                 return new EmptyResult();
             }
+
+            WebHelper.Params["SrcTaskID"] = entity.ID + "";
 
             var msg = "";
             using (var trans = WorkTask.Meta.CreateTrans())

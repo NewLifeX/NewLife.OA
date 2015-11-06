@@ -41,7 +41,7 @@
                     <label class="control-label col-xs-2 col-sm-2">父任务</label>
                     <div class="col-xs-10 col-sm-6 col-md-4">
                         @Html.ForInt("ParentID", Model.ParentID)
-                        @Html.ActionLink(Model.ParentName, "Edit", new { ID = Model.ParentID })
+                        @Html.ActionLink(Model.ParentName, "Edit", new { ID = Model.ParentID }, new { target = "_blank" })
                     </div>
                 </div>
             }

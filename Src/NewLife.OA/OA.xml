@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Tables Version="8.18.5630.20920">
+<Tables Version="8.20.5788.37892">
   <Table Name="WorkTask" Description="任务" DbType="SqlServer" 页面分类="Task">
     <Columns>
       <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
@@ -74,6 +74,7 @@
       <Column Name="SrcValue" DataType="String" Description="原来的值" />
       <Column Name="NewValue" DataType="String" Description="新的值" />
       <Column Name="IP" DataType="String" Description="地址" />
+      <Column Name="SrcTaskID" DataType="Int32" Description="引发任务" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
       <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
       <Column Name="UpdateUserID" DataType="Int32" Description="更新者" />

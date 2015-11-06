@@ -26,6 +26,8 @@ namespace NewLife.OA
             base.Valid(isNew);
 
             if (!Dirtys[__.IP]) IP = WebHelper.UserHost;
+
+            if (!Dirtys[__.SrcTaskID] && WebHelper.Params.ContainsKey("SrcTaskID")) SrcTaskID = WebHelper.Params["SrcTaskID"].ToInt();
         }
 
         public override int Update()
@@ -47,6 +49,14 @@ namespace NewLife.OA
         /// <summary>任务名称</summary>
         [DisplayName("任务名称")]
         public String TaskName { get { var task = Task; return task != null ? task.Name : null; } }
+
+        /// <summary>源任务</summary>
+        [BindRelation("SrcTaskID", false, "WorkTask", "ID")]
+        public WorkTask SrcTask { get { return WorkTask.FindByID(SrcTaskID); } }
+
+        /// <summary>源任务名称</summary>
+        [DisplayName("源任务名称")]
+        public String SrcTaskName { get { var task = SrcTask; return task != null ? task.Name : null; } }
 
         /// <summary>物理地址</summary>
         [DisplayName("物理地址")]
