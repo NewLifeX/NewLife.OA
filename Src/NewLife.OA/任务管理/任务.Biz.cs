@@ -48,6 +48,13 @@ namespace NewLife.OA
     public partial class WorkTask : UserTimeEntity<WorkTask>
     {
         #region 对象操作﻿
+        static WorkTask()
+        {
+            // 缩短缓存时间
+            Meta.Cache.Expriod = 5;
+            Meta.SingleCache.Expriod = 10;
+        }
+
         protected override WorkTask CreateInstance(bool forEdit = false)
         {
             var entity = base.CreateInstance(forEdit);
