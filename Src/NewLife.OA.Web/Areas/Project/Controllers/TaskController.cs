@@ -86,7 +86,7 @@ namespace NewLife.OA.Web.Areas.Project.Controllers
             ViewBag.Page = p;
 
             var ps = WebHelper.Params;
-            if (!ps.ContainsKey("Status")) ps["Status"] = new TaskStatus[] { TaskStatus.计划, TaskStatus.进行中, TaskStatus.暂停 }.Cast<Int32>().Join();
+            if (!ps.ContainsKey("Status")) ps["Status"] = new TaskStatus[] { TaskStatus.计划, TaskStatus.进行中 }.Cast<Int32>().Join();
 
             var list = GetList(p, 0, false, 1);
 
