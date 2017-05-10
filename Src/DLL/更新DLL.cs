@@ -1,5 +1,5 @@
 // 自动选择最新的文件源
-var srcs = new String[] { @"..\Bin4", @"C:\X\DLL4", @"C:\X\Bin4", @"E:\X\DLL4", @"E:\X\Bin4" };
+var srcs = new String[] { @"..\Bin", @"C:\X\DLL", @"C:\X\Bin", @"E:\X\DLL", @"E:\X\Bin" };
 var cur = ".".GetFullPath();
 foreach (var item in srcs)
 {

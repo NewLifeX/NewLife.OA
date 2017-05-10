@@ -4,13 +4,13 @@
  * 时间：2015-01-20 20:08:12
  * 版权：版权所有 (C) 新生命开发团队 2002~2015
 */
-﻿using System;
+using System;
 using System.ComponentModel;
+using System.Linq;
+using System.Net;
 using NewLife.Web;
 using XCode;
-using System.Linq;
 using XCode.Membership;
-using System.Net;
 
 namespace NewLife.OA
 {
@@ -44,7 +44,7 @@ namespace NewLife.OA
 
         #region 扩展属性﻿
         /// <summary>关联任务</summary>
-        [BindRelation("TaskID", false, "WorkTask", "ID")]
+        [Map(__.TaskID, typeof(WorkTask), "ID")]
         public WorkTask Task { get { return WorkTask.FindByID(TaskID); } }
 
         /// <summary>任务名称</summary>

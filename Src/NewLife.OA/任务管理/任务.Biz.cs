@@ -50,9 +50,9 @@ namespace NewLife.OA
         #region 对象操作﻿
         static WorkTask()
         {
-            // 缩短缓存时间
-            Meta.Cache.Expriod = 5;
-            Meta.SingleCache.Expriod = 10;
+            //// 缩短缓存时间
+            //Meta.Cache.Expriod = 5;
+            //Meta.SingleCache.Expriod = 10;
         }
 
         protected override WorkTask CreateInstance(bool forEdit = false)
@@ -471,7 +471,9 @@ namespace NewLife.OA
             // 有可能多个任务共有相同的父亲，需要重新构造一棵树
             var rs = new EntityList<WorkTask>();
             // 首先过滤掉重复项
-            var src = list.ToList().Distinct(e => e.ID).ToList();
+            //var src = list.ToList().Distinct(e => e.ID).ToList();
+            var dic = list.ToList().ToDictionary(e => e.ID, e => e);
+            var src = dic.Select(e => e.Value).ToList();
 
             // 准备好顶级节点，最后剩下的无根节点排在后面
             //for (int i = 0; i < src.Count; i++)

@@ -4,7 +4,7 @@
  * 时间：2015-01-20 20:08:12
  * 版权：版权所有 (C) 新生命开发团队 2002~2015
 */
-﻿using System;
+using System;
 using System.Linq;
 using System.ComponentModel;
 using NewLife.Web;
@@ -43,7 +43,7 @@ namespace NewLife.OA
 
         #region 扩展属性﻿
         /// <summary>关联任务</summary>
-        [BindRelation("TaskID", false, "WorkTask", "ID")]
+        [Map(__.TaskID, typeof(WorkTask), "ID")]
         public WorkTask Task { get { return WorkTask.FindByID(TaskID); } }
 
         /// <summary>任务名称</summary>
@@ -51,7 +51,7 @@ namespace NewLife.OA
         public String TaskName { get { var task = Task; return task != null ? task.Name : null; } }
 
         /// <summary>源任务</summary>
-        [BindRelation("SrcTaskID", false, "WorkTask", "ID")]
+        [Map(__.SrcTaskID, typeof(WorkTask), "ID")]
         public WorkTask SrcTask { get { return WorkTask.FindByID(SrcTaskID); } }
 
         /// <summary>源任务名称</summary>
